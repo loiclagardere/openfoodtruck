@@ -1,0 +1,19 @@
+/**
+*convert px to rem
+*
+*@param pixel size
+*/
+@function calculateRem($pxSize) {
+    $remSize: $pxSize/16px;
+    @return #{$remSize}rem;
+}
+
+@mixin fontSize($pxSize) {
+    font-size: $pxSize;
+    font-size: calculateRem($pxSize);
+}
+
+@mixin  navbar($pxSize){
+    @include fontSize($pxSize);
+    display: inline-block;
+}

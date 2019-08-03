@@ -1,0 +1,17 @@
+"editor.fontFamily": "Consolas, 'Courier New', monospace"
+
+Consolas, 'Courier New', monospace
+
+
+    <div class="container">
+        <div class="error">
+            <?php if (isset($_SESSION['flashaaa'])) : ?>
+                <?php foreach ($_SESSION['flashaaa'] as $status => $message) : ?>
+                    <div class="<?= $status ?>">
+                        <?= $message ?>
+                    </div>
+                <?php endforeach; ?>
+                <?php unset($_SESSION['flashaaa']); ?>
+            <?php endif; ?>
+        </div>
+

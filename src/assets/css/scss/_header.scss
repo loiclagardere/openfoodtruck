@@ -1,0 +1,58 @@
+header {
+    font-size: 0;
+    padding: 40px 10px;
+
+    #logo {
+        @include fontSize(48px);
+        display: inline-block;
+        width: 45%;
+        margin-right: 5%;
+    }
+
+
+    .navbar-header {
+        display: inline-block;
+        width: 50%;
+        text-align: right;
+
+        .navbar-primary {
+            @include navbar(18px);
+
+            li {
+                display: inline-block;
+                margin-right: 5px;
+            }
+        }
+
+        .navbar-connect {
+            @include navbar(18px);
+
+            #connect {
+
+                li {
+                    display: inline-block;
+                    margin-right: 5px;
+
+                    &:last-child {
+                        margin-right: 0;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.message {
+    @include fontSize(18px);
+    color: #fff;
+    background-color: #555;
+    padding: 10px 20px;
+}
+
+.error {
+    background-color: #c0392b;
+}
+
+.success {
+    background-color: #2bbf32;
+}

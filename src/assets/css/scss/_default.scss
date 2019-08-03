@@ -1,0 +1,41 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    @include fontSize(18px);
+    font-family: $default-font;
+    line-height: normal;
+}
+
+.wrapper {
+    max-width: 1000px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+a {
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+img {
+    text-decoration: none;
+    max-width: 100%;
+	height: auto;
+}
+
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: $default-font;
+}
+
+h1 {
+    @include fontSize(36px);
+}
