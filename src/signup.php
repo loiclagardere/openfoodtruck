@@ -9,9 +9,7 @@ if (!empty($_POST)) :
     $errors = []; // to stock messages error
 
     // Check pseudo
-    if (empty($_POST['username']) || !preg_match('/^[a-zA-Z0-9_]+$/', $_POST['username'])) :
-        $errors['username'] = "Le format du pseudo n'est pas valide.";
-    else :
+    if (!empty($_POST['username']) && preg_match('/^[a-zA-Z0-9_]+$/', $_POST['username'])) :
         $data = ['username' => $_POST['username']];
         $sql = "SELECT id FROM users WHERE username = :username";
         $request = $db->prepare($sql);
@@ -21,12 +19,12 @@ if (!empty($_POST)) :
         if ($user) :
             $errors['username'] = "Ce pseudo est dejà pris.";
         endif;
+        else :
+            $errors['username'] = "Le format du pseudo n'est pas valide.";
     endif;
 
     // Check email
-    if (empty($_POST['email']) || !emailFilterVar($_POST['email'])) :
-        $errors['email'] = "Le courriel n'est pas valide.";
-    else :
+    if (!empty($_POST['email']) && emailFilterVar($_POST['email'])) :
         $data = ['email' => $_POST['email']];
         $sql = "SELECT id FROM users WHERE email = :email";
         $request = $db->prepare($sql);
@@ -34,8 +32,10 @@ if (!empty($_POST)) :
         $user = $request->fetch();
 
         if ($user) :
-            $errors['email'] = "Ce courriel est dejà utilisé pour un autre compte.";
+            $errors['email'] = "Ce courriel est utilisé pour un autre compte.";
         endif;
+    else :
+        $errors['email'] = "Le courriel n'est pas valide.";
     endif;
 
     // Check pasword and pasword confirmation
@@ -76,6 +76,8 @@ endif;
 <h1>S'inscrire</h1>
 
 <?php if (!empty($errors)) : ?>
+<?php debugV($errors);
+die('debug de $errors') ?>
     <div class="message error">
         <p>Les informations saisies dans le formulaire ne sont pas correctes :</p>
         <ul>
@@ -86,7 +88,7 @@ endif;
     </div>
 <?php endif; ?>
 <div class="form-container wrapper">
-    <form action="" method="POST">
+    <form action="" method="post">
         <div class="form-log">
             <label for="username">Pseudo</label>
             <input id="username" type="text" name="username" />

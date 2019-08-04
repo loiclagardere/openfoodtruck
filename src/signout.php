@@ -1,10 +1,9 @@
 <?php
 session_start();
-session_destroy();
-session_start();
+unset($_SESSION['auth']);
 
 $_SESSION['flash'][]= [
-    'label' => "Vous êtes déconnecté",
+    'label' => "Vous êtes déconnecté.",
     'status' => "succes"
 ];
 header('Location: signin.php');

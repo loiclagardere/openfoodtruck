@@ -6,8 +6,13 @@
  * @param $variable mixed
  * @param $title string
  */
-function debugP($variable, $title = '___ Debug ___') {
-    echo '<br> ' . $title . '<pre>' . print_r($variable, true) . '</pre>';
+function debugP($variable, $die = '')
+{   
+    echo $die;
+    echo '<br> ' . '<pre>' . print_r($variable, true) . '</pre>';
+    if (!empty($die)) {
+        echo  die();
+    }
 }
 
 
@@ -17,8 +22,13 @@ function debugP($variable, $title = '___ Debug ___') {
  * @param $variable mixed
  * @param $title string
  */
-function debugV($variable, $title = '___ Debug ___') {
-    echo '<br> ' . $title . '<pre>' . var_dump($variable) . '</pre>';
+function debugV($variable, $die = '')
+{
+    echo $die;
+    echo '<br> ' . '<pre>' . var_dump($variable) . '</pre>';
+    if (!empty($die)) {
+        echo  die();
+    }
 }
 
 /**
@@ -28,9 +38,10 @@ function debugV($variable, $title = '___ Debug ___') {
  * @param $pwd mixed;
  * 
  */
-function h($pwd) {
+function h($pwd)
+{
     $pwdHash = password_hash($pwd, PASSWORD_DEFAULT);
-    echo 'hash de ' .  $pwd . ': <br>' . $pwdHash ;
+    echo 'hash de ' .  $pwd . ': <br>' . $pwdHash;
 }
 
 
@@ -79,4 +90,24 @@ function stringRandom($length)
     $string = '_0123456789azertyuiopqsdfghjklmxcvbnAZERTYUIOPQSDFGHJKLMWXXCVBN';
     $stringRandom = substr(str_shuffle(str_repeat($string, $length)), 0, $length);
     return $stringRandom;
+}
+
+
+/**
+ * Display a global message
+ * 
+ * @param string $content
+ */
+
+function flash()
+{
+    if (isset($_SESSION['flash'])) :
+        foreach ($_SESSION['flash'] as $key => $value) :
+            $content = '<div class="message ' .  $value['status'] . '">';
+            $content .= $value['label'];
+            $content .= '</div>';
+        endforeach;
+        unset($_SESSION['flash']);
+        return $content;
+    endif;
 }

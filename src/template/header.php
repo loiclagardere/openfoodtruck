@@ -36,7 +36,7 @@ require_once('includes/functions.php')
                 <ul id="connect">
                     <?php if (isset($_SESSION['auth'])) : ?>
                         <li><a href="account.php" title="Pour accerder à votre compte">Mon compte</a></li>
-                        <li><a href="logout.php" title="Pour se déconnecter">Se déconnecter</a></li>
+                        <li><a href="signout.php" title="Pour se déconnecter">Se déconnecter</a></li>
                     <?php else : ?>
                         <li><a href="signin.php" title="Pour se connecter">Se connecter</a></li>
                         <li><a href="signup.php" title="Pour s'inscrire">S'inscrire</a></li>
@@ -47,13 +47,5 @@ require_once('includes/functions.php')
     </header>
 
     <div id="container" class="wrapper">
-        <!-- <?php debugP($_SESSION['flash']); ?> -->
-            <?php if (!empty($_SESSION['flash'])) : ?>
-                <?php foreach ($_SESSION['flash'] as $key => $value) : ?>
-                    <div class="message <?= $value['status'] ?>">
-                        <span><?= $value['label'] ?></<span>
-                    </div>
-                <?php endforeach; ?>
-                <?php unset($_SESSION['flash']); ?>
-            <?php endif; ?>
-        </div>
+
+    <?= flash(); ?>
