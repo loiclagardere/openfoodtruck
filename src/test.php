@@ -80,7 +80,7 @@ if (!empty($_POST)) :
     // endif;
 
     // Check pasword and pasword confirmation
-    if (empty($_POST['password']) || $_POST['password'] != $_POST['password_confirm']) :
+    if (empty($_POST['password']) || $_POST['password'] != $_POST['passwordConfirm']) :
         $errors['password'] = "Le mot de passe n'est pas valide.";
     endif;
 
@@ -94,16 +94,16 @@ if (!empty($_POST)) :
         $sql = "INSERT INTO users (username, email, password, token_confirm) VALUES (:username, :email, :password, :token_confirm)";
         $request = $db->prepare($sql);
         $request->execute($data);
-        $user_id = $db->lastInsertId();
+        $userId = $db->lastInsertId();
         // confirmation mail
         $emailSubject = "Open Food Truck - Confirmation de votre courriel";
         $emailMessage = "Afin de valider votre compte, veuillez cliquer sur le lien suivant :\n\n";
         $emailMessage .= "http://localhost/php/initiation/openfoodtruck-php/openfoodtruck/src/";
-        $emailMessage .= "confirm.php?id=$user_id&token=$token";
+        $emailMessage .= "confirm.php?id=$userId&token=$token";
         // $emailMessage = wordwrap($emailMessage, 70, "\n", true); // hyphenation test
         mail($_POST['email'], $emailSubject, $emailMessage);
         $_SESSION['flash'][] = [
-            'label' => "Un courriel vous a été envoyé à l'adresse " . $_POST['email'] . ". " . "Veuiilez cliquer sur le lien pour valider votre compte.",
+            'message' => "Un courriel vous a été envoyé à l'adresse " . $_POST['email'] . ". " . "Veuiilez cliquer sur le lien pour valider votre compte.",
             'status' => 'info'
         ];
         header('Location: signin.php');
@@ -142,7 +142,7 @@ endif;
         </div>
         <div class="form-log">
             <label for="password-confirm">Confirmez votre mot de passe</label>
-            <input id="password-confirm" type="password" name="password_confirm" />
+            <input id="password-confirm" type="password" name="passwordConfirm" />
         </div>
         <button type="submit">M'inscrire</button>
     </form>

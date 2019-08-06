@@ -7,7 +7,7 @@
  * @param $title string
  */
 function debugP($variable, $die = '')
-{   
+{
     echo $die;
     echo '<br> ' . '<pre>' . print_r($variable, true) . '</pre>';
     if (!empty($die)) {
@@ -98,16 +98,35 @@ function stringRandom($length)
  * 
  * @param string $content
  */
-
 function flash()
 {
     if (isset($_SESSION['flash'])) :
-        foreach ($_SESSION['flash'] as $key => $value) :
+        foreach ($_SESSION['flash'] as $value) :
             $content = '<div class="message ' .  $value['status'] . '">';
-            $content .= $value['label'];
+            $content .= $value['message'];
             $content .= '</div>';
         endforeach;
         unset($_SESSION['flash']);
         return $content;
+    endif;
+}
+
+/**
+ * Check user authentification
+ * 
+ * @return bool
+ */
+function authentificated()
+{
+    if (session_status() == PHP_SESSION_NONE) :
+        session_start();
+    endif;
+    if (!isset($_SESSION['auth'])) :
+        $_SESSION['flash'][] = [
+            'message' => "Veuillez vous identifier pour avoir accés à votre compte.",
+            'status' => 'error'
+        ];
+        header('Location: signin.php');
+        die();
     endif;
 }

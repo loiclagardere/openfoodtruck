@@ -4,7 +4,7 @@
 <?php if (!empty($_SESSION['flash'])) : ?>
     <?php foreach ($_SESSION['flash'] as $key => $value) : ?>
         <div class="message <?= $value['status'] ?>">
-            <span><?= $value['label'] ?></<span>
+            <span><?= $value['message'] ?></<span>
         </div>
     <?php endforeach; ?>
     <?php unset($_SESSION['flash']); ?>
@@ -22,7 +22,7 @@ function flash() {
     if (isset($_SESSION['flash'])) :
         foreach ($_SESSION['flash'] as $key => $value) : 
             $content ='<div class="message ' .  $value['status'] .'">';
-            $content .= $value['label'];
+            $content .= $value['message'];
             $content .= '</div>';
         endforeach;
         unset($_SESSION['flash']);

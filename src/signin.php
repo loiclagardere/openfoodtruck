@@ -2,63 +2,68 @@
 <?php require_once('includes/functions.php'); ?>
 <?php session_start(); ?>
 <?php
+
+// Check submit form
 if (!empty($_POST)) :
-    $errors = [];
+
+    // Check content fields
     if (!empty($_POST['username']) && !empty($_POST['password'])) :
+
         $data = ['username' => $_POST['username']];
-        $sql = "SELECT * FROM users WHERE (username = :username OR email = :username) AND token_confirmed_at IS NOT NULL";
+
+        // Request to select user
+        $sql = "SELECT *
+                FROM users
+                WHERE (username = :username
+                OR email = :username)
+                AND token_confirmed_at IS NOT NULL"; // IS NOT NULL : account must have been confirmed
         $request = $db->prepare($sql);
         $request->execute($data);
         $user = $request->fetch();
 
         $passwordVerify = password_verify($_POST['password'],  $user->password);
-
+        
+        // Check user and password
         if ($user && $passwordVerify) :
-            $_SESSION['auth'] = $user;
+
+            $_SESSION['auth'] = $user; // connect user
             $_SESSION['flash'][] = [
-                'label' => 'Vous êtes connecté.',
+                'message' => 'Vous êtes connecté.',
                 'status' => 'success'
             ];
             header('Location: account.php');
             die();
         else :
-            $errors['field'] = "Les informations saisies sont incorrectes.";
+            $_SESSION['flash'][] = [
+                'message' => "Les informations saisies sont incorrectes.",
+                'status' => "error"
+            ];
         endif;
-
     else :
-        $errors['field'] = "Veuillez renseigner tous les champs.";
-
+        $_SESSION['flash'][] = [
+            'message' => "Veuillez renseigner tous les champs.",
+            'status' => "error"
+        ];
     endif;
-
 endif;
 ?>
-
 
 <?php require_once('template/header.php'); ?>
 
 <h1>Se connecter</h1>
-<?php if (!empty($errors)) : ?>
-    <div class="message error">
-        <ul>
-            <?php foreach ($errors as $error) : ?>
-                <li> <?= $error ?></li>
-
-
-            <?php endforeach; ?>
-        </ul>
-    </div>
-<?php endif; ?>
-
-
+<div class="notice">
+    <p>Les champs marqués d'un astérisque (*) sont obligatoires</p>
+</div>
+<?= flash() ?>
 <div class="form-container wrapper">
     <form action="" method="post">
         <div class="form-log">
-            <label for="username">Pseudo ou courriel</label>
+            <label for="username">Pseudo ou courriel *</label>
             <input id="username" type="text" name="username" />
         </div>
 
         <div class="form-log">
-            <label for="password">Mot de passe</label>
+            <label for="password">Mot de passe *<span><a href="password-forgot.php">(Mot de passe oublié)</a></span></label>
             <input id="password" type="text" name="password" />
         </div>
 
