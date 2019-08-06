@@ -79,6 +79,7 @@ function passwordPregMatch($password)
     endif;
 }
 
+
 /**
  * Generate a random string
  * 

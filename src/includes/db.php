@@ -13,8 +13,8 @@ try {
     $db->exec('SET CHARACTER SET utf8');
     //Debug en local:  vaut true
     if (DEBUG) :
-        // $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
-        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+        // $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     endif;
 }
 // $e recupere les exceptions

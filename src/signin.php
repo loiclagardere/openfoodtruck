@@ -20,11 +20,9 @@ if (!empty($_POST)) :
         $request = $db->prepare($sql);
         $request->execute($data);
         $user = $request->fetch();
-
-        $passwordVerify = password_verify($_POST['password'],  $user->password);
         
         // Check user and password
-        if ($user && $passwordVerify) :
+        if ($user && password_verify($_POST['password'],  $user->password)) :
 
             $_SESSION['auth'] = $user; // connect user
             $_SESSION['flash'][] = [
