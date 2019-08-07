@@ -87,37 +87,28 @@ endif;
 ?>
 
 <?php require_once('template/header.php'); ?>
+<section>
+    <h1>S'inscrire</h1>
 
-<h1>S'inscrire</h1>
 <div class="notice">
     <p>Les champs marqués d'un astérisque (*) sont obligatoires</p>
 </div>
 <?php if (!empty($errors)) : ?>
     <div class="message error">
-        <p><?= $error['username']; ?></p>
+        <p><?= $errors['username']; ?></p>
     </div>
 <?php endif; ?>
-<!-- <?php if (!empty($errors)) : ?>
-        <div class="message error">
-            <p>Les informations saisies dans le formulaire ne sont pas correctes :</p>
-            <ul>
-                <?php foreach ($errors as $error) : ?>
-                        <li><?= $error; ?></li>
-                <?php endforeach; ?>
-            </ul>
-        </div>
-<?php endif; ?> -->
+
 <div class="form-container wrapper">
     <form action="" method="post">
         <div class="form-log">
             <label for="username">Pseudo *</label>
             <input id="username" type="text" name="username" value="<?= valueField('username'); ?>" />
         </div>
-        <?php if (!empty($errors)) : ?>
-            <div class="error-field">
-                <p><?= $error['username']; ?></p>
+        <?php  isset($errors) ? '<div class="error-field"><p>' . $errors['username'] . '</p>' :  '' ?>
+
             </div>
-        <?php endif; ?>
+
         <div class="form-log">
             <label for="email">Courriel *</label>
             <input id="email" type="tewt" name="email" value="<?= valueField('email'); ?>" />
@@ -133,5 +124,6 @@ endif;
         <button type="submit">S'inscrire</button>
     </form>
 </div>
+</section>
 
 <?php require_once('template/footer.php'); ?>
