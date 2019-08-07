@@ -82,7 +82,7 @@ endif;
     <form action="" method="post">
         <div class="form-log">
             <label for="email">Couriel *</label>
-            <input id="email" type="emal" name="email" />
+            <input id="email" type="emal" name="email" value="<?= valueField('username'); ?>" />
         </div>
 
         <button type="submit">Envoyer couriel</button>

@@ -53,7 +53,7 @@ if (!empty($_POST)) :
         $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
         $token = stringRandom(60); // generate a confirmation token
         $data = ['username' => $_POST['username'], 'email' => $_POST['email'], 'password' => $password, 'token_confirm' => $token];
-        
+
         // Request to insert user
         $sql = "INSERT INTO users (username, email,
                 password, token_confirm)
@@ -94,23 +94,33 @@ endif;
 </div>
 <?php if (!empty($errors)) : ?>
     <div class="message error">
-        <p>Les informations saisies dans le formulaire ne sont pas correctes :</p>
-        <ul>
-            <?php foreach ($errors as $error) : ?>
-                <li><?= $error; ?></li>
-            <?php endforeach; ?>
-        </ul>
+        <p><?= $error['username']; ?></p>
     </div>
 <?php endif; ?>
+<!-- <?php if (!empty($errors)) : ?>
+        <div class="message error">
+            <p>Les informations saisies dans le formulaire ne sont pas correctes :</p>
+            <ul>
+                <?php foreach ($errors as $error) : ?>
+                        <li><?= $error; ?></li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+<?php endif; ?> -->
 <div class="form-container wrapper">
     <form action="" method="post">
         <div class="form-log">
             <label for="username">Pseudo *</label>
-            <input id="username" type="text" name="username" />
+            <input id="username" type="text" name="username" value="<?= valueField('username'); ?>" />
         </div>
+        <?php if (!empty($errors)) : ?>
+            <div class="error-field">
+                <p><?= $error['username']; ?></p>
+            </div>
+        <?php endif; ?>
         <div class="form-log">
             <label for="email">Courriel *</label>
-            <input id="email" type="tewt" name="email" />
+            <input id="email" type="tewt" name="email" value="<?= valueField('email'); ?>" />
         </div>
         <div class="form-log">
             <label for="password">Mot de passe *</label>

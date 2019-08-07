@@ -93,6 +93,17 @@ function stringRandom($length)
     return $stringRandom;
 }
 
+/**
+ * FIeld content posted
+ * 
+ * @param string $field
+ */
+function valueField($field) {
+	if (!empty($_POST[$field])) :
+		return $_POST[$field];
+	endif;
+}
+
 
 /**
  * Display a global message

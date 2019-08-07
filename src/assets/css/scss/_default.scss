@@ -19,14 +19,12 @@ button {
 }
 
 a {
+    @include fontSize(16px);
     text-decoration: none;
-    color: $default-color;
 
     &:hover,
     &:focus {
-        text-decoration: underline;
-        color:#888;
-
+        text-decoration: none;
     }
 }
 
@@ -57,7 +55,7 @@ input {
     margin-top: 5px;
     margin-bottom: 15px;
     height: 24px;
-    width: 20%;
+    width: 30%;
 }
 
 button {
@@ -75,3 +73,5 @@ button {
         color: #5ed7f5;
     }
 }
+
+

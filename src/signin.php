@@ -57,7 +57,7 @@ endif;
     <form action="" method="post">
         <div class="form-log">
             <label for="username">Pseudo ou courriel *</label>
-            <input id="username" type="text" name="username" />
+            <input id="username" type="text" name="username" value="<?= valueField('username'); ?>" />
         </div>
 
         <div class="form-log">

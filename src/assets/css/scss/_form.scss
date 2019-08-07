@@ -1,0 +1,5 @@
+.error-field {
+    @include fontSize(14px);
+    color: #c0392b;
+    padding: 10px 20px;
+}
