@@ -14,9 +14,6 @@ body {
     margin: 0 auto;
 }
 
-button {
-    outline: none;
-}
 
 a {
     @include fontSize(16px);
@@ -31,7 +28,8 @@ a {
 img {
     text-decoration: none;
     max-width: 100%;
-	height: auto;
+    height: auto;
+    outline: none;
 }
 
 
@@ -47,5 +45,10 @@ h1 {
     margin-bottom: 20px;
 }
 
-
-
+.svg-circle {
+    fill: #333;
+}
+ .svg-point {
+     fill: #fff;
+ }
+ 

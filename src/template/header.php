@@ -45,5 +45,3 @@ require_once('includes/functions.php')
     </header>
 
     <div id="container" class="wrapper">
-
-        <?= flash(); ?>

@@ -63,16 +63,37 @@ function emailFilterVar($email)
 
 
 /**
- * Perform a regular expression match
+ * Perform a regular expression match for username
  * 
  * @param mixed
  * @return bool
  */
-function passwordPregMatch($password)
+function usernamePregMatch($string)
 {
-    $regex = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/';
-    $passwordPregMatch = preg_match($regex, $password);
-    if ($passwordPregMatch === 1) :
+    // preg_match('/^[a-zA-Z0-9_]+$/'
+    $regex = '/^[a-zA-Z0-9_]+$/';
+    // $regex = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/';
+    // $regex = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[_])(?=.{6,})/';
+    $stringPregMatch = preg_match($regex, $string);
+    if ($stringPregMatch === 1) :
+        return true;
+    else :
+        return false;
+    endif;
+}
+
+
+/**
+ * Perform a regular expression match for username
+ * 
+ * @param mixed
+ * @return bool
+ */
+function passwordPregMatch($string)
+{
+    $regex = '/^(?=.{8,})/';
+    $stringPregMatch = preg_match($regex, $string);
+    if ($stringPregMatch === 1) :
         return true;
     else :
         return false;
@@ -96,7 +117,7 @@ function stringRandom($length)
 /**
  * FIeld content posted
  * 
- * @param string $field
+ * @param string
  */
 function valueField($field) {
 	if (!empty($_POST[$field])) :
@@ -114,7 +135,7 @@ function flash()
 {
     if (isset($_SESSION['flash'])) :
         foreach ($_SESSION['flash'] as $value) :
-            $content = '<div class="message ' .  $value['status'] . '">';
+            $content = '<div class="message-flash ' .  $value['status'] . '">';
             $content .= $value['message'];
             $content .= '</div>';
         endforeach;

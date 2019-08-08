@@ -8,8 +8,8 @@ if (!empty($_POST)) :
 
     $errors = []; // to stock messages error
 
-    // Check contnent field username and content format
-    if (!empty($_POST['username']) && preg_match('/^[a-zA-Z0-9_]+$/', $_POST['username'])) :
+    // Check username field content the and content format
+    if (!empty($_POST['username']) && usernamePregMatch($_POST['username'])) :
         $data = ['username' => $_POST['username']];
         $sql = "SELECT id
                 FROM users
@@ -42,9 +42,9 @@ if (!empty($_POST)) :
         $errors['email'] = "Le courriel n'est pas valide.";
     endif;
 
-    // Check pasword and pasword confirmation
-    if (empty($_POST['password']) || $_POST['password'] != $_POST['passwordConfirm']) :
-        $errors['password'] = "Le mot de passe n'est pas valide.";
+    // Check password and password confirmation
+    if (empty($_POST['password']) || !passwordPregMatch($_POST['password']) || $_POST['password'] != $_POST['passwordConfirm']) :
+        $errors['password'] = "Les mots de passe ne sont pas valides.";
     endif;
 
     // Check errors
@@ -55,8 +55,7 @@ if (!empty($_POST)) :
         $data = ['username' => $_POST['username'], 'email' => $_POST['email'], 'password' => $password, 'token_confirm' => $token];
 
         // Request to insert user
-        $sql = "INSERT INTO users (username, email,
-                password, token_confirm)
+        $sql = "INSERT INTO users (username, email, password, token_confirm)
                 VALUES (:username, :email, :password, :token_confirm)";
         $request = $db->prepare($sql);
         $request->execute($data);
@@ -89,41 +88,39 @@ endif;
 <?php require_once('template/header.php'); ?>
 <section>
     <h1>S'inscrire</h1>
-
-<div class="notice">
-    <p>Les champs marqués d'un astérisque (*) sont obligatoires</p>
-</div>
-<?php if (!empty($errors)) : ?>
-    <div class="message error">
-        <p><?= $errors['username']; ?></p>
+    <?= flash(); ?>
+    <div class="notice">
+        <p>Les champs marqués d'un astérisque (*) sont obligatoires</p>
+        <p>Le pseudonyme doit contenir au moins 6 caractéres.</p>
+        <p>Seuls les chiffres, les lettres majuscules et minuscules sont autorisées.</p>
+        <p>Le mot de passe doit contenir au moins 8 caractéres.</p>
     </div>
-<?php endif; ?>
 
-<div class="form-container wrapper">
-    <form action="" method="post">
-        <div class="form-log">
-            <label for="username">Pseudo *</label>
-            <input id="username" type="text" name="username" value="<?= valueField('username'); ?>" />
-        </div>
-        <?php  isset($errors) ? '<div class="error-field"><p>' . $errors['username'] . '</p>' :  '' ?>
-
+    <div class="form-container wrapper">
+        <form action="" method="post">
+            <div class="form-log">
+                <label for="username">Pseudo *</label>
+                <input id="username" type="text" name="username" value="<?= valueField('username'); ?>" />
             </div>
-
-        <div class="form-log">
-            <label for="email">Courriel *</label>
-            <input id="email" type="tewt" name="email" value="<?= valueField('email'); ?>" />
-        </div>
-        <div class="form-log">
-            <label for="password">Mot de passe *</label>
-            <input id="password" type="password" name="password" />
-        </div>
-        <div class="form-log">
-            <label for="password-confirm">Confirmez votre mot de passe *</label>
-            <input id="password-confirm" type="password" name="passwordConfirm" />
-        </div>
-        <button type="submit">S'inscrire</button>
+            <?= !empty($errors) ? '<div class="error-field"><p>' . $errors['username'] . '</p>' : '' ?>
+    </div>
+    <div class="form-log">
+        <label for="email">Courriel *</label>
+        <input id="email" type="tewt" name="email" value="<?= valueField('email'); ?>" />
+        <?= !empty($errors['email']) ? '<div class="error-field"><p>' . $errors['email'] . '</p>' : '' ?>
+    </div>
+    <div class="form-log">
+        <label for="password">Mot de passe *</label>
+        <input id="password" type="password" name="password" />
+        <?= !empty($errors['password']) ? '<div class="error-field"><p>' . $errors['password'] . '</p>' : '' ?>
+    </div>
+    <div class="form-log">
+        <label for="password-confirm">Confirmez votre mot de passe *</label>
+        <input id="password-confirm" type="password" name="passwordConfirm" />
+    </div>
+    <button type="submit">S'inscrire</button>
     </form>
-</div>
+    </div>
 </section>
 
 <?php require_once('template/footer.php'); ?>

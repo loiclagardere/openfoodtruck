@@ -7,11 +7,13 @@ header {
     #topbar {
         position: fixed;
         top: 0;
-        width: 100%;
-        margin: 0 auto;
         color: #fff;
         background-color: #000;
+        box-shadow: 0 2px 8px #797979;
+        width: 100%;
+        margin: 0 auto;
         padding: 20px 20px;
+
 
         .logo-header {
             display: inline-block;

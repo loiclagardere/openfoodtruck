@@ -6,7 +6,9 @@
 // Check submit form
 if (!empty($_POST)) :
 
-    // Check content fields
+    $errors = []; // to stock messages error
+
+    // Check field content
     if (!empty($_POST['username']) && !empty($_POST['password'])) :
 
         $data = ['username' => $_POST['username']];
@@ -32,16 +34,16 @@ if (!empty($_POST)) :
             header('Location: account.php');
             die();
         else :
-            $_SESSION['flash'][] = [
-                'message' => "Les informations saisies sont incorrectes.",
-                'status' => "error"
-            ];
+            // $_SESSION['flash'][] = [
+            //     'message' => "Les informations saisies sont incorrectes.",
+            //     'status' => "error"
+            // ];
         endif;
     else :
-        $_SESSION['flash'][] = [
-            'message' => "Veuillez renseigner tous les champs.",
-            'status' => "error"
-        ];
+        // $_SESSION['flash'][] = [
+        //     'message' => "Veuillez renseigner tous les champs.",
+        //     'status' => "error"
+        // ];
     endif;
 endif;
 ?>
@@ -61,11 +63,12 @@ endif;
         </div>
 
         <div class="form-log">
-            <label for="password">Mot de passe *<span><a href="password-forgot.php">(Mot de passe oublié)</a></span></label>
+            <label for="password">Mot de passe *</label>
             <input id="password" type="text" name="password" />
         </div>
 
         <button type="submit">Se connecter</button>
+        <span class="text-link"><a href="password-forgot.php">(Mot de passe oublié)</a></span>
     </form>
 </div>
 

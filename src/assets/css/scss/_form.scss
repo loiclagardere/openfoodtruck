@@ -1,10 +1,57 @@
+// message flash
+    .message-flash {
+        @include fontSize(18px);
+        color: #fff;
+        background-color: #555;
+        padding: 10px 20px;
+    }
+
+    .error {
+        background-color: #c0392b;
+    }
+
+    .success {
+        background-color: #2bbf32;
+    }
+
+
+// elements of form
+form {
+    display: inline-block;
+    width: 30%;
+    margin-top: 30px;
+}
+
+label,
+input {
+    display: block;
+}
+
+label {
+    margin-top: 15px;
+}
+
+input {
+    outline: none;
+    height: 24px;
+    min-width: 30%;
+    padding: 10px;
+    border: #aaa 1px solid;
+    transition: ease border .3s;
+
+    &:focus {
+
+        border-bottom: #000 1px solid;
+    }
+}
+
 
 button {
-
+    display: block;
     @include fontSize(14px);
     color: #fff;
     background-color: #333;
-    margin-top: 10px;
+    margin: 20px 0;
     padding: 10px 15px;
     border: none;
     border-radius: 5px;
@@ -16,37 +63,7 @@ button {
     }
 }
 
-
-label,
-input {
-    display: block;
-}
-
-input {
-    margin-top: 5px;
-    // margin-bottom: 5px;
-    height: 24px;
-    min-width: 30%;
-}
-
-
-.message {
-    @include fontSize(18px);
-    color: #fff;
-    background-color: #555;
-    padding: 10px 20px;
-}
-
-.error {
-    background-color: #c0392b;
-}
-
-.success {
-    background-color: #2bbf32;
-}
-
 .error-field {
     @include fontSize(14px);
     color: #c0392b;
-    padding: 10px 20px;
 }

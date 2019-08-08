@@ -9,7 +9,7 @@ del, dfn, em, img, ins, kbd, q, s, samp,
 small, strike, strong, sub, sup, tt, var,
 b, u, i, center,
 dl, dt, dd, ol, ul, li,
-fieldset, form, message, legend,
+fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
 article, aside, canvas, details, embed,
 figure, figcaption, footer, header, hgroup,
@@ -74,10 +74,6 @@ body {
   margin: 0 auto;
 }
 
-button {
-  outline: none;
-}
-
 a {
   font-size: 16px;
   font-size: 1rem;
@@ -91,6 +87,7 @@ img {
   text-decoration: none;
   max-width: 100%;
   height: auto;
+  outline: none;
 }
 
 h1,
@@ -106,6 +103,14 @@ h1 {
   margin-bottom: 20px;
 }
 
+.svg-circle {
+  fill: #333;
+}
+
+.svg-point {
+  fill: #fff;
+}
+
 header {
   font-size: 0;
   background-color: #ddd;
@@ -115,10 +120,11 @@ header {
 header #topbar {
   position: fixed;
   top: 0;
-  width: 100%;
-  margin: 0 auto;
   color: #fff;
   background-color: #000;
+  box-shadow: 0 2px 8px #797979;
+  width: 100%;
+  margin: 0 auto;
   padding: 20px 20px;
 }
 header #topbar .logo-header {
@@ -155,33 +161,7 @@ header #topbar .menu-header .menu-list li ::selection {
   background-color: #000;
 }
 
-button {
-  font-size: 14px;
-  font-size: 0.875rem;
-  color: #fff;
-  background-color: #333;
-  margin-top: 10px;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 5px;
-  transition: background-color ease 0.3s;
-}
-button:focus, button:hover {
-  background-color: #777;
-}
-
-label,
-input {
-  display: block;
-}
-
-input {
-  margin-top: 5px;
-  height: 24px;
-  min-width: 30%;
-}
-
-.message {
+.message-flash {
   font-size: 18px;
   font-size: 1.125rem;
   color: #fff;
@@ -197,11 +177,53 @@ input {
   background-color: #2bbf32;
 }
 
+form {
+  display: inline-block;
+  width: 30%;
+  margin-top: 30px;
+}
+
+label,
+input {
+  display: block;
+}
+
+label {
+  margin-top: 15px;
+}
+
+input {
+  outline: none;
+  height: 24px;
+  min-width: 30%;
+  padding: 10px;
+  border: #aaa 1px solid;
+  transition: ease border 0.3s;
+}
+input:focus {
+  border-bottom: #000 1px solid;
+}
+
+button {
+  display: block;
+  font-size: 14px;
+  font-size: 0.875rem;
+  color: #fff;
+  background-color: #333;
+  margin: 20px 0;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  transition: background-color ease 0.3s;
+}
+button:focus, button:hover {
+  background-color: #777;
+}
+
 .error-field {
   font-size: 14px;
   font-size: 0.875rem;
   color: #c0392b;
-  padding: 10px 20px;
 }
 
 /*# sourceMappingURL=main.css.map */
