@@ -75,13 +75,16 @@ if (!empty($_POST)) :
         // $emailMessage = wordwrap($emailMessage, 70, "\n", true); // hyphenation test
         mail($_POST['email'], $emailSubject, $emailMessage, $emailHeaders);
         $_SESSION['flash'][] = [
-            'message' => "Un courriel vous a été envoyé à l'adresse " . $_POST['email'] . ". " . "Veuiilez cliquer sur le lien pour valider votre compte.",
-            'status' => 'info'
+            'message' => "Un courriel vous a été envoyé à l'adresse " . $_POST['email'] . ". " . "Veuillez cliquer sur le lien pour valider votre compte.",
+            'status' => 'succes'
         ];
         header('Location: signin.php');
         die();
     endif;
-
+    $_SESSION['flash'][] = [
+        'message' => "Les informations ne sont pas valides.",
+        'status' => 'error'
+    ];
 endif;
 ?>
 
@@ -89,20 +92,19 @@ endif;
 
 <section>
   
-<?php flash() ?>
-
-<h1>S'inscrire</h1>
-
+    
+    <h1>S'inscrire</h1>
+    
     <div class="notice">
         <p>Les champs marqués d'un astérisque (*) sont obligatoires</p>
-
     </div>
+    <?= flash() ?>
     <div class="form-container">
         <form action="" method="post">
             <div class="form-log">
                 <label for="username">* Pseudo <span class="text-info">(Seulement des lettres, chiffres et le tiret du bas)</span></label>
                 <input id="username" type="text" name="username" value="<?= valueField('username'); ?>" />
-                <?= !empty($errors) ? '<div class="error-field">' . $errors['username'] . '</div>' : '' ?>
+                <?= !empty($errors['username']) ? '<div class="error-field">' . $errors['username'] . '</div>' : '' ?>
             </div>
             <div class="form-log">
                 <label for="email">* Courriel</label>

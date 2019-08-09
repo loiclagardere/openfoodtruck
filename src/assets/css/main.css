@@ -147,19 +147,30 @@ header #topbar .menu-header .menu-list {
 header #topbar .menu-header .menu-list li {
   display: inline-block;
   padding-right: 3%;
-  margin-bottom: 10px;
 }
 header #topbar .menu-header .menu-list li:last-child {
   padding-right: 0;
   margin-bottom: 0;
 }
 header #topbar .menu-header .menu-list li a {
+  position: relative;
+  padding: 8px 0;
   color: #fff;
-  padding: 15px 0;
-  transition: ease color 0.3s;
 }
-header #topbar .menu-header .menu-list li a:hover, header #topbar .menu-header .menu-list li a:focus {
-  color: #bbb;
+header #topbar .menu-header .menu-list li a::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%) scaleX(0);
+  transform-origin: 50% 50%;
+  width: 100%;
+  height: 1px;
+  background-color: #fff;
+  transition: ease transform 0.2s;
+}
+header #topbar .menu-header .menu-list li a:hover::after, header #topbar .menu-header .menu-list li a:focus::after {
+  transform: translateX(-50%) scaleX(1);
 }
 
 section .message-flash {
@@ -233,6 +244,7 @@ section button {
   background-color: #333;
   margin: 20px 0;
   padding: 8px 12px;
+  outline: none;
   border: none;
   border-radius: 3px;
   transition: background-color ease 0.3s;
