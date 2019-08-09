@@ -6,6 +6,7 @@ require_once('includes/functions.php');
 // Check submit form
 if (!empty($_POST)) :
 
+    debugP($_SESSION, 'debug $session'); 
     $errors = []; // to stock messages error
 
     // Check username field content the and content format
