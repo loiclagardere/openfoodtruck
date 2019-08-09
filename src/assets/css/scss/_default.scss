@@ -12,6 +12,7 @@ body {
     max-width: 1000px;
     width: 100%;
     margin: 0 auto;
+    padding: 0 10px;
 }
 
 
@@ -37,7 +38,8 @@ h1,
 h2,
 h3,
 h4 {
-  font-family: $default-font;
+    font-family: $default-font;
+    letter-spacing: 1px;
 }
 
 h1 {
@@ -45,10 +47,8 @@ h1 {
     margin-bottom: 20px;
 }
 
-.svg-circle {
-    fill: #333;
+
+::selection {
+    background-color: #000;
+    color: #fff;
 }
- .svg-point {
-     fill: #fff;
- }
- 

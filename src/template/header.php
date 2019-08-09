@@ -23,24 +23,22 @@ require_once('includes/functions.php')
 
     <header>
         <div id="topbar">
-            <div class="wrapper">
-                 <div class="logo-header">
-                    <span>Open Food Truck</span>
-                </div>
-                <nav class="menu-header">
-                    <ul class="menu-list">
-                        <li><a href="index.php" title="Retour vers l'accueil.">Home</a></li>
-                        <li><a href="#" title="Pésentation.">Présentation</a></li>
-                        <?php if (isset($_SESSION['auth'])) : ?>
-                            <li><a href="account.php" title="Pour accerder à votre compte">Mon compte</a></li>
-                            <li><a href="signout.php" title="Pour se déconnecter">Se déconnecter</a></li>
-                        <?php else : ?>
-                            <li><a href="signin.php" title="Pour se connecter">Se connecter</a></li>
-                            <li><a href="signup.php" title="Pour s'inscrire">S'inscrire</a></li>
-                        <?php endif; ?>
-                    </ul>
-                </nav>
-             </div>
+            <div class="logo-header">
+                <span>Open Food Truck</span>
+            </div>
+            <nav class="menu-header">
+                <ul class="menu-list">
+                    <li><a href="index.php" title="Retour vers l'accueil.">Home</a></li>
+                    <li><a href="#" title="Pésentation.">Présentation</a></li>
+                    <?php if (isset($_SESSION['auth'])) : ?>
+                        <li><a href="account.php" title="Pour accerder à votre compte">Mon compte</a></li>
+                        <li><a href="signout.php" title="Pour se déconnecter">Se déconnecter</a></li>
+                    <?php else : ?>
+                        <li><a href="signin.php" title="Pour se connecter">Se connecter</a></li>
+                        <li><a href="signup.php" title="Pour s'inscrire">S'inscrire</a></li>
+                    <?php endif; ?>
+                </ul>
+            </nav>
         </div>
     </header>
 

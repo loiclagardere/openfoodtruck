@@ -69,24 +69,24 @@ endif;
 
 
 <?php require_once('template/header.php'); ?>
+<section>
+    <h1>Mot de passe oublié</h1>
+    <div class="notice">
+        <p>Les champs marqués d'un astérisque (*) sont obligatoires</p>
+    </div>
+    <?= flash() ?>
+    <p>Veuillez entrer l'adresse couriel utilisée pour vous connecter à votre compte Open Food Truck.</p>
+    <p>Un message avec un lien va vous étre envoyé à cette adresse afin que vous puissiez reinitialiser votre mot de passe.</p>
 
-<h1>Mot de passe oublié</h1>
-<div class="notice">
-    <p>Les champs marqués d'un astérisque (*) sont obligatoires</p>
-</div>
-<?= flash() ?>
-<p>Veuillez entrer l'adresse couriel utilisée pour vous connecter à votre compte Open Food Truck.</p>
-<p>Un message avec un lien va vous étre envoyé à cette adresse afin que vous puissiez reinitialiser votre mot de passe.</p>
-
-<div class="form-container wrapper">
-    <form action="" method="post">
-        <div class="form-log">
-            <label for="email">Couriel *</label>
-            <input id="email" type="emal" name="email" value="<?= valueField('username'); ?>" />
-        </div>
-
-        <button type="submit">Envoyer couriel</button>
-    </form>
-</div>
+    <div class="form-container">
+        <form action="" method="post">
+            <div class="form-log">
+                <label for="email">* Couriel</label>
+                <input id="email" type="emal" name="email" value="<?= valueField('username'); ?>" />
+            </div>
+            <button type="submit">Envoyer couriel</button>
+        </form>
+    </div>
+</section>
 
 <?php require_once('template/footer.php'); ?>

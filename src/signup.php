@@ -75,51 +75,53 @@ if (!empty($_POST)) :
         // $emailMessage = wordwrap($emailMessage, 70, "\n", true); // hyphenation test
         mail($_POST['email'], $emailSubject, $emailMessage, $emailHeaders);
         $_SESSION['flash'][] = [
-            'message' => "Un courriel vous a été envoyé à l'adresse " . $_POST['email'] . ". " . "Veuiilez cliquer sur le lien pour valider votre compte.",
-            'status' => 'info'
+            'message' => "Un courriel vous a été envoyé à l'adresse " . $_POST['email'] . ". " . "Veuillez cliquer sur le lien pour valider votre compte.",
+            'status' => 'succes'
         ];
         header('Location: signin.php');
         die();
     endif;
-
+    $_SESSION['flash'][] = [
+        'message' => "Les informations ne sont pas valides.",
+        'status' => 'error'
+    ];
 endif;
 ?>
 
 <?php require_once('template/header.php'); ?>
+
 <section>
+  
+    
     <h1>S'inscrire</h1>
-    <?= flash(); ?>
+    
     <div class="notice">
         <p>Les champs marqués d'un astérisque (*) sont obligatoires</p>
-        <p>Le pseudonyme doit contenir au moins 6 caractéres.</p>
-        <p>Seuls les chiffres, les lettres majuscules et minuscules sont autorisées.</p>
-        <p>Le mot de passe doit contenir au moins 8 caractéres.</p>
     </div>
-
-    <div class="form-container wrapper">
+    <?= flash() ?>
+    <div class="form-container">
         <form action="" method="post">
             <div class="form-log">
-                <label for="username">Pseudo *</label>
+                <label for="username">* Pseudo <span class="text-info">(Seulement des lettres, chiffres et le tiret du bas)</span></label>
                 <input id="username" type="text" name="username" value="<?= valueField('username'); ?>" />
+                <?= !empty($errors['username']) ? '<div class="error-field">' . $errors['username'] . '</div>' : '' ?>
             </div>
-            <?= !empty($errors) ? '<div class="error-field"><p>' . $errors['username'] . '</p>' : '' ?>
-    </div>
-    <div class="form-log">
-        <label for="email">Courriel *</label>
-        <input id="email" type="tewt" name="email" value="<?= valueField('email'); ?>" />
-        <?= !empty($errors['email']) ? '<div class="error-field"><p>' . $errors['email'] . '</p>' : '' ?>
-    </div>
-    <div class="form-log">
-        <label for="password">Mot de passe *</label>
-        <input id="password" type="password" name="password" />
-        <?= !empty($errors['password']) ? '<div class="error-field"><p>' . $errors['password'] . '</p>' : '' ?>
-    </div>
-    <div class="form-log">
-        <label for="password-confirm">Confirmez votre mot de passe *</label>
-        <input id="password-confirm" type="password" name="passwordConfirm" />
-    </div>
-    <button type="submit">S'inscrire</button>
-    </form>
+            <div class="form-log">
+                <label for="email">* Courriel</label>
+                <input id="email" type="tewt" name="email" value="<?= valueField('email'); ?>" />
+                <?= !empty($errors['email']) ? '<div class="error-field">' . $errors['email'] . '</div>' : '' ?>
+            </div>
+            <div class="form-log">
+                <label for="password">* Mot de passe <span class="text-info">(Seulement des lettres, chiffres et le tiret du bas)</label>
+                <input id="password" type="password" name="password" />
+                <?= !empty($errors['password']) ? '<div class="error-field">' . $errors['password'] . '</div>' : '' ?>
+            </div>
+            <div class="form-log">
+                <label for="password-confirm">* Confirmez votre mot de passe</label>
+                <input id="password-confirm" type="password" name="passwordConfirm" />
+            </div>
+            <button type="submit">S'inscrire</button>
+        </form>
     </div>
 </section>
 

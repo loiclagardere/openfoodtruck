@@ -1,9 +1,13 @@
-// message flash
+section {
+
+    // message flash
     .message-flash {
+        display: inline-block;
         @include fontSize(18px);
         color: #fff;
         background-color: #555;
         padding: 10px 20px;
+        margin-top: 3%;
     }
 
     .error {
@@ -14,54 +18,87 @@
         background-color: #2bbf32;
     }
 
+    // elements of form
+    .form-container {
+        margin-top: 30px;
 
-// elements of form
-form {
-    display: inline-block;
-    width: 30%;
-    margin-top: 30px;
-}
+        form {
+            display: block;
+            width: 60%;
+        }
 
-label,
-input {
-    display: block;
-}
-
-label {
-    margin-top: 15px;
-}
-
-input {
-    outline: none;
-    height: 24px;
-    min-width: 30%;
-    padding: 10px;
-    border: #aaa 1px solid;
-    transition: ease border .3s;
-
-    &:focus {
-
-        border-bottom: #000 1px solid;
     }
-}
 
 
-button {
-    display: block;
-    @include fontSize(14px);
-    color: #fff;
-    background-color: #333;
-    margin: 20px 0;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    transition: background-color ease .3s;
+    .form-log {
+        margin-bottom: 25px;
 
-    &:focus,
-    &:hover {
-        background-color: #777;
+        label,
+        input {
+            display: block;
+        }
+
+        label {
+            @include fontSize(16px);
+
+            .text-info {
+                @include fontSize(14px);
+                color: #999;
+            }
+
+            .text-link {
+                padding-left: 40px;
+
+                a {
+                    @include fontSize(14px);
+                    color: #61889e;
+
+                    &:focus,
+                    &:hover {
+                        color: #87bad8;
+                    }
+                }
+            }
+        }
+
+        input {
+            outline: none;
+            height: 24px;
+            min-width: 100%;
+            margin: 4px 0;
+            padding: 10px;
+            background-color: #eee;
+            border: none;
+            border-bottom: #eee 1px solid;
+            transition: ease border .3s;
+
+            &:focus {
+                // background-color: #fff;
+                border-bottom: #000 1px solid;
+            }
+        }
     }
+
+    button {
+        display: block;
+        @include fontSize(14px);
+        color: #fff;
+        background-color: #333;
+        margin: 20px 0;
+        padding: 8px 12px;
+        outline: none;
+        border: none;
+        border-radius: 3px;
+        transition: background-color ease .3s;
+
+        &:focus,
+        &:hover {
+            background-color: #666;
+        }
+    }
+
 }
+
 
 .error-field {
     @include fontSize(14px);
