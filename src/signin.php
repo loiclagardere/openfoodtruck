@@ -22,7 +22,7 @@ if (!empty($_POST)) :
         $request = $db->prepare($sql);
         $request->execute($data);
         $user = $request->fetch();
-        
+
         // Check user and password
         if ($user && password_verify($_POST['password'],  $user->password)) :
 
@@ -34,42 +34,45 @@ if (!empty($_POST)) :
             header('Location: account.php');
             die();
         else :
-            // $_SESSION['flash'][] = [
-            //     'message' => "Les informations saisies sont incorrectes.",
-            //     'status' => "error"
-            // ];
+            $_SESSION['flash'][] = [
+                'message' => "Les informations saisies sont incorrectes.",
+                'status' => "error"
+            ];
         endif;
     else :
-        // $_SESSION['flash'][] = [
-        //     'message' => "Veuillez renseigner tous les champs.",
-        //     'status' => "error"
-        // ];
+        $_SESSION['flash'][] = [
+            'message' => "Veuillez renseigner tous les champs.",
+            'status' => "error"
+        ];
     endif;
 endif;
 ?>
 
 <?php require_once('template/header.php'); ?>
-
-<h1>Se connecter</h1>
-<div class="notice">
-    <p>Les champs marqués d'un astérisque (*) sont obligatoires</p>
-</div>
-<?= flash() ?>
-<div class="form-container wrapper">
-    <form action="" method="post">
-        <div class="form-log">
-            <label for="username">Pseudo ou courriel *</label>
-            <input id="username" type="text" name="username" value="<?= valueField('username'); ?>" />
+<section>
+    <h1>Se connecter</h1>
+    <div class="notice">
+        <p>Les champs marqués d'un astérisque (*) sont obligatoires</p>
+    </div>
+    <?= flash() ?>
+    <div class="form-container">
+        <div class="form-container">
+            <form action="" method="post">
+                <div class="form-log">
+                    <label for="username">Pseudo ou courriel *</label>
+                    <input id="username" type="text" name="username" value="<?= valueField('username'); ?>" />
+                    <?= !empty($errors['username']) ? '<div class="error-field">' . $errors['username'] . '</div>' : '' ?>
+                </div>
+                <div class="form-log">
+                    <label for="password">* Mot de passe<span class="text-link"><a href="password-forgot.php">( Mot de passe oublié )</a></span>
+                    </label>
+                    <input id="password" type="text" name="password" />
+                </div>
+                <button type="submit">Se connecter</button>
+            </form>
         </div>
+    </div>
+</section>
 
-        <div class="form-log">
-            <label for="password">Mot de passe *</label>
-            <input id="password" type="text" name="password" />
-        </div>
-
-        <button type="submit">Se connecter</button>
-        <span class="text-link"><a href="password-forgot.php">(Mot de passe oublié)</a></span>
-    </form>
-</div>
 
 <?php require_once('template/footer.php'); ?>

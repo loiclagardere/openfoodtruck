@@ -70,10 +70,7 @@ function emailFilterVar($email)
  */
 function usernamePregMatch($string)
 {
-    // preg_match('/^[a-zA-Z0-9_]+$/'
     $regex = '/^[a-zA-Z0-9_]+$/';
-    // $regex = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/';
-    // $regex = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[_])(?=.{6,})/';
     $stringPregMatch = preg_match($regex, $string);
     if ($stringPregMatch === 1) :
         return true;

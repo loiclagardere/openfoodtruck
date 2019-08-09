@@ -3,6 +3,7 @@ require_once('includes/db.php');
 require_once('includes/functions.php');
 authentificated();
 
+debugP($_SESSION);
 // Check submit form
 if (!empty($_POST)) :
 
@@ -47,29 +48,32 @@ endif;
 
 
 <?php require_once('template/header.php'); ?>
+<section>
+    <h1> Votre compte utilisateur </h1>
 
-<h1> Votre compte utilisateur </h1>
+    <p> Bienvenue <?= $_SESSION['auth']->username; ?> </p>
 
-<p> Bienvenue <?= $_SESSION['auth']->username; ?> </p>
-
-
-<div>
-    <p>Modifier votre mot de passe</p>
+    <h2>Modifier votre mot de passe</h2>
 
     <div class="notice">
         <p>Les champs marqués d'un astérisque (*) sont obligatoires</p>
     </div>
-    <form action="" method="post">
-        <div class="form-log">
-            <label for="password">Saisissez un mot de passe *</label>
-            <input id="password" type="password" name="password" />
-        </div>
-        <div class="form-log">
-            <label for="password-confirm">Confirmez le mot de passe *</label>
-            <input id="password-confirm" type="password" name="passwordConfirm" />
-        </div>
-        <button type="submit">Changer le mot de passe</button>
-    </form>
-</div>
+    <?= flash() ?>
+    <div class="form-container">
+        <form action="" method="post">
+            <div class="form-log">
+                <label for="password">* Saisissez un mot de passe</label>
+                <input id="password" type="password" name="password" />
+            </div>
+            <div class="form-log">
+                <label for="password-confirm">* Confirmez le mot de passe</label>
+                <input id="password-confirm" type="password" name="passwordConfirm" />
+            </div>
+            <button type="submit">Changer le mot de passe</button>
+        </form>
+    </div>
+
+</section>
+
 
 <?php require_once('template/footer.php'); ?>
