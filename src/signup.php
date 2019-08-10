@@ -5,11 +5,10 @@ require_once('includes/functions.php');
 
 // Check submit form
 if (!empty($_POST)) :
-
-    debugP($_SESSION, 'debug $session'); 
+    // unset($_SESSION['msg']);
     $errors = []; // to stock messages error
 
-    // Check username field content the and content format
+    // Check username field content and the content format
     if (!empty($_POST['username']) && usernamePregMatch($_POST['username'])) :
         $data = ['username' => $_POST['username']];
         $sql = "SELECT id
@@ -102,22 +101,22 @@ endif;
     <?= flash() ?>
     <div class="form-container">
         <form action="" method="post">
-            <div class="form-log">
+            <div class="form-group">
                 <label for="username">* Pseudo <span class="text-info">(Seulement des lettres, chiffres et le tiret du bas)</span></label>
                 <input id="username" type="text" name="username" value="<?= valueField('username'); ?>" />
                 <?= !empty($errors['username']) ? '<div class="error-field">' . $errors['username'] . '</div>' : '' ?>
             </div>
-            <div class="form-log">
+            <div class="form-group">
                 <label for="email">* Courriel</label>
                 <input id="email" type="tewt" name="email" value="<?= valueField('email'); ?>" />
                 <?= !empty($errors['email']) ? '<div class="error-field">' . $errors['email'] . '</div>' : '' ?>
             </div>
-            <div class="form-log">
+            <div class="form-group">
                 <label for="password">* Mot de passe <span class="text-info">(Seulement des lettres, chiffres et le tiret du bas)</label>
                 <input id="password" type="password" name="password" />
                 <?= !empty($errors['password']) ? '<div class="error-field">' . $errors['password'] . '</div>' : '' ?>
             </div>
-            <div class="form-log">
+            <div class="form-group">
                 <label for="password-confirm">* Confirmez votre mot de passe</label>
                 <input id="password-confirm" type="password" name="passwordConfirm" />
             </div>

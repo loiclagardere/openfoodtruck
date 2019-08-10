@@ -76,8 +76,8 @@ body {
 }
 
 a {
-  font-size: 16px;
-  font-size: 1rem;
+  font-size: 14px;
+  font-size: 0.875rem;
   text-decoration: none;
 }
 a:hover, a:focus {
@@ -96,12 +96,17 @@ h2,
 h3,
 h4 {
   font-family: Arial, Helvetica, sans-serif;
-  letter-spacing: 1px;
 }
 
 h1 {
   font-size: 36px;
   font-size: 2.25rem;
+  margin-bottom: 20px;
+}
+
+h2 {
+  font-size: 28px;
+  font-size: 1.75rem;
   margin-bottom: 20px;
 }
 
@@ -116,7 +121,6 @@ header {
   margin-bottom: 50px;
 }
 header #topbar {
-  position: fixed;
   top: 0;
   color: #fff;
   font-size: 0;
@@ -154,6 +158,8 @@ header #topbar .menu-header .menu-list li:last-child {
 }
 header #topbar .menu-header .menu-list li a {
   position: relative;
+  font-size: 14px;
+  font-size: 0.875rem;
   padding: 8px 0;
   color: #fff;
 }
@@ -178,6 +184,8 @@ section .message-flash {
   font-size: 18px;
   font-size: 1.125rem;
   color: #fff;
+  text-align: center;
+  width: 60%;
   background-color: #555;
   padding: 10px 20px;
   margin-top: 3%;
@@ -195,45 +203,45 @@ section .form-container form {
   display: block;
   width: 60%;
 }
-section .form-log {
+section .form-group {
   margin-bottom: 25px;
 }
-section .form-log label,
-section .form-log input {
+section .form-group label,
+section .form-group input {
   display: block;
 }
-section .form-log label {
+section .form-group label {
   font-size: 16px;
   font-size: 1rem;
 }
-section .form-log label .text-info {
+section .form-group label .text-info {
   font-size: 14px;
   font-size: 0.875rem;
   color: #999;
 }
-section .form-log label .text-link {
+section .form-group label .text-link {
   padding-left: 40px;
 }
-section .form-log label .text-link a {
+section .form-group label .text-link a {
   font-size: 14px;
   font-size: 0.875rem;
   color: #61889e;
 }
-section .form-log label .text-link a:focus, section .form-log label .text-link a:hover {
+section .form-group label .text-link a:focus, section .form-group label .text-link a:hover {
   color: #87bad8;
 }
-section .form-log input {
+section .form-group input {
   outline: none;
   height: 24px;
   min-width: 100%;
   margin: 4px 0;
   padding: 10px;
-  background-color: #eee;
+  background-color: #f9f9f9;
   border: none;
   border-bottom: #eee 1px solid;
   transition: ease border 0.3s;
 }
-section .form-log input:focus {
+section .form-group input:focus {
   border-bottom: #000 1px solid;
 }
 section button {
@@ -241,7 +249,7 @@ section button {
   font-size: 14px;
   font-size: 0.875rem;
   color: #fff;
-  background-color: #333;
+  background-color: #666;
   margin: 20px 0;
   padding: 8px 12px;
   outline: none;
@@ -250,7 +258,7 @@ section button {
   transition: background-color ease 0.3s;
 }
 section button:focus, section button:hover {
-  background-color: #666;
+  background-color: #333;
 }
 
 .error-field {
