@@ -40,6 +40,7 @@ require_once('includes/functions.php')
                 </ul>
             </nav>
         </div>
+        <div id="banner-top" class=ban1></div>
     </header>
 
     <div id="container" class="wrapper">

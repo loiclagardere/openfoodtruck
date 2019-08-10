@@ -5,6 +5,8 @@ section {
         display: inline-block;
         @include fontSize(18px);
         color: #fff;
+        text-align: center;
+        width: 60%;
         background-color: #555;
         padding: 10px 20px;
         margin-top: 3%;
@@ -30,7 +32,7 @@ section {
     }
 
 
-    .form-log {
+    .form-group {
         margin-bottom: 25px;
 
         label,
@@ -67,7 +69,7 @@ section {
             min-width: 100%;
             margin: 4px 0;
             padding: 10px;
-            background-color: #eee;
+            background-color: #f9f9f9;
             border: none;
             border-bottom: #eee 1px solid;
             transition: ease border .3s;
@@ -83,22 +85,21 @@ section {
         display: block;
         @include fontSize(14px);
         color: #fff;
-        background-color: #333;
+        background-color: #666;
         margin: 20px 0;
         padding: 8px 12px;
         outline: none;
         border: none;
         border-radius: 3px;
         transition: background-color ease .3s;
-
+        
         &:focus,
         &:hover {
-            background-color: #666;
+            background-color: #333;
         }
     }
 
 }
-
 
 .error-field {
     @include fontSize(14px);

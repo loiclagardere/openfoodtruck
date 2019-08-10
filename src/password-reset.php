@@ -70,11 +70,11 @@ endif;
         <p>Les champs marqués d'un astérisque (*) sont obligatoires</p>
     </div>
     <form action="" method="post">
-        <div class="form-log">
+        <div class="form-group">
             <label for="password">Saisissez un mot de passe *</label>
             <input id="password" type="password" name="password" />
         </div>
-        <div class="form-log">
+        <div class="form-group">
             <label for="password-confirm">Confirmez le mot de passe *</label>
             <input id="password-confirm" type="password" name="passwordConfirm" />
         </div>

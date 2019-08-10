@@ -80,7 +80,7 @@ endif;
 
     <div class="form-container">
         <form action="" method="post">
-            <div class="form-log">
+            <div class="form-group">
                 <label for="email">* Couriel</label>
                 <input id="email" type="emal" name="email" value="<?= valueField('username'); ?>" />
             </div>

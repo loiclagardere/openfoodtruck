@@ -58,12 +58,12 @@ endif;
     <div class="form-container">
         <div class="form-container">
             <form action="" method="post">
-                <div class="form-log">
+                <div class="form-group">
                     <label for="username">Pseudo ou courriel *</label>
                     <input id="username" type="text" name="username" value="<?= valueField('username'); ?>" />
                     <?= !empty($errors['username']) ? '<div class="error-field">' . $errors['username'] . '</div>' : '' ?>
                 </div>
-                <div class="form-log">
+                <div class="form-group">
                     <label for="password">* Mot de passe<span class="text-link"><a href="password-forgot.php">( Mot de passe oublié )</a></span>
                     </label>
                     <input id="password" type="text" name="password" />
