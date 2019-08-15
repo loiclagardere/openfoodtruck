@@ -1,20 +1,22 @@
 'use strict'
 
-
-
 // Variables
 let form = document.querySelector("form");
 let usernameGroup = document.querySelector("div[name='usernameGroup']");
 let emailGroup = document.querySelector("div[name='emailGroup']");
+let siretGroup = document.querySelector("div[name='siretGroup']");
 let passwordGroup = document.querySelector("div[name='passwordGroup']");
 let passwordConfirmGroup = document.querySelector("div[name='passwordConfirmGroup']");
 let button = document.querySelector("button");
 let usernameField = document.getElementById("username");
 let emailField = document.getElementById("email");
+let siretField = document.getElementById("siret");
 let passwordField = document.getElementById("password");
 let confirmField = document.getElementById("password-confirm");
-let regexUsername = new RegExp('^[a-zA-Z0-9_]+$'); // [a-zA-Z0-9_]
+let regexUsername = new RegExp('^[a-zA-Z0-9_]+$');
 let regexEmail = new RegExp('^[a-zA-Z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$');
+let regexSiret = new RegExp('^[0-9]{14,14}$');
+
 
 // Messages
 let messageUsernameLength = "Certains caractéres ne sont pas autorisés."
@@ -43,7 +45,6 @@ function styleButtonOn() {
     button.removeAttribute("disabled", "");
     button.classList.remove("btn-invalid");
 }
-
 
 /***
  * 
@@ -104,6 +105,24 @@ function checkEmailFormat() {
             styleButtonOff();
             emailField.classList.add("invalid");
             elementMessage(emailGroup, messageEmailFormat, "email-length");
+        }
+    });
+}
+
+/***
+ * 
+ * Display message for user about the siret format
+ */
+function checkSiretFormat() {
+    siretField.addEventListener('keyup', function (e) {
+        document.getElementById("siret-length") ? document.getElementById("siret-length").remove() : "";
+        if (regexSiret.test(this.value)) {
+            styleButtonOn();
+            siretyField.classList.remove("invalid");
+        } else {
+            styleButtonOff();
+            siretyField.classList.add("invalid");
+            elementMessage(siretyGroup, messagesiretyFormat, "sirety-length");
         }
     });
 }
@@ -174,5 +193,6 @@ function checkPasswordMatch() {
 
 eventOnLoad();
 usernameGroup ? checkUsernameLength() : "";
+siretGroup ? checkSiretFormat() : "";
 passwordField ? checkPasswordLength() : "";
 confirmField ? checkPasswordMatch() : "";

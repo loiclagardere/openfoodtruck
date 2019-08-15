@@ -15,97 +15,97 @@ if (!empty($_POST)) :
     $requestApi = $urlApi . $siret;
 
     // curl session
-    $sessionCurl = curl_init();
-    curl_setopt($sessionCurl, CURLOPT_URL, $requestApi);
-    curl_setopt($sessionCurl, CURLOPT_RETURNTRANSFER, true);
-    // curl_setopt($sessionCurl, CURLOPT_SSL_VERIFYPEER, true);  // certicat ssl
-    // curl_setopt($sessionCurl, CURLOPT_SSL_VERIFYHOST, 2); // 
-    curl_setopt($sessionCurl, CURLOPT_HTTPHEADER, array(
+    $curlSession = curl_init();
+    curl_setopt($curlSession, CURLOPT_URL, $requestApi);
+    curl_setopt($curlSession, CURLOPT_RETURNTRANSFER, true);
+    // curl_setopt($curlSession, CURLOPT_SSL_VERIFYPEER, true);  // certicat ssl
+    // curl_setopt($curlSession, CURLOPT_SSL_VERIFYHOST, 2); // 
+    curl_setopt($curlSession, CURLOPT_HTTPHEADER, array(
         'Accept: */*',
         // 'Accept-Encoding: gzip, deflate', // renvoie null
         'Content-Type: application/json; charset=utf-8',
         'Host: entreprise.data.gouv.fr',
     ));
-    $resultApi = json_decode(curl_exec($sessionCurl));
-    curl_close($sessionCurl);
-    if (!empty($resultApi->etablissement)) :
-        echo 'ok';
-        // Check username field content and the content format
-        if (!empty($_POST['username']) && usernamePregMatch($_POST['username'])) :
-            $data = ['username' => $_POST['username']];
-            $sql = "SELECT id
+    $resultApi = json_decode(curl_exec($curlSession));
+    curl_close($curlSession);
+    
+    if (!isset($resultApi->etablissement)) :
+        $errors['siret'] = "Le numéro de SIRET n'est pas valide.";
+    endif;
+
+    // Check username field content and the content format
+    if (!empty($_POST['username']) && usernamePregMatch($_POST['username'])) :
+        $data = ['username' => $_POST['username']];
+        $sql = "SELECT id
                 FROM users
                 WHERE username = :username";
-            $request = $db->prepare($sql);
-            $request->execute($data);
-            $user = $request->fetch();
+        $request = $db->prepare($sql);
+        $request->execute($data);
+        $user = $request->fetch();
 
-            if ($user) :
-                $errors['username'] = "Ce pseudo est dejà pris.";
-            endif;
-        else :
-            $errors['username'] = "Le format du pseudo n'est pas valide.";
-        endif;
-
-        // Check email and email format
-        if (!empty($_POST['email']) && filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) :
-            $data = ['email' => $_POST['email']];
-            $sql = "SELECT id
-                FROM users
-                WHERE email = :email";
-            $request = $db->prepare($sql);
-            $request->execute($data);
-            $user = $request->fetch();
-
-            if ($user) :
-                $errors['email'] = "Ce courriel est utilisé pour un autre compte.";
-            endif;
-        else :
-            $errors['email'] = "Le courriel n'est pas valide.";
-        endif;
-
-        // Check password and password confirmation
-        if (empty($_POST['password']) || !passwordPregMatch($_POST['password']) || $_POST['password'] != $_POST['passwordConfirm']) :
-            $errors['password'] = "Les mots de passe ne sont pas valides.";
-        endif;
-
-        // Check errors
-        if (empty($errors)) :
-
-            $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-            $token = stringRandom(60); // generate a confirmation token
-            $data = ['username' => $_POST['username'], 'email' => $_POST['email'], 'password' => $password, 'token_confirm' => $token];
-
-            // Request to insert user
-            $sql = "INSERT INTO users (username, email, password, token_confirm)
-                VALUES (:username, :email, :password, :token_confirm)";
-            $request = $db->prepare($sql);
-            $request->execute($data);
-            $userId = $db->lastInsertId();
-
-            // Generate email contains confirmation link
-            $emailSubject = "Open Food Truck - Confirmation de votre courriel";
-            $emailMessage = "<p>Afin de valider votre compte, cliquez ";
-            $emailMessage .= "<a href=\"http://localhost/php/initiation/openfoodtruck-php/openfoodtruck/src/signup-confirm.php?id=$userId&token=$token\"> ici </a>";
-            $emailMessage .= " ou copier le lien suivant dans la barre d'adresse de votre navigateur puis liquer sur \"enter\" :<br>";
-            $emailMessage .= "http://localhost/php/initiation/openfoodtruck-php/openfoodtruck/src/signup-confirm.php?id=$userId&token=$token";
-            $emailHeaders = array(
-                'From' => 'webservice@openfoodtruck.fr',
-                'Reply-To' => 'webservice@openfoodtruck.fr',
-                'Content-type' => 'text/html; charset=UTF-8',
-                // 'Content-Transfer-Encoding' => '8bit'
-            );
-            // $emailMessage = wordwrap($emailMessage, 70, "\n", true); // hyphenation test
-            mail($_POST['email'], $emailSubject, $emailMessage, $emailHeaders);
-            $_SESSION['flash'][] = [
-                'message' => "<p>Un courriel vous a été envoyé à l'adresse " . $_POST['email'] . ". </p>" . "<p>Veuillez cliquer sur le lien pour valider votre compte.</p>",
-                'status' => 'succes'
-            ];
-            header('Location: signin.php');
-            die();
+        if ($user) :
+            $errors['username'] = "Ce pseudo est dejà pris.";
         endif;
     else :
-        $errors['siret'] = "Le numéro de SIRET n'est pas valide.";
+        $errors['username'] = "Le format du pseudo n'est pas valide.";
+    endif;
+
+    // Check email and email format
+    if (!empty($_POST['email']) && filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) :
+        $data = ['email' => $_POST['email']];
+        $sql = "SELECT id
+                FROM users
+                WHERE email = :email";
+        $request = $db->prepare($sql);
+        $request->execute($data);
+        $user = $request->fetch();
+
+        if ($user) :
+            $errors['email'] = "Ce courriel est utilisé pour un autre compte.";
+        endif;
+    else :
+        $errors['email'] = "Le courriel n'est pas valide.";
+    endif;
+
+    // Check password and password confirmation
+    if (empty($_POST['password']) || !passwordPregMatch($_POST['password']) || $_POST['password'] != $_POST['passwordConfirm']) :
+        $errors['password'] = "Les mots de passe ne sont pas valides.";
+    endif;
+
+    // Check errors
+    if (empty($errors) && isset($resultApi->etablissement)) :
+
+        $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+        $token = stringRandom(60); // generate a confirmation token
+        $data = ['username' => $_POST['username'], 'email' => $_POST['email'], 'password' => $password, 'token_confirm' => $token];
+
+        // Request to insert user
+        $sql = "INSERT INTO users (username, email, password, token_confirm)
+                VALUES (:username, :email, :password, :token_confirm)";
+        $request = $db->prepare($sql);
+        $request->execute($data);
+        $userId = $db->lastInsertId();
+
+        // Generate email contains confirmation link
+        $emailSubject = "Open Food Truck - Confirmation de votre courriel";
+        $emailMessage = "<p>Afin de valider votre compte, cliquez ";
+        $emailMessage .= "<a href=\"http://localhost/php/initiation/openfoodtruck-php/openfoodtruck/src/signup-confirm.php?id=$userId&token=$token\"> ici </a>";
+        $emailMessage .= " ou copier le lien suivant dans la barre d'adresse de votre navigateur puis liquer sur \"enter\" :<br>";
+        $emailMessage .= "http://localhost/php/initiation/openfoodtruck-php/openfoodtruck/src/signup-confirm.php?id=$userId&token=$token";
+        $emailHeaders = array(
+            'From' => 'webservice@openfoodtruck.fr',
+            'Reply-To' => 'webservice@openfoodtruck.fr',
+            'Content-type' => 'text/html; charset=UTF-8',
+            // 'Content-Transfer-Encoding' => '8bit'
+        );
+        // $emailMessage = wordwrap($emailMessage, 70, "\n", true); // hyphenation test
+        mail($_POST['email'], $emailSubject, $emailMessage, $emailHeaders);
+        $_SESSION['flash'][] = [
+            'message' => "<p>Un courriel vous a été envoyé à l'adresse " . $_POST['email'] . ". </p>" . "<p>Veuillez cliquer sur le lien pour valider votre compte.</p>",
+            'status' => 'succes'
+        ];
+        header('Location: signin.php');
+        die();
     endif;
     $_SESSION['flash'][] = [
         'message' => "Les informations ne sont pas valides.",
