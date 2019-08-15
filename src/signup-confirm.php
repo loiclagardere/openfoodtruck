@@ -14,15 +14,14 @@ if (isset($_GET['id']) && isset($_GET['token'])) :
     // Request to select user
     $sql = "SELECT *
             FROM users
-            WHERE id = :id"; //  AND token_confirm = :token_confirm - REDONDANT avec requete sql /!\
+            WHERE id = :id"; //  AND token_confirm = :token_confirm - as php check
     $request = $db->prepare($sql);
     $request->execute($data);
     $user = $request->fetch();
     // debugP($user, 'mauqe token');
-    
+
     // Check user token valitdity
-    if ($user && $user->token_confirm === $token) : // REDONDANT avec requete sql /!\
-// debugP($user, '$user');
+    if ($user && $user->token_confirm === $token) : // as sql query
         // update the user table to prevent new connections by using the link in the mail
         // Request tu update user
         $sql = 'UPDATE users
