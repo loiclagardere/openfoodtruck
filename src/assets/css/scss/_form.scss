@@ -71,13 +71,23 @@ section {
             padding: 10px;
             background-color: #f9f9f9;
             border: none;
-            border-bottom: #eee 1px solid;
+            border-bottom: #f9f9f9 1px solid;
             transition: ease border .3s;
 
             &:focus {
                 // background-color: #fff;
                 border-bottom: #000 1px solid;
             }
+        }
+
+        .error-field {
+            @include fontSize(14px);
+            color: #c0392b;
+        }
+
+        .invalid {
+            border: none;
+            border: solid 1px #c0392b;
         }
     }
 
@@ -92,16 +102,25 @@ section {
         border: none;
         border-radius: 3px;
         transition: background-color ease .3s;
-        
+
         &:focus,
         &:hover {
             background-color: #333;
         }
     }
-
 }
 
-.error-field {
-    @include fontSize(14px);
-    color: #c0392b;
+
+// .error-field {
+//     @include fontSize(14px);
+//     color: #c0392b;
+// }
+
+.btn-invalid {
+    background-color: #aaa;
+
+    &:hover,
+    &:focus {
+        background-color: #aaa;
+    }
 }

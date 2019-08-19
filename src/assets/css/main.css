@@ -238,11 +238,20 @@ section .form-group input {
   padding: 10px;
   background-color: #f9f9f9;
   border: none;
-  border-bottom: #eee 1px solid;
+  border-bottom: #f9f9f9 1px solid;
   transition: ease border 0.3s;
 }
 section .form-group input:focus {
   border-bottom: #000 1px solid;
+}
+section .form-group .error-field {
+  font-size: 14px;
+  font-size: 0.875rem;
+  color: #c0392b;
+}
+section .form-group .invalid {
+  border: none;
+  border: solid 1px #c0392b;
 }
 section button {
   display: block;
@@ -261,10 +270,11 @@ section button:focus, section button:hover {
   background-color: #333;
 }
 
-.error-field {
-  font-size: 14px;
-  font-size: 0.875rem;
-  color: #c0392b;
+.btn-invalid {
+  background-color: #aaa;
+}
+.btn-invalid:hover, .btn-invalid:focus {
+  background-color: #aaa;
 }
 
 /*# sourceMappingURL=main.css.map */

@@ -55,23 +55,20 @@ endif;
         <p>Les champs marqués d'un astérisque (*) sont obligatoires</p>
     </div>
     <?= flash() ?>
-    <div class="form-container">
         <div class="form-container">
             <form action="" method="post">
-                <div class="form-group">
+                <div class="form-group" name="usernameEmailGroup">
                     <label for="username">Pseudo ou courriel *</label>
-                    <input id="username" type="text" name="username" value="<?= valueField('username'); ?>" />
+                    <input id="username-email" type="text" name="username" value="<?= valueField('username'); ?>" required />
                     <?= !empty($errors['username']) ? '<div class="error-field">' . $errors['username'] . '</div>' : '' ?>
                 </div>
-                <div class="form-group">
-                    <label for="password">* Mot de passe<span class="text-link"><a href="password-forgot.php">( Mot de passe oublié )</a></span>
-                    </label>
-                    <input id="password" type="text" name="password" />
+                <div class="form-group"  name="passwordGroup">
+                    <label for="password">* Mot de passe<span class="text-link"><a href="password-forgot.php">( Mot de passe oublié )</a></span></label>
+                    <input id="password" type="password" name="password" required />
                 </div>
-                <button type="submit">Se connecter</button>
+                <button type="submit" name="signinForm">Se connecter</button>
             </form>
         </div>
-    </div>
 </section>
 
 

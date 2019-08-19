@@ -22,7 +22,8 @@ catch (Exception $e) {
 
     if (DEBUG) :
         // get message affiche au format texte $e
-        echo utf8_encode($e->getMessage());
+        // echo utf8_encode($e->getMessage());
+        echo $e->getMessage();
     else :
         echo 'Erreur de connexion à la base de données';
     endif;

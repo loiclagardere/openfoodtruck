@@ -4,6 +4,6 @@ unset($_SESSION['auth']);
 
 $_SESSION['flash'][]= [
     'message' => "Vous êtes déconnecté.",
-    'status' => "succes"
+    'status' => "success"
 ];
 header('Location: signin.php');

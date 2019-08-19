@@ -1,12 +1,38 @@
 <?php
 session_start();
 require_once('includes/db.php');
+// require_once('vendor/autoload.php');
+require_once('includes/functions.php');
 require_once('includes/functions.php');
 
 // Check submit form
 if (!empty($_POST)) :
     // unset($_SESSION['msg']);
     $errors = []; // to stock messages error
+
+    // Check SIRET number
+    $urlApi = "https://entreprise.data.gouv.fr/api/sirene/v1/siret/"; // url API Sirene
+    $siret = $_POST['siret']; // n° siret 45188444900021
+    $requestApi = $urlApi . $siret;
+
+    // curl session
+    $curlSession = curl_init();
+    curl_setopt($curlSession, CURLOPT_URL, $requestApi);
+    curl_setopt($curlSession, CURLOPT_RETURNTRANSFER, true);
+    // curl_setopt($curlSession, CURLOPT_SSL_VERIFYPEER, true);  // certicat ssl
+    // curl_setopt($curlSession, CURLOPT_SSL_VERIFYHOST, 2); // 
+    curl_setopt($curlSession, CURLOPT_HTTPHEADER, array(
+        'Accept: */*',
+        // 'Accept-Encoding: gzip, deflate', // renvoie null
+        'Content-Type: application/json; charset=utf-8',
+        'Host: entreprise.data.gouv.fr',
+    ));
+    $resultApi = json_decode(curl_exec($curlSession));
+    curl_close($curlSession);
+
+    if (!isset($resultApi->etablissement)) :
+        $errors['siret'] = "Le numéro de Siret n'est pas valide.";
+    endif;
 
     // Check username field content and the content format
     if (!empty($_POST['username']) && usernamePregMatch($_POST['username'])) :
@@ -48,7 +74,7 @@ if (!empty($_POST)) :
     endif;
 
     // Check errors
-    if (empty($errors)) :
+    if (empty($errors) && isset($resultApi->etablissement)) :
 
         $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
         $token = stringRandom(60); // generate a confirmation token
@@ -63,19 +89,20 @@ if (!empty($_POST)) :
 
         // Generate email contains confirmation link
         $emailSubject = "Open Food Truck - Confirmation de votre courriel";
-        $emailMessage = "Afin de valider votre compte, veuillez cliquer sur le lien suivant \n";
-        $emailMessage = "ou copiez le dans la barre d'adresse de votre navigateur puis liquer sur \"enter\" :\n\n";
-        $emailMessage .= "http://localhost/php/initiation/openfoodtruck-php/openfoodtruck/src/";
-        $emailMessage .= "signup-confirm.php?id=$userId&token=$token";
+        $emailMessage = "<p>Afin de valider votre compte, cliquez ";
+        $emailMessage .= "<a href=\"http://localhost/php/initiation/openfoodtruck-php/openfoodtruck/src/signup-confirm.php?id=$userId&token=$token\"> ici </a>";
+        $emailMessage .= " ou copier le lien suivant dans la barre d'adresse de votre navigateur puis liquer sur \"enter\" :<br>";
+        $emailMessage .= "http://localhost/php/initiation/openfoodtruck-php/openfoodtruck/src/signup-confirm.php?id=$userId&token=$token";
         $emailHeaders = array(
             'From' => 'webservice@openfoodtruck.fr',
             'Reply-To' => 'webservice@openfoodtruck.fr',
-            'X-Mailer' => 'PHP/' . phpversion()
+            'Content-type' => 'text/html; charset=UTF-8',
+            // 'Content-Transfer-Encoding' => '8bit'
         );
         // $emailMessage = wordwrap($emailMessage, 70, "\n", true); // hyphenation test
         mail($_POST['email'], $emailSubject, $emailMessage, $emailHeaders);
         $_SESSION['flash'][] = [
-            'message' => "Un courriel vous a été envoyé à l'adresse " . $_POST['email'] . ". " . "Veuillez cliquer sur le lien pour valider votre compte.",
+            'message' => "<p>Un courriel vous a été envoyé à l'adresse " . $_POST['email'] . ". </p>" . "<p>Veuillez cliquer sur le lien pour valider votre compte.</p>",
             'status' => 'succes'
         ];
         header('Location: signin.php');
@@ -91,36 +118,41 @@ endif;
 <?php require_once('template/header.php'); ?>
 
 <section>
-  
-    
+
+
     <h1>S'inscrire</h1>
-    
+    <p><strong>Cette accés est reservé aux professionnels souhaitant faire apparaitre leur etablisssement sur le site.</strong></p>
     <div class="notice">
         <p>Les champs marqués d'un astérisque (*) sont obligatoires</p>
     </div>
     <?= flash() ?>
     <div class="form-container">
         <form action="" method="post">
-            <div class="form-group">
+            <div class="form-group" name="usernameGroup">
                 <label for="username">* Pseudo <span class="text-info">(Seulement des lettres, chiffres et le tiret du bas)</span></label>
-                <input id="username" type="text" name="username" value="<?= valueField('username'); ?>" />
+                <input id="username" type="text" name="username" value="<?= valueField('username'); ?>" required />
                 <?= !empty($errors['username']) ? '<div class="error-field">' . $errors['username'] . '</div>' : '' ?>
             </div>
-            <div class="form-group">
+            <div class="form-group" name="emailGroup">
                 <label for="email">* Courriel</label>
-                <input id="email" type="tewt" name="email" value="<?= valueField('email'); ?>" />
+                <input id="email" type="text" name="email" value="<?= valueField('email'); ?>" required />
                 <?= !empty($errors['email']) ? '<div class="error-field">' . $errors['email'] . '</div>' : '' ?>
             </div>
-            <div class="form-group">
-                <label for="password">* Mot de passe <span class="text-info">(Seulement des lettres, chiffres et le tiret du bas)</label>
-                <input id="password" type="password" name="password" />
+            <div class="form-group" name="siretGroup">
+                <label for="siret">* n° SIRET</label>
+                <input id="siret" type="text" name="siret" maxlength="14" value="<?= valueField('siret'); ?>" required />
+                <?= !empty($errors['siret']) ? '<div class="error-field">' . $errors['siret'] . '</div>' : '' ?>
+            </div>
+            <div class="form-group" name="passwordGroup">
+                <label for="password">* Mot de passe <span class="text-info">(Minimum 8 caractéres)</label>
+                <input id="password" type="password" name="password" required />
                 <?= !empty($errors['password']) ? '<div class="error-field">' . $errors['password'] . '</div>' : '' ?>
             </div>
-            <div class="form-group">
+            <div class="form-group" name="passwordConfirmGroup">
                 <label for="password-confirm">* Confirmez votre mot de passe</label>
-                <input id="password-confirm" type="password" name="passwordConfirm" />
+                <input id="password-confirm" type="password" name="passwordConfirm" required />
             </div>
-            <button type="submit">S'inscrire</button>
+            <button type="submit" name="signupForm">S'inscrire</button>
         </form>
     </div>
 </section>

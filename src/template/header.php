@@ -6,7 +6,6 @@ if (session_status() == PHP_SESSION_NONE) : // same as if (session_status() !== 
 endif;
 require_once('includes/functions.php')
 ?>
-
 <!DOCTYPE html>
 <html lang="fr">
 

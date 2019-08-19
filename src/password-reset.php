@@ -18,7 +18,6 @@ if (isset($_GET['id']) && isset($_GET['token_reset'])) :
             WHERE id = :id
             AND token_reset = :token_reset
             AND token_reseted_at > DATE_SUB(NOW(), INTERVAL 30 MINUTE)";
-            // -- AND token_reseted_at > DATE_SUB(NOW(), INTERVAL 30 MINUTE)"
     $request = $db->prepare($sql);
     $request->execute($data);
     $user = $request->fetch();
