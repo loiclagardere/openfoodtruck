@@ -61,12 +61,10 @@ if (isset($_POST['firmForm'])) :
 
     // check Firm    
     if (!$firm) :
-        echo 'insert';
 
         // Check the field content
         if (!empty($_POST['name'])) :
             $data = ['name' => $_POST['name'], 'id_user' => $userId];
-
 
             $sql = "INSERT INTO firms (name, id_user)
                     VALUES (:name, :id_user)";
@@ -139,13 +137,13 @@ endif;
         <form id="reset-form" action="" method="post">
             <div class="form-group" name="passwordGroup">
                 <label for="password">* Saisissez un mot de passe</label>
-                <input id="password" type="password" name="password" />
+                <input id="password" type="password" name="password" required />
                 <?= !empty($errors['password']) ? '<div class="error-field">' . $errors['password'] . '</div>' : '' ?>
 
             </div>
             <div class="form-group" name="passwordConfirmgroup">
                 <label for="password-confirm">* Confirmez le mot de passe</label>
-                <input id="password-confirm" type="password" name="passwordConfirm" />
+                <input id="password-confirm" type="password" name="passwordConfirm" required />
                 <?= !empty($errors['passwordConfirm']) ? '<div class="error-field">' . $errors['passwordConfirm'] . '</div>' : '' ?>
             </div>
             <button type="submit" name="resetPasswordForm">Changer le mot de passe</button>

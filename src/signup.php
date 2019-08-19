@@ -3,6 +3,7 @@ session_start();
 require_once('includes/db.php');
 // require_once('vendor/autoload.php');
 require_once('includes/functions.php');
+require_once('includes/functions.php');
 
 // Check submit form
 if (!empty($_POST)) :
@@ -28,9 +29,9 @@ if (!empty($_POST)) :
     ));
     $resultApi = json_decode(curl_exec($curlSession));
     curl_close($curlSession);
-    
+
     if (!isset($resultApi->etablissement)) :
-        $errors['siret'] = "Le numéro de SIRET n'est pas valide.";
+        $errors['siret'] = "Le numéro de Siret n'est pas valide.";
     endif;
 
     // Check username field content and the content format
@@ -129,27 +130,27 @@ endif;
         <form action="" method="post">
             <div class="form-group" name="usernameGroup">
                 <label for="username">* Pseudo <span class="text-info">(Seulement des lettres, chiffres et le tiret du bas)</span></label>
-                <input id="username" type="text" name="username" value="<?= valueField('username'); ?>" />
+                <input id="username" type="text" name="username" value="<?= valueField('username'); ?>" required />
                 <?= !empty($errors['username']) ? '<div class="error-field">' . $errors['username'] . '</div>' : '' ?>
             </div>
             <div class="form-group" name="emailGroup">
                 <label for="email">* Courriel</label>
-                <input id="email" type="text" name="email" value="<?= valueField('email'); ?>" />
+                <input id="email" type="text" name="email" value="<?= valueField('email'); ?>" required />
                 <?= !empty($errors['email']) ? '<div class="error-field">' . $errors['email'] . '</div>' : '' ?>
             </div>
             <div class="form-group" name="siretGroup">
                 <label for="siret">* n° SIRET</label>
-                <input id="siret" type="text" name="siret" value="<?= valueField('siret'); ?>" />
+                <input id="siret" type="text" name="siret" maxlength="14" value="<?= valueField('siret'); ?>" required />
                 <?= !empty($errors['siret']) ? '<div class="error-field">' . $errors['siret'] . '</div>' : '' ?>
             </div>
             <div class="form-group" name="passwordGroup">
                 <label for="password">* Mot de passe <span class="text-info">(Minimum 8 caractéres)</label>
-                <input id="password" type="password" name="password" />
+                <input id="password" type="password" name="password" required />
                 <?= !empty($errors['password']) ? '<div class="error-field">' . $errors['password'] . '</div>' : '' ?>
             </div>
             <div class="form-group" name="passwordConfirmGroup">
                 <label for="password-confirm">* Confirmez votre mot de passe</label>
-                <input id="password-confirm" type="password" name="passwordConfirm" />
+                <input id="password-confirm" type="password" name="passwordConfirm" required />
             </div>
             <button type="submit" name="signupForm">S'inscrire</button>
         </form>
