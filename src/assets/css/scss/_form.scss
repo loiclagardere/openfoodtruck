@@ -1,0 +1,126 @@
+section {
+
+    // message flash
+    .message-flash {
+        display: inline-block;
+        @include fontSize(18px);
+        color: #fff;
+        text-align: center;
+        width: 60%;
+        background-color: #555;
+        padding: 10px 20px;
+        margin-top: 3%;
+    }
+
+    .error {
+        background-color: #c0392b;
+    }
+
+    .success {
+        background-color: #2bbf32;
+    }
+
+    // elements of form
+    .form-container {
+        margin-top: 30px;
+
+        form {
+            display: block;
+            width: 60%;
+        }
+
+    }
+
+
+    .form-group {
+        margin-bottom: 25px;
+
+        label,
+        input {
+            display: block;
+        }
+
+        label {
+            @include fontSize(16px);
+
+            .text-info {
+                @include fontSize(14px);
+                color: #999;
+            }
+
+            .text-link {
+                padding-left: 40px;
+
+                a {
+                    @include fontSize(14px);
+                    color: #61889e;
+
+                    &:focus,
+                    &:hover {
+                        color: #87bad8;
+                    }
+                }
+            }
+        }
+
+        input {
+            outline: none;
+            height: 24px;
+            min-width: 100%;
+            margin: 4px 0;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: none;
+            border-bottom: #f9f9f9 1px solid;
+            transition: ease border .3s;
+
+            &:focus {
+                // background-color: #fff;
+                border-bottom: #000 1px solid;
+            }
+        }
+
+        .error-field {
+            @include fontSize(14px);
+            color: #c0392b;
+        }
+
+        .invalid {
+            border: none;
+            border: solid 1px #c0392b;
+        }
+    }
+
+    button {
+        display: block;
+        @include fontSize(14px);
+        color: #fff;
+        background-color: #666;
+        margin: 20px 0;
+        padding: 8px 12px;
+        outline: none;
+        border: none;
+        border-radius: 3px;
+        transition: background-color ease .3s;
+
+        &:focus,
+        &:hover {
+            background-color: #333;
+        }
+    }
+}
+
+
+// .error-field {
+//     @include fontSize(14px);
+//     color: #c0392b;
+// }
+
+.btn-invalid {
+    background-color: #aaa;
+
+    &:hover,
+    &:focus {
+        background-color: #aaa;
+    }
+}

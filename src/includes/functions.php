@@ -6,8 +6,13 @@
  * @param $variable mixed
  * @param $title string
  */
-function debugP($variable, $title = '___ Debug ___') {
-    echo '<br> ' . $title . '<pre>' . print_r($variable, true) . '</pre>';
+function debugP($variable, $die = '')
+{
+    echo $die;
+    echo '<br> ' . '<pre>' . print_r($variable, true) . '</pre>';
+    if (!empty($die)) {
+        echo  die();
+    }
 }
 
 
@@ -17,8 +22,13 @@ function debugP($variable, $title = '___ Debug ___') {
  * @param $variable mixed
  * @param $title string
  */
-function debugV($variable, $title = '___ Debug ___') {
-    echo '<br> ' . $title . '<pre>' . var_dump($variable) . '</pre>';
+function debugV($variable, $die = '')
+{
+    echo $die;
+    echo '<br> ' . '<pre>' . var_dump($variable) . '</pre>';
+    if (!empty($die)) {
+        echo  die();
+    }
 }
 
 /**
@@ -28,9 +38,10 @@ function debugV($variable, $title = '___ Debug ___') {
  * @param $pwd mixed;
  * 
  */
-function h($pwd) {
+function h($pwd)
+{
     $pwdHash = password_hash($pwd, PASSWORD_DEFAULT);
-    echo 'hash de ' .  $pwd . ': <br>' . $pwdHash ;
+    echo 'hash de ' .  $pwd . ': <br>' . $pwdHash;
 }
 
 
@@ -52,21 +63,40 @@ function emailFilterVar($email)
 
 
 /**
- * Perform a regular expression match
+ * Perform a regular expression match for username
  * 
  * @param mixed
  * @return bool
  */
-function passwordPregMatch($password)
+function usernamePregMatch($string)
 {
-    $regex = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/';
-    $passwordPregMatch = preg_match($regex, $password);
-    if ($passwordPregMatch === 1) :
+    $regex = '/^[a-zA-Z0-9_]+$/';
+    $stringPregMatch = preg_match($regex, $string);
+    if ($stringPregMatch === 1) :
         return true;
     else :
         return false;
     endif;
 }
+
+
+/**
+ * Perform a regular expression match for username
+ * 
+ * @param mixed
+ * @return bool
+ */
+function passwordPregMatch($string)
+{
+    $regex = '/^(?=.{8,})/';
+    $stringPregMatch = preg_match($regex, $string);
+    if ($stringPregMatch === 1) :
+        return true;
+    else :
+        return false;
+    endif;
+}
+
 
 /**
  * Generate a random string
@@ -79,4 +109,54 @@ function stringRandom($length)
     $string = '_0123456789azertyuiopqsdfghjklmxcvbnAZERTYUIOPQSDFGHJKLMWXXCVBN';
     $stringRandom = substr(str_shuffle(str_repeat($string, $length)), 0, $length);
     return $stringRandom;
+}
+
+/**
+ * FIeld content posted
+ * 
+ * @param string
+ */
+function valueField($field) {
+	if (!empty($_POST[$field])) :
+		return $_POST[$field];
+	endif;
+}
+
+
+/**
+ * Display a global message
+ * 
+ * @param string $content
+ */
+function flash()
+{
+    if (isset($_SESSION['flash'])) :
+        foreach ($_SESSION['flash'] as $value) :
+            $content = '<div class="message-flash ' .  $value['status'] . '">';
+            $content .= $value['message'];
+            $content .= '</div>';
+        endforeach;
+        unset($_SESSION['flash']);
+        return $content;
+    endif;
+}
+
+/**
+ * Check user authentification
+ * 
+ * @return bool
+ */
+function authentificated()
+{
+    if (session_status() == PHP_SESSION_NONE) :
+        session_start();
+    endif;
+    if (!isset($_SESSION['auth'])) :
+        $_SESSION['flash'][] = [
+            'message' => "Veuillez vous identifier pour avoir accés à votre compte.",
+            'status' => 'error'
+        ];
+        header('Location: signin.php');
+        die();
+    endif;
 }

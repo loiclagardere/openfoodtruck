@@ -6,7 +6,6 @@ if (session_status() == PHP_SESSION_NONE) : // same as if (session_status() !== 
 endif;
 require_once('includes/functions.php')
 ?>
-
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -21,39 +20,26 @@ require_once('includes/functions.php')
 
 <body>
 
-    <header class="wrapper">
-        <div id="logo">
-            <span>Open Food Truck</span>
-        </div>
-        <nav class="navbar-header">
-            <div class="navbar-primary">
-                <ul>
+    <header>
+        <div id="topbar">
+            <div class="logo-header">
+                <span>Open Food Truck</span>
+            </div>
+            <nav class="menu-header">
+                <ul class="menu-list">
                     <li><a href="index.php" title="Retour vers l'accueil.">Home</a></li>
                     <li><a href="#" title="Pésentation.">Présentation</a></li>
-                </ul>
-            </div>
-            <div class="navbar-connect">
-                <ul id="connect">
                     <?php if (isset($_SESSION['auth'])) : ?>
                         <li><a href="account.php" title="Pour accerder à votre compte">Mon compte</a></li>
-                        <li><a href="logout.php" title="Pour se déconnecter">Se déconnecter</a></li>
+                        <li><a href="signout.php" title="Pour se déconnecter">Se déconnecter</a></li>
                     <?php else : ?>
                         <li><a href="signin.php" title="Pour se connecter">Se connecter</a></li>
                         <li><a href="signup.php" title="Pour s'inscrire">S'inscrire</a></li>
                     <?php endif; ?>
                 </ul>
-            </div>
-        </nav>
+            </nav>
+        </div>
+        <div id="banner-top" class=ban1></div>
     </header>
 
     <div id="container" class="wrapper">
-        <!-- <?php debugP($_SESSION['flash']); ?> -->
-            <?php if (!empty($_SESSION['flash'])) : ?>
-                <?php foreach ($_SESSION['flash'] as $key => $value) : ?>
-                    <div class="message <?= $value['status'] ?>">
-                        <span><?= $value['label'] ?></<span>
-                    </div>
-                <?php endforeach; ?>
-                <?php unset($_SESSION['flash']); ?>
-            <?php endif; ?>
-        </div>
