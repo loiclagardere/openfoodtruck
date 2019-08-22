@@ -3,14 +3,17 @@ require_once('includes/db.php');
 require_once('includes/functions.php');
 authentificated();
 
+//
+
+
 // Check submit form
 // if (isset($_POST['reset-password-form']) && !empty($_POST)) :
-if (isset($_POST['resetPasswordForm'])) : ///////TEST/////////
+if (isset($_POST['reset-password-form'])) : // test
     $errors = [];
-    // Check contnent field password and passwordConfirm
+    // Check content field content password and passwordConfirm
     if (!empty($_POST['password']) && !empty($_POST['passwordConfirm'])) :
 
-        // Compare the values entered 
+        // Compare the field content password and passwordConfirm
         if ($_POST['password'] === $_POST['passwordConfirm']) :
 
             $passwordHash = password_hash($_POST['password'], PASSWORD_DEFAULT);
@@ -39,83 +42,76 @@ if (isset($_POST['resetPasswordForm'])) : ///////TEST/////////
         $errors['passwordConfirm'] = "Ce champs est obligatoire";
 
     endif;
-    // $_SESSION['flash']['password'] = [
-    //     'message' => 'Les informations ne sont pas valides.',
-    //     'status' => 'error'
-    // ];
+$_SESSION['flash']['password'] = [
+    'message' => 'Les informations ne sont pas valides.',
+    'status' => 'error'
+];
 endif;
 
-// add info of firm
-if (isset($_POST['firmForm'])) :
+// add info users about company
+if (!empty($_POST['CompanyForm'])) :
     $errors = [];
 
     $userId = $_SESSION['auth']->id;
     $data = ['id_user' => $userId];
 
     $sql = "SELECT *
-            FROM firms
+            FROM users
             WHERE id_user = :id_user";
     $request = $db->prepare($sql);
     $request->execute($data);
-    $firm = $request->fetch();
+    $user = $request->fetch();
 
-    // check Firm    
-    if (!$firm) :
 
-        // Check the field content
-        if (!empty($_POST['name'])) :
-            $data = ['name' => $_POST['name'], 'id_user' => $userId];
+    // Check the field content
+    if (empty($_POST['company_name'])) :
+        $_SESSION['flash'][] = [
+            'message' => "Veuillez remplir les champs obligatoires.",
+            'status' => "error"
+        ];
+        $errors['name'] = "Veuillez remplir ce champ.";
 
-            $sql = "INSERT INTO firms (name, id_user)
-                    VALUES (:name, :id_user)";
-            $request = $db->prepare($sql);
-            $request->execute($data);
-            $firmId = $db->lastInsertId();
+    elseif (emtpy($user->company_name)) :
+        $data = ['company_name' => $_POST['company_name'], 'id' => $userId];
 
-            $_SESSION['flash'][] = [
-                'message' => "Les informations sont bien enrgistrées.",
-                'status' => "success"
-            ];
-        else :
-            $_SESSION['flash'][] = [
-                'message' => "Veuillez remplir les champs obligatoires.",
-                'status' => "error"
-            ];
-            $errors['name'] = "Veuillez remplir ce champ.";
-        endif;
+        $sql = "INSERT INTO users (company_name, id)
+                    VALUES (:company_name, :id)";
+        $request = $db->prepare($sql);
+        $request->execute($data);
+
+        $_SESSION['flash'][] = [
+            'message' => "Les informations sont bien enrgistrées.",
+            'status' => "success"
+        ];
+
     else :
+    /////////// UPDATE INTO USERS  /////////
+        echo 'faire insert into users';
+    endif;
+else :
 
-        if (!empty($_POST['name'])) :
-            echo 'update';
-            // debugP($_SESSION['auth']->id); ///////////////////////////////
+    if (!empty($_POST['name'])) :
+        echo 'update';
+        // debugP($_SESSION['auth']->id); ///////////////////////////////
 
-            $data = ['name' => $_POST['name'], 'id_user' => $userId];
-            $sql = "UPDATE firms
+        $data = ['name' => $_POST['name'], 'id_user' => $userId];
+        $sql = "UPDATE firms
                 SET name = :name
                 WHERE id_user = :id_user";
-            $request = $db->prepare($sql);
-            $request->execute($data);
-            $_SESSION['flash'][] = [
-                'message' => "Les modifications sont bien enrgistrées.",
-                'status' => "success"
-            ];
-        else :
-            $_SESSION['flash'][] = [
-                'message' => "Veuillez remplir les champs obligatoires.",
-                'status' => "error"
-            ];
-            $errors['name'] = "Veuillez remplir ce champ.";
-        endif;
-
-
+        $request = $db->prepare($sql);
+        $request->execute($data);
+        $_SESSION['flash'][] = [
+            'message' => "Les modifications sont bien enrgistrées.",
+            'status' => "success"
+        ];
+    else :
+        $_SESSION['flash'][] = [
+            'message' => "Veuillez remplir les champs obligatoires.SVP",
+            'status' => "error"
+        ];
+        $errors['name'] = "Veuillez remplir ce champ.";
     endif;
-
-
 endif;
-
-
-
-
 
 ?>
 
@@ -147,7 +143,6 @@ endif;
                 <?= !empty($errors['passwordConfirm']) ? '<div class="error-field">' . $errors['passwordConfirm'] . '</div>' : '' ?>
             </div>
             <button type="submit" name="resetPasswordForm">Changer le mot de passe</button>
-            <!-- <button id="reset-btn" type="submit" name="resetPasswordForm" class="btn-invalid" disabled = "disabled">Changer le mot de passe</button> -->
         </form>
     </div>
 </section>
@@ -156,21 +151,29 @@ endif;
     <h2>Ajouter un établissement</h2>
 
     <div class="form-container">
-        <form id="firm-form" action="" method="post"  autocomplete="on">
+        <form id="company-form" action="" method="post" autocomplete="on">
             <div class="form-group">
-                <label for="firm-name">* Nom de l'établissement</label>
-                <input id="firm-name" type="text" name="name" />
-                <?= !empty($errors['name']) ? '<div class="error-field">' . $errors['name'] . '</div>' : '' ?>
+                <label for="company-name">* Nom de l'établissement</label>
+                <input id="company-name" type="text" name="name" />
+                <?= !empty($errors['company_name']) ? '<div class="error-field">' . $errors['company_name'] . '</div>' : '' ?>
+            </div>
+            <div>
+                <select id="coock-diet" class="form-group select" name="couleur">
+                    <option value="vegetarian" selected>Aucun</option>
+                    <option value="vegetarian">végétarien</option>
+                    <option value="vegan">végétalien</option>
+                    <option value="salt-free">Sans sel</option>
+                    <option value="gluten-free">Sans gluten</option>
+                    <option value="lactose-free">Sans lactose</option>
+                    <option value="locavore">locavore</option>
+                </select>
             </div>
 
-            <button type="submit" name="firmForm">Ajouter l'établissement</button>
+            <button type="submit" name="companyForm">Ajouter l'établissement</button>
         </form>
     </div>
 
 </section>
-
-
-
 
 
 

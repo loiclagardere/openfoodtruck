@@ -3,7 +3,7 @@ session_start();
 require_once('includes/db.php');
 // require_once('vendor/autoload.php');
 require_once('includes/functions.php');
-require_once('includes/mail.php');
+require_once('includes/functions.php');
 
 // Check submit form
 if (!empty($_POST)) :
@@ -93,11 +93,14 @@ if (!empty($_POST)) :
         $emailMessage .= "<a href=\"http://localhost/php/initiation/openfoodtruck-php/openfoodtruck/src/signup-confirm.php?id=$userId&token=$token\"> ici </a>";
         $emailMessage .= " ou copier le lien suivant dans la barre d'adresse de votre navigateur puis liquer sur \"enter\" :<br>";
         $emailMessage .= "http://localhost/php/initiation/openfoodtruck-php/openfoodtruck/src/signup-confirm.php?id=$userId&token=$token";
-
+        $emailHeaders = array( // a vier pour php mailer
+            'From' => 'webservice@openfoodtruck.fr',
+            'Reply-To' => 'webservice@openfoodtruck.fr',
+            'Content-type' => 'text/html; charset=UTF-8',
+            // 'Content-Transfer-Encoding' => '8bit'
+        );
         // $emailMessage = wordwrap($emailMessage, 70, "\n", true); // hyphenation test
-        sendMail($_POST['email'], $emailSubject, $emailMessage);
-
-die('<br>test envoie mail');
+        mail($_POST['email'], $emailSubject, $emailMessage, $emailHeaders);
         $_SESSION['flash'][] = [
             'message' => "<p>Un courriel vous a été envoyé à l'adresse " . $_POST['email'] . ". </p>" . "<p>Veuillez cliquer sur le lien pour valider votre compte.</p>",
             'status' => 'succes'

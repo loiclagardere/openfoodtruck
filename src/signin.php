@@ -8,7 +8,7 @@ if (!empty($_POST)) :
 
     $errors = []; // to stock messages error
 
-    // Check field content
+    // Check field content username and password
     if (!empty($_POST['username']) && !empty($_POST['password'])) :
 
         $data = ['username' => $_POST['username']];

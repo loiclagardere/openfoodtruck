@@ -206,10 +206,6 @@ section .form-container form {
 section .form-group {
   margin-bottom: 25px;
 }
-section .form-group label,
-section .form-group input {
-  display: block;
-}
 section .form-group label {
   font-size: 16px;
   font-size: 1rem;
@@ -231,6 +227,7 @@ section .form-group label .text-link a:focus, section .form-group label .text-li
   color: #87bad8;
 }
 section .form-group input {
+  display: inline-block;
   outline: none;
   height: 24px;
   min-width: 100%;
@@ -252,6 +249,11 @@ section .form-group .error-field {
 section .form-group .invalid {
   border: none;
   border: solid 1px #c0392b;
+}
+section .select {
+  height: 24px;
+  min-width: 50%;
+  margin: 4px 0;
 }
 section button {
   display: block;

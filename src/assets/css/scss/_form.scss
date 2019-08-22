@@ -35,11 +35,6 @@ section {
     .form-group {
         margin-bottom: 25px;
 
-        label,
-        input {
-            display: block;
-        }
-
         label {
             @include fontSize(16px);
 
@@ -64,6 +59,7 @@ section {
         }
 
         input {
+            display: inline-block;
             outline: none;
             height: 24px;
             min-width: 100%;
@@ -79,8 +75,8 @@ section {
                 border-bottom: #000 1px solid;
             }
         }
-
-        .error-field {
+        
+       .error-field {
             @include fontSize(14px);
             color: #c0392b;
         }
@@ -89,6 +85,14 @@ section {
             border: none;
             border: solid 1px #c0392b;
         }
+    }
+
+    
+    .select {
+        height: 24px;
+        min-width: 50%;
+        margin: 4px 0;
+        // background-color: green;
     }
 
     button {

@@ -98,9 +98,10 @@ const messageField = function (classField) {
  */
 const eventOnLoad = function () {
     window.addEventListener('load', function () {
-        // form ? button.setAttribute('disabled', 'disabled') : "";
-        // button ? button.classList.add('btn-invalid') : "";
         button ? styleButtonOff() : "";
+        // for (let i = 0; i < fieldsRequired.length; i++ ) {
+        //     fieldsRequired[i].classList.add('valid');
+        // }
     })
 }
 
@@ -195,8 +196,8 @@ const checkSiret = function () {
         if (regexSiret.test(this.value)) {
             const urlApi = 'https://entreprise.data.gouv.fr/api/sirene/v1/siret/';
             // const urlApi = 'http://127.0.01:1234';  // test erreur serveur
-            // if (window.fetch) { // fetch
-            if (1 == 2) { // xhr
+            if (window.fetch) { // fetch
+            // if (1 == 2) { // xhr
                 const getSiretFetch = async function (inputField) {
                     try {
                         let requestApi = new Request(urlApi + inputField.value);
@@ -212,11 +213,11 @@ const checkSiret = function () {
                         let responseApiData = await responseRequest.json();
                         if (responseRequest.ok) {
 
-                            // try {
                             if (responseApiData.etablissement) {
                                 console.log(responseRequest.statusText)
                                 inputField.classList.remove("invalid");
                                 inputField.classList.add('valid');
+
                             } else {
                                 console.log("ce siret n'exsite pas");
                                 console.log(responseRequest.statusText)
@@ -224,11 +225,6 @@ const checkSiret = function () {
                                 inputField.classList.add("invalid");
                                 elementMessage(siretGroup, messageSiretFormat + " reponse ok mais pas d'etablissement", "siret-length");
                             }
-
-                            // } catch (e) {
-                            //     console.log(e);
-                            //     console.log(responseRequest.statusText)
-                            // }
 
                         } else {
                             console.log('erreur serveur :', responseRequest.status);
@@ -239,8 +235,6 @@ const checkSiret = function () {
                         console.log('catch F exception :', e);
                         console.log('erreur :', responseRequest.status);
                         elementMessage(siretGroup, messageSiretFormat, "siret-length");
-
-
                     }
                 }
                 getSiretFetch(siretField);
