@@ -95,7 +95,7 @@ if (!empty($_POST)) :
         $emailMessage .= "http://localhost/php/initiation/openfoodtruck-php/openfoodtruck/src/signup-confirm.php?id=$userId&token=$token";
 
         // $emailMessage = wordwrap($emailMessage, 70, "\n", true); // hyphenation test
-        sendMail($_POST['email'], $emailSubject, $emailMessage);
+        sendMail('loic.lagardere@free.fr', $emailSubject, $emailMessage);
 
 die('<br>test envoie mail');
         $_SESSION['flash'][] = [
