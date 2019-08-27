@@ -203,6 +203,10 @@ section .form-container form {
   display: block;
   width: 60%;
 }
+section div[name=lastnameGroup] {
+  display: none;
+  visibility: hidden;
+}
 section .form-group {
   margin-bottom: 25px;
 }
@@ -241,6 +245,15 @@ section .form-group input {
 section .form-group input:focus {
   border-bottom: #000 1px solid;
 }
+section .form-group #address {
+  display: inline-block;
+  height: 24px;
+  min-width: 100%;
+  margin: 4px 0;
+}
+section .form-group #address:focus {
+  background-color: green;
+}
 section .form-group .error-field {
   font-size: 14px;
   font-size: 0.875rem;
@@ -249,11 +262,6 @@ section .form-group .error-field {
 section .form-group .invalid {
   border: none;
   border: solid 1px #c0392b;
-}
-section .select {
-  height: 24px;
-  min-width: 50%;
-  margin: 4px 0;
 }
 section button {
   display: block;

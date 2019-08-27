@@ -28,9 +28,13 @@ section {
             display: block;
             width: 60%;
         }
-
     }
 
+
+    div[name="lastnameGroup"] {
+        display: none;
+        visibility: hidden;
+    }
 
     .form-group {
         margin-bottom: 25px;
@@ -71,12 +75,22 @@ section {
             transition: ease border .3s;
 
             &:focus {
-                // background-color: #fff;
                 border-bottom: #000 1px solid;
             }
         }
-        
-       .error-field {
+
+        #address {
+            display: inline-block;
+            height: 24px;
+            min-width: 100%;
+            margin: 4px 0;
+
+            &:focus {
+                background-color: green,
+            }
+        }
+
+        .error-field {
             @include fontSize(14px);
             color: #c0392b;
         }
@@ -85,14 +99,6 @@ section {
             border: none;
             border: solid 1px #c0392b;
         }
-    }
-
-    
-    .select {
-        height: 24px;
-        min-width: 50%;
-        margin: 4px 0;
-        // background-color: green;
     }
 
     button {
@@ -114,11 +120,6 @@ section {
     }
 }
 
-
-// .error-field {
-//     @include fontSize(14px);
-//     color: #c0392b;
-// }
 
 .btn-invalid {
     background-color: #aaa;

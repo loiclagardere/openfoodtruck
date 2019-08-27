@@ -3,11 +3,10 @@ require_once('includes/db.php');
 require_once('includes/functions.php');
 authentificated();
 
-//
 
 
-// Check submit form
-// if (isset($_POST['reset-password-form']) && !empty($_POST)) :
+
+// Check submit form : reset-password-form
 if (isset($_POST['reset-password-form'])) : // test
     $errors = [];
     // Check content field content password and passwordConfirm
@@ -40,16 +39,11 @@ if (isset($_POST['reset-password-form'])) : // test
     else :
         $errors['password'] = "Ce champs est obligatoire.";
         $errors['passwordConfirm'] = "Ce champs est obligatoire";
-
     endif;
-$_SESSION['flash']['password'] = [
-    'message' => 'Les informations ne sont pas valides.',
-    'status' => 'error'
-];
 endif;
 
 // add info users about company
-if (!empty($_POST['CompanyForm'])) :
+if (isset($_POST['CompanyForm'])) :
     $errors = [];
 
     $userId = $_SESSION['auth']->id;
@@ -75,7 +69,7 @@ if (!empty($_POST['CompanyForm'])) :
         $data = ['company_name' => $_POST['company_name'], 'id' => $userId];
 
         $sql = "INSERT INTO users (company_name, id)
-                    VALUES (:company_name, :id)";
+                VALUES (:company_name, :id)";
         $request = $db->prepare($sql);
         $request->execute($data);
 
@@ -85,15 +79,6 @@ if (!empty($_POST['CompanyForm'])) :
         ];
 
     else :
-    /////////// UPDATE INTO USERS  /////////
-        echo 'faire insert into users';
-    endif;
-else :
-
-    if (!empty($_POST['name'])) :
-        echo 'update';
-        // debugP($_SESSION['auth']->id); ///////////////////////////////
-
         $data = ['name' => $_POST['name'], 'id_user' => $userId];
         $sql = "UPDATE firms
                 SET name = :name
@@ -104,15 +89,8 @@ else :
             'message' => "Les modifications sont bien enrgistrées.",
             'status' => "success"
         ];
-    else :
-        $_SESSION['flash'][] = [
-            'message' => "Veuillez remplir les champs obligatoires.SVP",
-            'status' => "error"
-        ];
-        $errors['name'] = "Veuillez remplir ce champ.";
     endif;
 endif;
-
 ?>
 
 
@@ -157,9 +135,18 @@ endif;
                 <input id="company-name" type="text" name="name" />
                 <?= !empty($errors['company_name']) ? '<div class="error-field">' . $errors['company_name'] . '</div>' : '' ?>
             </div>
+            <div class="form-group" name="addressGroup">
+                <label for="address">* Adresse </label>
+                <select id="address" name="address"></select>
+            </div>
+            <input id="street" type="hidden" name="street" />
+            <input id="postcode" type="hidden" name="postcode" />
+            <input id="city" type="hidden" name="city" />
+            <input id="lat" type="hidden" name="lat" />
+            <input id="lng" type="hidden" name="lng" />
             <div>
                 <select id="coock-diet" class="form-group select" name="couleur">
-                    <option value="vegetarian" selected>Aucun</option>
+                    <option value="none" selected>Aucun</option>
                     <option value="vegetarian">végétarien</option>
                     <option value="vegan">végétalien</option>
                     <option value="salt-free">Sans sel</option>

@@ -3,8 +3,9 @@
 <?php session_start(); ?>
 <?php
 
+
 // Check submit form
-if (!empty($_POST)) :
+if (!empty($_POST) && empty($_POST['lastname'])) :
 
     $errors = []; // to stock messages error
 
@@ -57,8 +58,12 @@ endif;
     <?= flash() ?>
         <div class="form-container">
             <form action="" method="post">
+            <div id="lastname-id" class="form-group" name="lastnameGroup">
+                <label for="lastname">* Nom de famille </label>
+                <input id="lastname" type="text" name="lastname" />
+            </div>
                 <div class="form-group" name="usernameEmailGroup">
-                    <label for="username">Pseudo ou courriel *</label>
+                    <label for="username">* Pseudo ou courriel</label>
                     <input id="username-email" type="text" name="username" value="<?= valueField('username'); ?>" required />
                     <?= !empty($errors['username']) ? '<div class="error-field">' . $errors['username'] . '</div>' : '' ?>
                 </div>
