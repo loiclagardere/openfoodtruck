@@ -3,7 +3,38 @@ require_once('db.php');
 require_once('functions.php');
 
 
-function selectAllDiets($database)
+/**
+ * Select All from table
+ * 
+ * @param Object PDO $db
+ * @param string $table
+ */
+// function selectAll($database, $table)
+// {
+//     $sql = "SELECT * FROM $table";
+//     $request = $database->query($sql);
+//     $results = $request->fetchAll();
+//     return $results;
+// }
+function selectAll($database)
+{
+    $sql = "SELECT * FROM coocking-diets";
+    $request = $database->query($sql);
+    $results = $request->fetchAll();
+    return $results;
+}
+
+
+// $coockingDiets = selectAllcoockingDiets($db);
+// foreach ($coockingDiets as $value) :
+//     debugV($value->id);
+//     debugV($value->coocking_diet_name);
+// endforeach;
+
+
+////////////////////////    TEST    ////////////////////////////////
+
+function selectAllUsersCoockingDiets($database)
 {
     $sql = "SELECT *
             FROM users_coocking_diets
@@ -15,17 +46,6 @@ function selectAllDiets($database)
     $result = $request->fetchAll();
     return $result;
 }
-
-
-$select = selectAllDiets($db);
-
-debugV($select);
-
-
-// foreach($select as $value) :
-// debugV($value->id);
-// debugV($value->coocking_diet_name);
-// endforeach;
 
 function InsertPivotDiets($database, $usersId, $coockingDietsId)
 {

@@ -1,6 +1,6 @@
 <?php
-require_once('includes/db.php');
-require_once('includes/functions.php');
+require_once('includes/bootstrap.php');
+// require_once('includes/functions.php');
 authentificated();
 
 
@@ -137,15 +137,15 @@ endif;
             </div>
             <div class="form-group" name="addressGroup">
                 <label for="address">* Adresse </label>
-                <select id="address" name="address"></select>
+                <select id="address" name="company_address"></select>
             </div>
-            <input id="street" type="hidden" name="street" />
-            <input id="postcode" type="hidden" name="postcode" />
-            <input id="city" type="hidden" name="city" />
-            <input id="lat" type="hidden" name="lat" />
-            <input id="lng" type="hidden" name="lng" />
+            <input id="street" type="hidden" name="company_street" />
+            <input id="postcode" type="hidden" name="company_postcode" />
+            <input id="city" type="hidden" name="company_city" />
+            <input id="latitude" type="hidden" name="company_latitude" />
+            <input id="longitude" type="hidden" name="company_longitude" />
             <div>
-                <select id="coock-diet" class="form-group select" name="couleur">
+                <select id="coocking-diets" class="form-group select" name="couleur">
                     <option value="none" selected>Aucun</option>
                     <option value="vegetarian">végétarien</option>
                     <option value="vegan">végétalien</option>

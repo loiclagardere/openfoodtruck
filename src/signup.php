@@ -1,8 +1,6 @@
 <?php
 session_start();
-require_once('includes/db.php');
-require_once('includes/functions.php');
-require_once('includes/sendMail.php');
+require_once('includes/bootstrap.php');
 
 // Check submit form
 if (!empty($_POST) && empty($_POST['lastname'])) :
@@ -102,19 +100,18 @@ if (!empty($_POST) && empty($_POST['lastname'])) :
         $emailSubject = "Validez votre compte sur Openfoodtruck";
 
         $sendMailResult = sendMail($_POST['username'], $_POST['email'], $emailSubject, $confirmationLink);
-        if ($sendMailResult = false) :
-                $_SESSION['flash'][] = [
-                        'message' => "<p>Désolé, une erreur est survenue sur le serveur</p><p>Veuillez renouveler votre inscription.</p>",
-                        'status' => 'error'
-                    ];
-                else :
-                    $_SESSION['flash'][] = [
-                        'message' => "<p>Un courriel vous a été envoyé à l'adresse " . $_POST['email'] . ". </p>" . "<p>Veuillez cliquer sur le lien pour valider votre compte.</p>",
-                        'status' => 'succes'
-                    ];
-                    debugV($sendMailResult, 'sendMailResult');
+        if ($sendMailResult = true) :
+            $_SESSION['flash'][] = [
+                'message' => "<p>Un courriel vous a été envoyé à l'adresse " . $_POST['email'] . ". </p>" . "<p>Veuillez cliquer sur le lien pour valider votre compte.</p>",
+                'status' => 'succes'
+            ];
             header('Location: signin.php');
             die();
+        else :
+            $_SESSION['flash'][] = [
+                'message' => "<p>Désolé, une erreur est survenue sur le serveur</p><p>Veuillez renouveler votre inscription.</p>",
+                'status' => 'error'
+            ];
         endif;
     endif;
 endif;

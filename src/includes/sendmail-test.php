@@ -1,4 +1,5 @@
 <?php
+require_once('functions.php');
 require_once('config-mail.php');
 require_once('mail-inscription.php');
 
@@ -41,15 +42,19 @@ function sendMail($username, $mailTo, $subject, $confirmationLink)
         // $mail->setLanguage('fr', 'phpmailer.lang-fr.php');
 
         $resultMailSend = $mail->send();
+        echo $resultMailSend;
+        
+        debugP($resultMailSend);
 
-        if ($resultMailSend) :
-            // return true;
-            echo'ok';
-            echo $resultMailSend;
-        else :
-            // return false;
-            echo'ko';
-        endif;
+        // if ($resultMailSend) :
+        //     // return true;
+        //     echo'ok';
+        //     echo $resultMailSend;
+        //     else :
+        //         // return false;
+        //         echo'ko';
+        //         echo $resultMailSend;
+        // endif;
         
         $mail->clearAddresses();
         $mail->clearAttachments();

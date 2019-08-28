@@ -40,16 +40,14 @@ function sendMail($username, $mailTo, $subject, $confirmationLink)
         //     $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
         // $mail->setLanguage('fr', 'phpmailer.lang-fr.php');
 
-        $resultMailSend = $mail->send();
+        $result = $mail->send();
 
-        if ($resultMailSend) :
+        if ($result === 1) :
             return true;
         else :
             return false;
         endif;
         
-        $mail->clearAddresses();
-        $mail->clearAttachments();
     } catch (Exception $e) {
         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
     }

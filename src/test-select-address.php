@@ -15,8 +15,8 @@ require_once('includes/functions.php');
             <input id="street" type="hidden" name="street" />
             <input id="postcode" type="hidden" name="postcode" />
             <input id="city" type="hidden" name="city" />
-            <input id="lat" type="hidden" name="lat" />
-            <input id="lng" type="hidden" name="lng" />
+            <input id="latitude" type="hidden" name="latitude" />
+            <input id="longitude" type="hidden" name="longitude" />
 
             <button type="submit" name="signinForm">Valider</button>
         </form>
