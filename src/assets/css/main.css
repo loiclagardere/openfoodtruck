@@ -137,6 +137,14 @@ header #topbar .logo-header {
   width: 45%;
   margin-right: 5%;
 }
+@media all and (max-width: 860px) {
+  header #topbar .logo-header {
+    font-size: 28px;
+    font-size: 1.75rem;
+    width: 35%;
+    margin-right: 30%;
+  }
+}
 header #topbar .menu-header {
   display: inline-block;
   font-size: 18px;
@@ -145,23 +153,33 @@ header #topbar .menu-header {
   text-align: right;
   width: 50%;
 }
+@media all and (max-width: 860px) {
+  header #topbar .menu-header {
+    width: 35%;
+  }
+}
 header #topbar .menu-header .menu-list {
   font-size: 0;
 }
 header #topbar .menu-header .menu-list li {
   display: inline-block;
   padding-right: 3%;
+  margin-top: 20px;
 }
 header #topbar .menu-header .menu-list li:last-child {
   padding-right: 0;
   margin-bottom: 0;
 }
+header #topbar .menu-header .menu-list li:first-child {
+  margin-top: 0;
+}
 header #topbar .menu-header .menu-list li a {
   position: relative;
   font-size: 14px;
   font-size: 0.875rem;
-  padding: 8px 0;
+  padding: 10px 0;
   color: #fff;
+  transition: ease color 0.2s;
 }
 header #topbar .menu-header .menu-list li a::after {
   content: "";
@@ -172,8 +190,11 @@ header #topbar .menu-header .menu-list li a::after {
   transform-origin: 50% 50%;
   width: 100%;
   height: 1px;
-  background-color: #fff;
+  background-color: #6bb3e2;
   transition: ease transform 0.2s;
+}
+header #topbar .menu-header .menu-list li a:hover, header #topbar .menu-header .menu-list li a:focus {
+  color: #6bb3e2;
 }
 header #topbar .menu-header .menu-list li a:hover::after, header #topbar .menu-header .menu-list li a:focus::after {
   transform: translateX(-50%) scaleX(1);
@@ -231,32 +252,26 @@ section .form-group label .text-link a {
 section .form-group label .text-link a:focus, section .form-group label .text-link a:hover {
   color: #87bad8;
 }
-section .form-group input {
-  display: inline-block;
+section .form-group div.contain-input {
+  margin-top: 10px;
+}
+section .form-group div.contain-input input {
   outline: none;
-  height: 24px;
+  min-height: 24px;
   min-width: 100%;
-  margin: 4px 0;
-  padding: 10px;
+  padding: 5px;
   border-radius: 4px;
   border: 1px solid #999;
   transition: ease border 0.3s;
 }
-section .form-group input:focus {
+section .form-group div.contain-input input:focus {
   border: #000 1px solid;
-}
-section .form-group select {
-  display: inline-block;
-  height: 24px;
-  min-width: 100%;
-  margin: 4px 0;
-  border-color: none;
-  border-color: red solid;
 }
 section .form-group .error-field {
   font-size: 14px;
   font-size: 0.875rem;
   color: #c0392b;
+  margin-top: 10px;
 }
 section .form-group .invalid {
   border: none;

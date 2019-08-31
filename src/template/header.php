@@ -16,6 +16,7 @@ require_once('includes/functions.php')
     <title>Open Food Truck - Trouvez votre food trucks partout en France</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.9/css/select2.min.css" />
     <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/select2.css" />
 
 </head>
 
@@ -40,7 +41,9 @@ require_once('includes/functions.php')
                 </ul>
             </nav>
         </div>
-        <div id="banner-top" class=ban1></div>
+        <div id="banner-top" class=ban1>
+            
+        </div>
     </header>
 
     <div id="container" class="wrapper">

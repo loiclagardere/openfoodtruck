@@ -3,18 +3,91 @@ require_once('includes/db.php');
 require_once('includes/functions.php');
 require_once('includes/queries.php');
 
-// $coockingDiets = selectAll($db, 'coocking-diets') ? selectAll($db, 'coocking-diets') : "";
-// $coockingTypes = selectAll($db, 'coocking-types') ? selectAll($db, 'coocking-types') : "";
-// $coockingOrigins = selectAll($db, 'coocking-origins') ? selectAll($db, 'coocking-origins') : "";
-// $coockingDiets = selectAll($db) ? selectAll($db) : "";
-// $coockingTypes = selectAll($db, 'coocking-types');
-// $coockingOrigins = selectAll($db, 'coocking-origins');
+$coockingDiets = selectDatabase($db, 'coocking_diets') ? selectDatabase($db, 'coocking_diets') : "";
+$coockingTypes = selectDatabase($db, 'coocking_types') ? selectDatabase($db, 'coocking_types') : "";
+$coockingOrigins = selectDatabase($db, 'coocking_origins') ? selectDatabase($db, 'coocking_origins') : "";
 
-// debugV($_POST);
+// simmulate authentification /////////////////////////////////
+$_SESSION['auth'] = [
+    'id' => 204
+];
+$userId = $_SESSION['auth']['id'];
 
-// if (!empty($_POST)) :
-    
-// endif;
+$user = getAll($db, $userId);
+// debugP($user[0], '$user');
+// debugP($user[0]->coocking_diet_name, '$user');
+// die();
+
+// debugV($_POST['coocking_diet']);////////////////////////////
+
+// Check form send
+if (!empty($_POST)) :
+
+    $errors = [];
+    // Check company_name field
+    if (empty($_POST['company_name'])) :
+        $errors['company_name'] = "Ce champs est obligatoire.";
+    endif;
+
+    // Check situation fiels
+    if (empty($_POST['company_situation'])) :
+        $errors['company_situation'] = "Ce champs est obligatoire.";
+    endif;
+
+    // Check errors
+    // if (empty($errors)) :
+    //     echo "pas d'erreur";
+    //     $name = trim($_POST['company_name']);
+    //     $situation = $_POST['company_situation'];
+    //     $label = $_POST['company_label'];
+    //     $street = $_POST['company_street'];
+    //     $postcode = $_POST['company_postcode'];
+    //     $city = $_POST['company_city'];
+    //     $latitude = $_POST['company_latitude'];
+    //     $longitude = $_POST['company_longitude'];
+
+    //     $data = [
+    //         'user_id' => $userId,
+    //         'company_name' => $name,
+    //         'company_situation' => $situation,
+    //         'company_label' => $label,
+    //         'company_street' => $street,
+    //         'company_postcode' => $postcode,
+    //         'company_city' => $city,
+    //         'company_latitude' => $latitude,
+    //         'company_longitude' => $longitude
+    //     ];
+
+    //     $sql = "UPDATE users
+    //             SET company_name = :company_name,
+    //                 company_situation = :company_situation,
+    //                 company_label = :company_label,
+    //                 company_street = :company_street,
+    //                 company_postcode = :company_postcode,
+    //                 company_city = :company_city,
+    //                 company_latitude = :company_latitude,
+    //                 company_longitude = :company_longitude
+    //             WHERE user_id = :user_id";
+
+    //     $request = $db->prepare($sql);
+    //     $request->execute($data);
+    // endif;
+
+    if (!empty($_POST['coocking_diet'])) :
+        $sql = "DELETE FROM users_coocking_diets
+                WHERE id_users = " . $userId;
+        $request = $db->prepare($sql);
+        $request->execute();
+        foreach ($_POST['coocking_diet'] as $value) :
+            $data = ['id_users' => $userId, 'id_coocking_diets' => $value];
+            $sql = "INSERT INTO users_coocking_diets (id_users, id_coocking_diets)
+                    VALUES (:id_users, :id_coocking_diets)";
+            $request = $db->prepare($sql);
+            $request->execute($data);
+        endforeach;
+    endif;
+
+endif;
 
 
 
@@ -26,40 +99,60 @@ require_once('includes/queries.php');
     <div class="form-container">
         <form action="" method="post">
             <div class="form-group">
-                <label for="company-name">* Nom de l'établissement</label>
-                <input id="company-name" type="text" name="name" />
-                <?= !empty($errors['company_name']) ? '<div class="error-field">' . $errors['company_name'] . '</div>' : '' ?>
+                <label for="company-name" name="companyNameGroup">* Nom de l'établissement</label>
+                <div class="contain-input">
+                    <input id="company-name" type="text" name="company_name" required value="<?php echo isset($user->company_name) ? $user['company_name'] : ""  ?>">
+                </div>
+                <?= !empty($errors['name']) ? '<div class="error-field">' . $errors['name'] . '</div>' : '' ?>
             </div>
-            <div class="form-group" name="addressGroup">
-                <label for="address">* Adresse </label>
-                <select id="address" name="address"></select>
+
+            <div class="form-group" name="situationGroup">
+                <label for="company-situation">* Adresse </label>
+                <select id="company-situation" name="company_situation" required></select>
+                <?= !empty($errors['situation']) ? '<div class="error-field">' . $errors['situation'] . '</div>' : '' ?>
             </div>
-            <input id="street" type="hidden" name="street" />
-            <input id="postcode" type="hidden" name="postcode" />
-            <input id="city" type="hidden" name="city" />
-            <input id="lat" type="hidden" name="lat" />
-            <input id="lng" type="hidden" name="lng" />
+            <input id="company-label" type="hidden" name="company_label" />
+            <input id="company-street" type="hidden" name="company_street" />
+            <input id="company-postcode" type="hidden" name="company_postcode" />
+            <input id="company-city" type="hidden" name="company_city" />
+            <input id="company-latitude" type="hidden" name="company_latitude" />
+            <input id="company-longitude" type="hidden" name="company_longitude" />
+
             <div class="form-group" name="coockingDietsGroup">
-                <label for="coocking-diets"> Types de régimes alimentaires </label>
-                <select id="coocking-diets" name="diets-states[]" multiple="multiple">
+                <label for="coocking-diet"> Types de régimes alimentaires </label>
+                <select id="coocking-diet" name="coocking_diet[]" multiple="multiple">
                     <?php foreach ($coockingDiets as $value) : ?>
-                    <option value=" <?= $value->id ?> "><?= $value->coocking_diet_name ?></option>
+                    <option <?php
+                                foreach ($user as $diet) :
+                                    echo (isset($diet->coocking_diet_name) && $value->coocking_diet_name === $diet->coocking_diet_name) ? ' selected' : '';
+                                endforeach;
+                                ?> value=" <?= $value->diet_id ?> "><?= $value->coocking_diet_name ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>
             <div class="form-group" name="coockingTypesGroup">
-                <label for="Types-types"> Types des plats </label>
-                <select id="Types-types" name="types-states[]" multiple="multiple">
+                <label for="coocking-type"> Types des plats </label>
+                <select id="coocking-type" name="coocking_type[0,1]" multiple="multiple">
                     <?php foreach ($coockingTypes as $value) : ?>
-                    <option value=" <?= $value->id ?> "><?= $value->coocking_type_name ?></option>
+                    <option <?php
+                                foreach ($user as $type) :
+                                    // debugP($type);
+                                    // die();
+                                    echo (isset($type->coocking_type_name) && $value->coocking_type_name === $type->coocking_type_name) ? ' selected' : '';
+                                endforeach;
+                                ?> value=" <?= $value->type_id ?> "><?= $value->coocking_type_name ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>
             <div class="form-group" name="coockingOriginsGroup">
-                <label for="coocking-origins"> Origine des plats </label>
-                <select id="coocking-origins" name="origins-states[]" multiple="multiple">
+                <label for="coocking-origin"> Origine des plats </label>
+                <select id="coocking-origin" name="coocking_origin[]" multiple="multiple">
                     <?php foreach ($coockingOrigins as $value) : ?>
-                    <option value=" <?= $value->id ?> "><?= $value->coocking_origin_name ?></option>
+                    <option  <?php
+                                foreach ($user as $origin) :
+                                    echo (isset($origin->coocking_origin_name) && $value->coocking_origin_name === $origin->coocking_origin_name) ? ' selected' : '';
+                                endforeach;
+                                ?> value=" <?= $value->origin_id ?> "><?= $value->coocking_origin_name ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>

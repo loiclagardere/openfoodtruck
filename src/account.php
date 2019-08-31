@@ -19,13 +19,13 @@ if (isset($_POST['reset-password-form'])) : // test
             $userId = $_SESSION['auth']->id;
             $data = [
                 'password' => $passwordHash,
-                'id'       => $userId
+                'user_id'  => $userId
             ];
 
             // Request to update user
             $sql = "UPDATE users
                     SET password = :password
-                    WHERE id = :id";
+                    WHERE user_id = :user_id";
             $request = $db->prepare($sql);
             $request->execute($data);
 
@@ -42,55 +42,6 @@ if (isset($_POST['reset-password-form'])) : // test
     endif;
 endif;
 
-// add info users about company
-if (isset($_POST['CompanyForm'])) :
-    $errors = [];
-
-    $userId = $_SESSION['auth']->id;
-    $data = ['id_user' => $userId];
-
-    $sql = "SELECT *
-            FROM users
-            WHERE id_user = :id_user";
-    $request = $db->prepare($sql);
-    $request->execute($data);
-    $user = $request->fetch();
-
-
-    // Check the field content
-    if (empty($_POST['company_name'])) :
-        $_SESSION['flash'][] = [
-            'message' => "Veuillez remplir les champs obligatoires.",
-            'status' => "error"
-        ];
-        $errors['name'] = "Veuillez remplir ce champ.";
-
-    elseif (emtpy($user->company_name)) :
-        $data = ['company_name' => $_POST['company_name'], 'id' => $userId];
-
-        $sql = "INSERT INTO users (company_name, id)
-                VALUES (:company_name, :id)";
-        $request = $db->prepare($sql);
-        $request->execute($data);
-
-        $_SESSION['flash'][] = [
-            'message' => "Les informations sont bien enrgistrées.",
-            'status' => "success"
-        ];
-
-    else :
-        $data = ['name' => $_POST['name'], 'id_user' => $userId];
-        $sql = "UPDATE firms
-                SET name = :name
-                WHERE id_user = :id_user";
-        $request = $db->prepare($sql);
-        $request->execute($data);
-        $_SESSION['flash'][] = [
-            'message' => "Les modifications sont bien enrgistrées.",
-            'status' => "success"
-        ];
-    endif;
-endif;
 ?>
 
 
