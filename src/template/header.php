@@ -42,7 +42,6 @@ require_once('includes/functions.php')
             </nav>
         </div>
         <div id="banner-top" class=ban1>
-            
         </div>
     </header>
 

@@ -5,6 +5,7 @@ header {
 
     #topbar {
         // position: fixed; //***** à decomenter avant mise en prod
+        position: relative;
         top: 0;
         color: #fff;
         font-size: 0;
@@ -13,19 +14,36 @@ header {
         width: 100%;
         margin: 0 auto;
         padding: 15px 1%;
-        
-        
+
+
         .logo-header {
             display: inline-block;
             @include fontSize(48px);
             width: 45%;
             margin-right: 5%;
-            
+
             @media all and (max-width: 860px) {
                 @include fontSize(28px);
                 width: 35%;
-                margin-right: 30%;
+                margin-right: 20%;
             }
+
+
+            @media all and (min-width: 890px) {
+                &::after {
+                    content: "";
+                    position: absolute;
+                    display: inline-block;
+                    background: url(../images/logo-oft.png) no-repeat;
+                    background-size: 100% auto;
+                    width: 150px;
+                    height: 80px;
+                    margin-left: 5%;
+                    bottom: 0;
+                    top: 25px;
+                }
+            }
+
         }
 
         .menu-header {
@@ -33,9 +51,9 @@ header {
             @include navbar(18px);
             text-align: right;
             width: 50%;
-            
+
             @media all and (max-width: 860px) {
-                width: 35%;
+                width: 45%;
             }
 
 
