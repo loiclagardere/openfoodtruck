@@ -1,29 +1,31 @@
 <?php
-require_once('includes/db.php');
-require_once('includes/functions.php');
+require_once('includes/bootstrap.php');
+// require_once('includes/functions.php');
 authentificated();
 
-// Check submit form
-// if (isset($_POST['reset-password-form']) && !empty($_POST)) :
-if (isset($_POST['resetPasswordForm'])) : ///////TEST/////////
+
+
+
+// Check submit form : reset-password-form
+if (isset($_POST['reset-password-form'])) : // test
     $errors = [];
-    // Check contnent field password and passwordConfirm
+    // Check content field content password and passwordConfirm
     if (!empty($_POST['password']) && !empty($_POST['passwordConfirm'])) :
 
-        // Compare the values entered 
+        // Compare the field content password and passwordConfirm
         if ($_POST['password'] === $_POST['passwordConfirm']) :
 
             $passwordHash = password_hash($_POST['password'], PASSWORD_DEFAULT);
             $userId = $_SESSION['auth']->id;
             $data = [
                 'password' => $passwordHash,
-                'id'       => $userId
+                'user_id'  => $userId
             ];
 
             // Request to update user
             $sql = "UPDATE users
                     SET password = :password
-                    WHERE id = :id";
+                    WHERE user_id = :user_id";
             $request = $db->prepare($sql);
             $request->execute($data);
 
@@ -37,85 +39,8 @@ if (isset($_POST['resetPasswordForm'])) : ///////TEST/////////
     else :
         $errors['password'] = "Ce champs est obligatoire.";
         $errors['passwordConfirm'] = "Ce champs est obligatoire";
-
     endif;
-    // $_SESSION['flash']['password'] = [
-    //     'message' => 'Les informations ne sont pas valides.',
-    //     'status' => 'error'
-    // ];
 endif;
-
-// add info of firm
-if (isset($_POST['firmForm'])) :
-    $errors = [];
-
-    $userId = $_SESSION['auth']->id;
-    $data = ['id_user' => $userId];
-
-    $sql = "SELECT *
-            FROM firms
-            WHERE id_user = :id_user";
-    $request = $db->prepare($sql);
-    $request->execute($data);
-    $firm = $request->fetch();
-
-    // check Firm    
-    if (!$firm) :
-
-        // Check the field content
-        if (!empty($_POST['name'])) :
-            $data = ['name' => $_POST['name'], 'id_user' => $userId];
-
-            $sql = "INSERT INTO firms (name, id_user)
-                    VALUES (:name, :id_user)";
-            $request = $db->prepare($sql);
-            $request->execute($data);
-            $firmId = $db->lastInsertId();
-
-            $_SESSION['flash'][] = [
-                'message' => "Les informations sont bien enrgistrées.",
-                'status' => "success"
-            ];
-        else :
-            $_SESSION['flash'][] = [
-                'message' => "Veuillez remplir les champs obligatoires.",
-                'status' => "error"
-            ];
-            $errors['name'] = "Veuillez remplir ce champ.";
-        endif;
-    else :
-
-        if (!empty($_POST['name'])) :
-            echo 'update';
-            // debugP($_SESSION['auth']->id); ///////////////////////////////
-
-            $data = ['name' => $_POST['name'], 'id_user' => $userId];
-            $sql = "UPDATE firms
-                SET name = :name
-                WHERE id_user = :id_user";
-            $request = $db->prepare($sql);
-            $request->execute($data);
-            $_SESSION['flash'][] = [
-                'message' => "Les modifications sont bien enrgistrées.",
-                'status' => "success"
-            ];
-        else :
-            $_SESSION['flash'][] = [
-                'message' => "Veuillez remplir les champs obligatoires.",
-                'status' => "error"
-            ];
-            $errors['name'] = "Veuillez remplir ce champ.";
-        endif;
-
-
-    endif;
-
-
-endif;
-
-
-
-
 
 ?>
 
@@ -147,7 +72,6 @@ endif;
                 <?= !empty($errors['passwordConfirm']) ? '<div class="error-field">' . $errors['passwordConfirm'] . '</div>' : '' ?>
             </div>
             <button type="submit" name="resetPasswordForm">Changer le mot de passe</button>
-            <!-- <button id="reset-btn" type="submit" name="resetPasswordForm" class="btn-invalid" disabled = "disabled">Changer le mot de passe</button> -->
         </form>
     </div>
 </section>
@@ -156,21 +80,38 @@ endif;
     <h2>Ajouter un établissement</h2>
 
     <div class="form-container">
-        <form id="firm-form" action="" method="post"  autocomplete="on">
+        <form id="company-form" action="" method="post" autocomplete="on">
             <div class="form-group">
-                <label for="firm-name">* Nom de l'établissement</label>
-                <input id="firm-name" type="text" name="name" />
-                <?= !empty($errors['name']) ? '<div class="error-field">' . $errors['name'] . '</div>' : '' ?>
+                <label for="company-name">* Nom de l'établissement</label>
+                <input id="company-name" type="text" name="name" />
+                <?= !empty($errors['company_name']) ? '<div class="error-field">' . $errors['company_name'] . '</div>' : '' ?>
+            </div>
+            <div class="form-group" name="addressGroup">
+                <label for="address">* Adresse </label>
+                <select id="address" name="company_address"></select>
+            </div>
+            <input id="street" type="hidden" name="company_street" />
+            <input id="postcode" type="hidden" name="company_postcode" />
+            <input id="city" type="hidden" name="company_city" />
+            <input id="latitude" type="hidden" name="company_latitude" />
+            <input id="longitude" type="hidden" name="company_longitude" />
+            <div>
+                <select id="coocking-diets" class="form-group select" name="couleur">
+                    <option value="none" selected>Aucun</option>
+                    <option value="vegetarian">végétarien</option>
+                    <option value="vegan">végétalien</option>
+                    <option value="salt-free">Sans sel</option>
+                    <option value="gluten-free">Sans gluten</option>
+                    <option value="lactose-free">Sans lactose</option>
+                    <option value="locavore">locavore</option>
+                </select>
             </div>
 
-            <button type="submit" name="firmForm">Ajouter l'établissement</button>
+            <button type="submit" name="companyForm">Ajouter l'établissement</button>
         </form>
     </div>
 
 </section>
-
-
-
 
 
 

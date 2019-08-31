@@ -1,5 +1,4 @@
 <?php
-
 require_once('config.php');
 
 // Création et test de la connexion

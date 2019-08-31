@@ -1,92 +1,89 @@
-'use strict'
-
-// Variables
-let form = document.querySelector("form");
-let passwordField = document.getElementById("password");
-let confirmField = document.getElementById("password-confirm");
-let button = document.querySelector("button");
-let formGroup = document.querySelector(".form-group");
-let messagePassword = "";
-
-addHtmlOnButton();
-validPassword()
-
 /**
- * Add class and attribute on forom button
+ * Select Address
  * 
  */
-function addHtmlOnButton() {
-    window.addEventListener('load', function () {
-        form ? button.setAttribute('disabled', 'disabled') : "";
-        button ? button.classList.add('btn-invalid') : "";
-    })
-}
+$('#company-situation').select2({
+    debug: true,
+    minimumInputLength: 2,
+    ajax: {
+        placeholder: {
+            id: '-1',
+            text: 'Saisissez l\'adresse de votre food truck'
+        },
+        url: function (params) {
+            return 'https://api-adresse.data.gouv.fr/search/?q=' + params.term;
+        },
+        dataType: 'json',
+        processResults: function (data) {
+            const results = data.features.map(situation => ({
+                id: situation.properties.citycode,
+                text: situation.properties.label,
+                longitude: situation.geometry.coordinates[0],
+                latitude: situation.geometry.coordinates[1],
+                name: situation.properties.name,
+                postcode: situation.properties.postcode,
+                city: situation.properties.city
+            }));
+            console.log(results);
+            return {
+                results
+            };
+        }
+    },
+});
+
+$('#company-situation').on('select2:select', function (e) {
+    let results = e.params.data;
+    console.log(results);
+    $('#company-label').val(results.text);
+    $('#company-street').val(results.name);
+    $('#company-postcode').val(results.postcode);
+    $('#company-city').val(results.city);
+    $('#company-latitude').val(results.latitude);
+    $('#company-longitude').val(results.longitude);
+});
+
 
 /**
- * 
- * Check password validity
+ * Select coocking diets
  * 
  */
-function validPassword() {
-    passwordField.addEventListener('keyup', function (e) {
-        if (this.value.length > 7 && this.value == confirmField.value) {
-            button.removeAttribute("disabled", "");
-            button.classList.remove("btn-invalid");
-            this.classList.remove("invalid");
-            confirmField.classList.remove("invalid");
-        } else {
-            button.setAttribute('disabled', 'disabled');
-            button.classList.add('btn-invalid');
-            this.classList.add("invalid");
-            confirmField.classList.add("invalid");
-            this.value.length < 8 ? createMessagePassword(document.getElementById("password"), formGroup) : message.remove();
-
-            console.log(createMessagePassword(createMessagePassword(document.getElementById("password"), formGroup)));
+$(document).ready(function () {
+    $('#coocking-diet').select2({
+        closeOnSelect: false,
+        placeholder: {
+            id: '-1',
+            text: 'Aucun'
         }
     });
+});
 
-    confirmField.addEventListener('keyup', function (e) {
-        if (this.value.length > 7 && this.value == passwordField.value) {
-            button.removeAttribute("disabled", "");
-            button.classList.remove("btn-invalid");
-            this.classList.remove("invalid");
-            passwordField.classList.remove("invalid");
-        } else {
-            button.setAttribute("disabled", "disabled");
-            button.classList.add('btn-invalid');
-            this.classList.add("invalid");
-            passwordField.classList.add("invalid");
+
+/**
+ * Select coocking types
+ * 
+ */
+$(document).ready(function () {
+    $('#coocking-type').select2({
+        closeOnSelect: false,
+        placeholder: {
+            id: '-1',
+            text: 'Aucun'
         }
     });
-}
+});
 
 
-
-
-// function createMessageField(element, parentNode) {
-//     document.getElementById(messageField.id) ? document.getElementById(messageField.id).remove() : "";
-//     messageField = document.createElement('div');
-//     messageField.id = "password-field";
-//     messageField.classList.add('error-field');
-//     messageField.innerText = "Il manque " + (8 - element.value.length) + " caractére(s).";
-//     parentNode.appendChild(messageField);
-
-// }
-
-
-
-
-let messagePasswordStringLength = function (element, parentNode) {
-    messagePassword = document.createElement('div');
-    messagePassword.id = "password-field";
-    messagePassword.classList.add('error-field');
-    messagePassword.innerText = "Il manque " + (8 - element.value.length) + " caractére(s).";
-    parentNode.appendChild(messagePassword);
-    return messagePassword;
-}
-
-let createMessagePassword= function (element, parentNode) {
-    messagePasswordStringLength(element, parentNode);
-    document.getElementById(messagePassword.id) ? document.getElementById(messagePassword.id).remove() : "";
-} 
-
+/**
+ * Select coocking origins
+ * 
+ */
+$(document).ready(function () {
+    $('#coocking-origin').select2({
+        closeOnSelect: false,
+        placeholder: {
+            id: '-1',
+            text: 'Aucun'
+        }
+    });
+});
