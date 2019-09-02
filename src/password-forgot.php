@@ -68,8 +68,8 @@ endif;
 
 
 <?php require_once('template/header.php'); ?>
-<section>
-    <h1>Mot de passe oublié</h1>
+<section  class="section-form">
+    <h2>Mot de passe oublié</h2>
     <div class="notice">
         <p>Les champs marqués d'un astérisque (*) sont obligatoires</p>
     </div>

@@ -4,7 +4,10 @@
 if (session_status() == PHP_SESSION_NONE) : // same as if (session_status() !== PHP_SESSION_ACTIVE)
     session_start();
 endif;
-require_once('includes/functions.php')
+require_once('includes/functions.php');
+
+$url = "http://" . $_SERVER['SERVER_NAME'] . $_SERVER["REQUEST_URI"];
+$urlIndex = "http://localhost/php/initiation/openfoodtruck-php/openfoodtruck/src/index.php";
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -21,28 +24,36 @@ require_once('includes/functions.php')
 </head>
 
 <body>
-
-    <header>
-        <div id="topbar">
-            <div class="logo-header">
-                <span>Open Food Truck</span>
+    <header class="content-header">
+            <div id="topbar"<?php echo ($url == $urlIndex) ? 'class="posit-abs"': ""; ?>>
+                <div class="contain-logo-header">
+                    <div class="logo-header">
+                        <span>Open Food Truck</span>
+                    </div>
+                </div>
+                <div class="contain-menu-header">
+                    <nav class="menu-header">
+                        <ul class="menu-list">
+                            <li><a href="index.php" title="Pésentation.">Présentation</a></li>
+                            <li><a href="index.php" title="Retour vers l'accueil.">Rechercher</a></li>
+                            <?php if (isset($_SESSION['auth'])) : ?>
+                            <li><a href="account.php" title="Pour accerder à votre compte">Mon compte</a></li>
+                            <li><a href="signout.php" title="Pour se déconnecter">Se déconnecter</a></li>
+                            <?php else : ?>
+                            <li><a href="home-connexion.php" title="Pour se connecte ou créer un compte.">Espace pro</a></li>
+                            <?php endif; ?>
+                        </ul>
+                    </nav>
+                </div>
             </div>
-            <nav class="menu-header">
-                <ul class="menu-list">
-                    <li><a href="index.php" title="Retour vers l'accueil.">Home</a></li>
-                    <li><a href="#" title="Pésentation.">Présentation</a></li>
-                    <?php if (isset($_SESSION['auth'])) : ?>
-                    <li><a href="account.php" title="Pour accerder à votre compte">Mon compte</a></li>
-                    <li><a href="signout.php" title="Pour se déconnecter">Se déconnecter</a></li>
-                    <?php else : ?>
-                    <li><a href="signin.php" title="Pour se connecter">Se connecter</a></li>
-                    <li><a href="signup.php" title="Pour s'inscrire">S'inscrire</a></li>
-                    <?php endif; ?>
-                </ul>
-            </nav>
-        </div>
-        <div id="banner-top" class=ban1>
-        </div>
+            <?php if ($url == $urlIndex) : ?>
+            <div class="banner-header">
+                <div class="text-banner">
+                    <h1>Trouvez votre food truck partout en France!</h1>
+                </div>
+            </div>
+            <?php endif; ?>
+        <!-- </div> -->
     </header>
 
-    <div id="container" class="wrapper">
+    <div id="container" <?php echo ($url == $urlIndex) ? "": "class='wrapper'"; ?>>

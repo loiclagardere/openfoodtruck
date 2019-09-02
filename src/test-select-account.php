@@ -1,7 +1,8 @@
 <?php
-require_once('includes/db.php');
-require_once('includes/functions.php');
-require_once('includes/queries.php');
+// require_once('includes/db.php');
+// require_once('includes/functions.php');
+// require_once('includes/queries.php');
+require_once('includes/bootstrap.php');
 
 $coockingDiets = selectDatabase($db, 'coocking_diets') ? selectDatabase($db, 'coocking_diets') : "";
 $coockingTypes = selectDatabase($db, 'coocking_types') ? selectDatabase($db, 'coocking_types') : "";
@@ -96,6 +97,7 @@ endif;
 <?php require_once('template/header.php'); ?>
 
 <section>
+<h2>Ajouter un établissement</h2>
     <div class="form-container">
         <form action="" method="post">
             <div class="form-group">

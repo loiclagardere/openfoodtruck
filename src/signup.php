@@ -62,7 +62,7 @@ if (!empty($_POST) && empty($_POST['lastname'])) :
         ));
         $resultApi = json_decode(curl_exec($curlSession));
         curl_close($curlSession);
-        
+
         if (isset($resultApi->etablissement)) :
             $data = ['siret' => $_POST['siret']];
             $sql = "SELECT user_id
@@ -123,12 +123,8 @@ endif;
 ?>
 
 <?php require_once('template/header.php'); ?>
-
-<section>
-
-
-    <h1>S'inscrire</h1>
-    <p><strong>Cette section est reservé aux professionnels souhaitant faire apparaitre leur etablisssement sur le site.</strong></p>
+<section class="section-form">
+    <h2>Inscription</h2>
     <div class="notice">
         <p>Les champs marqués d'un astérisque (*) sont obligatoires</p>
     </div>
@@ -140,7 +136,7 @@ endif;
                 <input id="lastname" type="text" name="lastname" />
             </div>
             <div class="form-group" name="usernameGroup">
-                <label for="username">* Pseudo <span class="text-info">(Seulement des lettres, chiffres et le tiret du bas)</span></label>
+                <label for="username">* Pseudo <span class="info-field">(Seulement des lettres, chiffres et le tiret du bas)</span></label>
                 <div class="contain-input">
                     <input id="username" type="text" name="username" value="<?= valueField('username'); ?>" required />
                 </div>
@@ -161,7 +157,7 @@ endif;
                 <?= !empty($errors['siret']) ? '<div class="error-field">' . $errors['siret'] . '</div>' : '' ?>
             </div>
             <div class="form-group" name="passwordGroup">
-                <label for="password">* Mot de passe <span class="text-info">(Minimum 8 caractéres)</label>
+                <label for="password">* Mot de passe <span class="info-field">(Minimum 8 caractéres)</label>
                 <div class="contain-input">
                     <input id="password" type="password" name="password" required />
                 </div>
@@ -177,5 +173,4 @@ endif;
         </form>
     </div>
 </section>
-
 <?php require_once('template/footer.php'); ?>

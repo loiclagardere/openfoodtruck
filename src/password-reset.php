@@ -61,9 +61,9 @@ endif;
 
 <?php require_once('template/header.php'); ?>
 
-<h1> Réinitialiser votre mot de passe </h1>
+<h2> Réinitialiser votre mot de passe </h2>
 
-<section>
+<section class="section-form">
     <div class="notice">
         <p>Les champs marqués d'un astérisque (*) sont obligatoires</p>
     </div>

@@ -48,18 +48,18 @@ function getAll($db, $userId)
 
     $sql = "SELECT *
             FROM users u
-            JOIN users_coocking_diets ucd
+            LEFT JOIN users_coocking_diets ucd
             ON ucd.id_users = u.user_id
-            JOIN coocking_diets cd
+            LEFT JOIN coocking_diets cd
             ON cd.diet_id = ucd.id_coocking_diets
-            JOIN users_coocking_origins uco
+            LEFT JOIN users_coocking_origins uco
             ON u.user_id = uco.id_users
-            JOIN coocking_origins co
+            LEFT JOIN coocking_origins co
             ON uco.id_coocking_origins = co.origin_id
-            -- JOIN users_coocking_types uct
-            -- ON u.user_id = uct.id_users
-            -- JOIN coocking_types ct
-            -- ON uct.id_coocking_types = ct.type_id
+            LEFT JOIN users_coocking_types uct
+            ON u.user_id = uct.id_users
+            LEFT JOIN coocking_types ct
+            ON uct.id_coocking_types = ct.type_id
             WHERE user_id = :user_id";
     $request = $db->prepare($sql);
     $request->execute($data);
