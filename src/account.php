@@ -7,7 +7,7 @@ authentificated();
 $userId = $_SESSION['auth']->user_id;
 $userData = getAll($db, $userId);
 
-debugP($userData); ////////////////////////////////////////////////////////////////////
+//debugP($userData); ////////////////////////////////////////////////////////////////////
 
 // Password reset form
 // Check submit form : reset-password-form
@@ -51,6 +51,7 @@ $coockingDiets = selectDatabase($db, 'coocking_diets') ? selectDatabase($db, 'co
 $coockingTypes = selectDatabase($db, 'coocking_types') ? selectDatabase($db, 'coocking_types') : "";
 $coockingOrigins = selectDatabase($db, 'coocking_origins') ? selectDatabase($db, 'coocking_origins') : "";
 
+
 // Check form send
 if (!empty($_POST)  && isset($_POST['companyForm'])) :
 
@@ -61,35 +62,44 @@ if (!empty($_POST)  && isset($_POST['companyForm'])) :
     endif;
 
     // Check situation fiels
-    if (empty($_POST['company_situation'])) :
+    if (empty($_POST['company_situation']) && !$userData[0]->company_label) :
         $errors['company_situation'] = "Ce champs est obligatoire.";
     endif;
+
+
 
     // Check errors
     if (empty($errors)) :
         echo "pas d'erreur";
         $name = trim($_POST['company_name']);
-        $situation = $_POST['company_situation'];
+        $situation = (!empty($_POST['company_situation'])) ? $_POST['company_situation'] : $userData[0]->company_situation;
         $label = $_POST['company_label'];
         $street = $_POST['company_street'];
         $postcode = $_POST['company_postcode'];
         $city = $_POST['company_city'];
         $latitude = $_POST['company_latitude'];
         $longitude = $_POST['company_longitude'];
+      
+       // extract($_POST);
+      //  $company_latitude
 
-        $data = [
-            'user_id' => $userId,
-            'company_name' => $name,
-            'company_situation' => $situation,
-            'company_label' => $label,
-            'company_street' => $street,
-            'company_postcode' => $postcode,
-            'company_city' => $city,
-            'company_latitude' => $latitude,
-            'company_longitude' => $longitude
-        ];
+        if (empty($_POST['company_situation'])) :
+            $data = ['company_name' => $name, 'user_id' => $userId];
+            $sql = "UPDATE users SET company_name = :company_name WHERE user_id = :user_id";
+        else :
+            $data = [
+                'user_id' => $userId,
+                'company_name' => $name,
+                'company_situation' => $situation,
+                'company_label' => $label,
+                'company_street' => $street,
+                'company_postcode' => $postcode,
+                'company_city' => $city,
+                'company_latitude' => $latitude,
+                'company_longitude' => $longitude
+            ];  
 
-        $sql = "UPDATE users
+            $sql = "UPDATE users
                 SET company_name = :company_name,
                     company_situation = :company_situation,
                     company_label = :company_label,
@@ -99,28 +109,68 @@ if (!empty($_POST)  && isset($_POST['companyForm'])) :
                     company_latitude = :company_latitude,
                     company_longitude = :company_longitude
                 WHERE user_id = :user_id";
+        endif;
 
         $request = $db->prepare($sql);
         $request->execute($data);
     endif;
 
+
+    // Insert coocking diets
     if (!empty($_POST['coocking_diet'])) :
         $sql = "DELETE FROM users_coocking_diets
-                WHERE id_users = " . $userId;
+                WHERE id_users_ucd = " . $userId;
         $request = $db->prepare($sql);
         $request->execute();
         foreach ($_POST['coocking_diet'] as $value) :
-            $data = ['id_users' => $userId, 'id_coocking_diets' => $value];
-            $sql = "INSERT INTO users_coocking_diets (id_users, id_coocking_diets)
-                    VALUES (:id_users, :id_coocking_diets)";
+            $data = ['id_users_ucd' => $userId, 'id_coocking_diets' => $value];
+            $sql = "INSERT INTO users_coocking_diets (id_users_ucd, id_coocking_diets)
+                    VALUES (:id_users_ucd, :id_coocking_diets)";
             $request = $db->prepare($sql);
             $request->execute($data);
         endforeach;
-        $_SESSION['flash'][] = [
-            'message' => 'Les informations sur votre établissement sont bien enregistrées.',
-            'status' => 'success'
-        ];
     endif;
+
+
+    // Insert coocking types
+    if (!empty($_POST['coocking_type'])) :
+        $sql = "DELETE FROM users_coocking_types
+                WHERE id_users_uct = " . $userId;
+        $request = $db->prepare($sql);
+        $request->execute();
+        // debugP($_POST['coocking_type'], 'coocking_type');
+        foreach ($_POST['coocking_type'] as $value) :
+            $data = ['id_users_uct' => $userId, 'id_coocking_types' => $value];
+            $sql = "INSERT INTO users_coocking_types (id_users_uct, id_coocking_types)
+                    VALUES (:id_users_uct, :id_coocking_types)";
+            $request = $db->prepare($sql);
+            $request->execute($data);
+        endforeach;
+    endif;
+
+
+    // Insert coocking types
+    if (!empty($_POST['coocking_origin'])) :
+        $sql = "DELETE FROM users_coocking_origins
+                WHERE id_users_uco = " . $userId;
+        $request = $db->prepare($sql);
+        $request->execute();
+        // debugP($_POST['coocking_origin'], 'coocking_origin');
+        foreach ($_POST['coocking_origin'] as $value) :
+            $data = ['id_users_uco' => $userId, 'id_coocking_origins' => $value];
+            $sql = "INSERT INTO users_coocking_origins (id_users_uco, id_coocking_origins)
+                    VALUES (:id_users_uco, :id_coocking_origins)";
+            $request = $db->prepare($sql);
+            $request->execute($data);
+        endforeach;
+    endif;
+
+
+    $_SESSION['flash'][] = [
+        'message' => 'Les informations sur votre établissement sont bien enregistrées.',
+        'status' => 'success'
+    ];
+    $userData = getAll($db, $userId);
 endif;
 
 ?>
@@ -172,9 +222,9 @@ endif;
             </div>
 
             <div class="form-group" name="situationGroup">
-                <label for="company-situation">* Adresse :  <?php echo isset($userData[0]->company_label) ? $userData[0]->company_label : ""; ?></label>
-                <select id="company-situation" name="company_situation" required value="<?= isset($userData[0]->company_label) ? $userData[0]->company_label : ""; ?>   "></select>
-                    <option></option>
+                <label for="company-situation">* Adresse : <strong class="strong"><?php echo isset($userData[0]->company_label) ? $userData[0]->company_label : ""; ?></strong></label>
+                <select id="company-situation" name="company_situation" value="<?= isset($userData[0]->company_label) ? $userData[0]->company_label : ""; ?>   "></select>
+                <option></option>
                 <?= !empty($errors['situation']) ? '<div class="error-field">' . $errors['situation'] . '</div>' : '' ?>
             </div>
             <input id="company-label" type="hidden" name="company_label" />
@@ -198,7 +248,7 @@ endif;
             </div>
             <div class="form-group" name="coockingTypesGroup">
                 <label for="coocking-type"> Types des plats :</label>
-                <select id="coocking-type" name="coocking_type[0,1]" multiple="multiple">
+                <select id="coocking-type" name="coocking_type[]" multiple="multiple">
                     <?php foreach ($coockingTypes as $value) : ?>
                     <option <?php
                                 foreach ($userData as $type) :

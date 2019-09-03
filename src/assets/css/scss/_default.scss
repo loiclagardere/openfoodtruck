@@ -2,11 +2,15 @@
     box-sizing: border-box;
 }
 
+html,
+body {
+    height: 100%;
+}
+
 body {
     @include fontSize(16px);
     font-family: $default-font;
     line-height: normal;
-    height: 100%;
 }
 
 .wrapper {

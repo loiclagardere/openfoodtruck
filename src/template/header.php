@@ -8,6 +8,8 @@ require_once('includes/functions.php');
 
 $url = "http://" . $_SERVER['SERVER_NAME'] . $_SERVER["REQUEST_URI"];
 $urlIndex = "http://localhost/php/initiation/openfoodtruck-php/openfoodtruck/src/index.php";
+$urlSearch = "http://localhost/php/initiation/openfoodtruck-php/openfoodtruck/src/search.php";
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -17,15 +19,18 @@ $urlIndex = "http://localhost/php/initiation/openfoodtruck-php/openfoodtruck/src
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Open Food Truck - Trouvez votre food trucks partout en France</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin="" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.9/css/select2.min.css" />
     <link rel="stylesheet" href="assets/css/main.css" />
     <link rel="stylesheet" href="assets/css/select2.css" />
+    <link rel="stylesheet" href="assets/css/leaflet.css" />
 
 </head>
 
 <body>
-    <header class="content-header">
-            <div id="topbar"<?php echo ($url == $urlIndex) ? 'class="posit-abs"': ""; ?>>
+    <div class="content-header">
+        <header>
+            <div id="topbar" <?php echo ($url == $urlIndex) ? 'class="posit-abs"' : ""; ?>>
                 <div class="contain-logo-header">
                     <div class="logo-header">
                         <span>Open Food Truck</span>
@@ -35,7 +40,7 @@ $urlIndex = "http://localhost/php/initiation/openfoodtruck-php/openfoodtruck/src
                     <nav class="menu-header">
                         <ul class="menu-list">
                             <li><a href="index.php" title="Pésentation.">Présentation</a></li>
-                            <li><a href="index.php" title="Retour vers l'accueil.">Rechercher</a></li>
+                            <li><a href="search.php" title="Retour vers l'accueil.">Rechercher</a></li>
                             <?php if (isset($_SESSION['auth'])) : ?>
                             <li><a href="account.php" title="Pour accerder à votre compte">Mon compte</a></li>
                             <li><a href="signout.php" title="Pour se déconnecter">Se déconnecter</a></li>
@@ -53,7 +58,7 @@ $urlIndex = "http://localhost/php/initiation/openfoodtruck-php/openfoodtruck/src
                 </div>
             </div>
             <?php endif; ?>
-        <!-- </div> -->
-    </header>
+        </header>
+    </div>
 
-    <div id="container" <?php echo ($url == $urlIndex) ? "": "class='wrapper'"; ?>>
+    <div id="container" <?php echo ($url == $urlIndex) ? "" : "class='wrapper'"; ?>>

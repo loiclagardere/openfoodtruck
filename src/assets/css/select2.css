@@ -3,11 +3,6 @@
 *
 *@param pixel size
 */
-html,
-body {
-  height: 100%;
-}
-
 .select2-container {
   margin-top: 10px;
   min-width: 100%;

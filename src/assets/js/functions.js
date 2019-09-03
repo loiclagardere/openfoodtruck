@@ -24,7 +24,7 @@ $('#company-situation').select2({
                 postcode: situation.properties.postcode,
                 city: situation.properties.city
             }));
-            console.log(results);
+            // console.log(results);
             return {
                 results
             };
@@ -34,7 +34,7 @@ $('#company-situation').select2({
 
 $('#company-situation').on('select2:select', function (e) {
     let results = e.params.data;
-    console.log(results);
+    // console.log(results);
     $('#company-label').val(results.text);
     $('#company-street').val(results.name);
     $('#company-postcode').val(results.postcode);

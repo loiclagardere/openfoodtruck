@@ -83,7 +83,7 @@ if (!empty($_POST) && empty($_POST['lastname'])) :
     if (empty($_POST['password']) || !passwordPregMatch($_POST['password']) || $_POST['password'] != $_POST['passwordConfirm']) :
         $errors['password'] = "Les mots de passe ne sont pas valides.";
     endif;
-    debugP($erros);
+    // debugP($errors);
     // Check errors
     if (empty($errors)) :
         $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
