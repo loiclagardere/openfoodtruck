@@ -1,0 +1,11 @@
+/**
+*convert px to rem
+*
+*@param pixel size
+*/
+#section-map #mapid {
+  height: 400px;
+  margin: 0 20px;
+}
+
+/*# sourceMappingURL=leaflet.css.map */

@@ -1,4 +1,4 @@
-<?php session_start(); 
+<?php session_start();
 require_once('includes/bootstrap.php');
 
 // Check submit form
@@ -47,36 +47,36 @@ endif;
 ?>
 
 <?php require_once('template/header.php'); ?>
-<section>
-    <h1>Se connecter</h1>
+<section class="section-form">
+    <h2>Connexion</h2>
     <div class="notice">
         <p>Les champs marqués d'un astérisque (*) sont obligatoires</p>
     </div>
     <?= flash() ?>
-        <div class="form-container">
-            <form action="" method="post">
+    <div class="form-container">
+        <form action="" method="post">
             <div id="lastname-id" class="form-group" name="lastnameGroup">
                 <label for="lastname">* Nom de famille </label>
                 <div class="contain-input">
                     <input id="lastname" type="text" name="lastname" />
                 </div>
             </div>
-                <div class="form-group" name="usernameEmailGroup">
-                    <label for="username">* Pseudo ou courriel</label>
-                    <div class="contain-input">
-                        <input id="username-email" type="text" name="username" value="<?= valueField('username'); ?>" required />
-                    </div>
-                    <?= !empty($errors['username']) ? '<div class="error-field">' . $errors['username'] . '</div>' : '' ?>
+            <div class="form-group" name="usernameEmailGroup">
+                <label for="username">* Pseudo ou courriel</label>
+                <div class="contain-input">
+                    <input id="username-email" type="text" name="username" value="<?= valueField('username'); ?>" required />
                 </div>
-                <div class="form-group"  name="passwordGroup">
-                    <label for="password">* Mot de passe<span class="text-link"><a href="password-forgot.php">( Mot de passe oublié )</a></span></label>
-                    <div class="contain-input">
-                        <input id="password" type="password" name="password" required />
-                    </div>
+                <?= !empty($errors['username']) ? '<div class="error-field">' . $errors['username'] . '</div>' : '' ?>
+            </div>
+            <div class="form-group" name="passwordGroup">
+                <label for="password">* Mot de passe<span class="text-link"><a href="password-forgot.php">( Mot de passe oublié )</a></span></label>
+                <div class="contain-input">
+                    <input id="password" type="password" name="password" required />
                 </div>
-                <button type="submit" name="signinForm">Se connecter</button>
-            </form>
-        </div>
+            </div>
+            <button type="submit" name="signinForm">Se connecter</button>
+        </form>
+    </div>
 </section>
 
 

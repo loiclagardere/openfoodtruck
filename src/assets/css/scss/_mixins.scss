@@ -13,7 +13,20 @@
     font-size: calculateRem($pxSize);
 }
 
-@mixin  navbar($pxSize){
+@mixin navbar($pxSize) {
     @include fontSize($pxSize);
     display: inline-block;
+}
+
+@mixin textLink($pxSize) {
+    a {
+        @include fontSize($pxSize);
+        line-height: 1.2rem;
+        color: #61889e;
+
+        &:focus,
+        &:hover {
+            color: #87bad8;
+        }
+    }
 }

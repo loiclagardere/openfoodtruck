@@ -232,7 +232,7 @@ const checkSiret = function () {
                         }
 
                     } catch (e) {
-                        console.log('catch F exception :', e);
+                        console.log('catch Fetch exception :', e);
                         console.log('erreur :', responseRequest.status);
                         elementMessage(siretGroup, messageSiretFormat, "siret-length");
                     }
@@ -245,7 +245,7 @@ const checkSiret = function () {
                     let xhr = new XMLHttpRequest();
                     xhr.onreadystatechange = function (event) {
                         if (this.readyState === XMLHttpRequest.DONE) {
-                            let xhrParse = JSON.parse(this.responseText);
+                            let xhrParse = JSON.parse(this.responseText); // Response is a promise. The promise is parse. A json is return
                             if (this.status === 200 && xhrParse.etablissement) {
                                 console.log("siret valide");
                                 inputField.classList.remove("invalid");
@@ -261,7 +261,7 @@ const checkSiret = function () {
                     xhr.open('GET', urlApi + inputField.value);
                     xhr.send();
                     } catch (e) {
-                        console.log('catch X exception :', e)
+                        console.log('catch xhr exception :', e)
                     }
                 }
                 getSiretXhr(siretField);
