@@ -9,6 +9,6 @@ $user = $request->fetchAll();
 
 $userRespons = json_encode($user);
 
-print_r($userRespons);
+echo $userRespons;
 
 ?>
