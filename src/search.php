@@ -4,7 +4,7 @@ require_once('includes/bootstrap.php');
 
 ?>
 
-<?php require_once('template/header.php'); ?>
+<?php require_once('header.php'); ?>
 
 <!-- Map -->
 <section id="section-map">
@@ -13,8 +13,7 @@ require_once('includes/bootstrap.php');
 
     </div>
     <div id="mapid"></div>
-    <!-- <img src="" alt=""> -->
-</section>
-<!--  Search-->
 
-<?php require_once('template/footer.php'); ?>
+</section>
+
+<?php require_once('footer.php'); ?>

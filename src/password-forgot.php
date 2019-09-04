@@ -2,14 +2,14 @@
 session_start();
 require_once('includes/bootstrap.php');
 
+
 // Check submit form
 if (!empty($_POST) && empty($_POST['lastname'])) :
 
+
     // Check content field and email format
     if (!empty($_POST['email']) && filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) :
-
         $data = ['email' => $_POST['email']];
-
         // Request to select user
         $sql = "SELECT *
                 FROM users
@@ -19,28 +19,27 @@ if (!empty($_POST) && empty($_POST['lastname'])) :
         $request->execute($data);
         $user = $request->fetch();
 
+
         // Check user
         if ($user) :
-
             $userId = $user->user_id;
             $tokenReset = stringRandom(60);
             $data = [
                 'token_reset' => $tokenReset,
                 'user_id' => $userId
             ];
-
             // Request to update user : 
             $sql = "UPDATE users
                     SET token_reset = :token_reset, token_reseted_at = NOW()
                     WHERE user_id = :user_id";
             $request = $db->prepare($sql);
             $request->execute($data);
-
             // Generate email contains confirmation link
             $confirmationLink = "http://localhost/php/initiation/openfoodtruck-php/openfoodtruck/src/password-reset.php?user_id=$userId&token_reset=$tokenReset";
             $subject = "Validez votre nouveau mot de passe.";
             $body = passwordForgotMail($_POST['email'], $confirmationLink);
             $sendMailResult = sendMail($_POST['email'], $subject, $body);
+
 
             if ($sendMailResult = true) :
                 $_SESSION['flash'][] = [
@@ -55,6 +54,8 @@ if (!empty($_POST) && empty($_POST['lastname'])) :
                     'status' => 'error'
                 ];
             endif;
+
+
         else :
             $_SESSION['flash'][] = [
                 'message' => "Ce couriel ne correspond à aucun compte.",
@@ -67,8 +68,9 @@ endif;
 ?>
 
 
-<?php require_once('template/header.php'); ?>
-<section  class="section-form">
+<?php require_once('header.php'); ?>
+
+<section class="section-form">
     <h2>Mot de passe oublié</h2>
     <div class="notice">
         <p>Les champs marqués d'un astérisque (*) sont obligatoires</p>
@@ -79,19 +81,23 @@ endif;
 
     <div class="form-container">
         <form action="" method="post">
-        <div id="lastname" class="form-group" name="lastnameGroup">
+
+            <div id="lastname" class="form-group" name="lastnameGroup">
                 <label for="lastname">* Nom de famille </label>
                 <input id="lastname" type="text" name="lastname" />
             </div>
-            <div class="form-group"  name="emailGroup">
+
+            <div class="form-group" name="emailGroup">
                 <label for="email">* Couriel</label>
                 <div class="contain-input">
                     <input id="email" type="emal" name="email" value="<?= valueField('username'); ?>" />
                 </div>
             </div>
+
             <button type="submit">Recevoir le courriel</button>
+            
         </form>
     </div>
 </section>
 
-<?php require_once('template/footer.php'); ?>
+<?php require_once('footer.php'); ?>

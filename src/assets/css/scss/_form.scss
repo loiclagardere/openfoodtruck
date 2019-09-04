@@ -1,6 +1,10 @@
 .section-form {
     margin-top: 60px;
 
+    :nth-last-child {
+        padding-bottom: 300px;
+    }
+
     // message flash
     .message-flash {
         display: inline-block;

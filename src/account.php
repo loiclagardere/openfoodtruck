@@ -9,6 +9,7 @@ $userData = getAll($db, $userId);
 
 //debugP($userData); ////////////////////////////////////////////////////////////////////
 
+
 // Password reset form
 // Check submit form : reset-password-form
 if (!empty($_POST) && isset($_POST['resetPasswordForm'])) : // test
@@ -67,7 +68,6 @@ if (!empty($_POST)  && isset($_POST['companyForm'])) :
     endif;
 
 
-
     // Check errors
     if (empty($errors)) :
         echo "pas d'erreur";
@@ -79,9 +79,9 @@ if (!empty($_POST)  && isset($_POST['companyForm'])) :
         $city = $_POST['company_city'];
         $latitude = $_POST['company_latitude'];
         $longitude = $_POST['company_longitude'];
-      
-       // extract($_POST);
-      //  $company_latitude
+
+        // extract($_POST);
+        //  $company_latitude
 
         if (empty($_POST['company_situation'])) :
             $data = ['company_name' => $name, 'user_id' => $userId];
@@ -97,7 +97,7 @@ if (!empty($_POST)  && isset($_POST['companyForm'])) :
                 'company_city' => $city,
                 'company_latitude' => $latitude,
                 'company_longitude' => $longitude
-            ];  
+            ];
 
             $sql = "UPDATE users
                 SET company_name = :company_name,
@@ -174,7 +174,7 @@ if (!empty($_POST)  && isset($_POST['companyForm'])) :
 endif;
 
 ?>
-<?php require_once('template/header.php'); ?>
+<?php require_once('header.php'); ?>
 
 <section class="section-form">
     <h2> Votre compte utilisateur </h2>
@@ -210,7 +210,7 @@ endif;
 </section>
 
 <section class="section-form">
-    <h2>Ajouter un établissement</h2>
+    <h3>Ajouter / modifier votre établissement</h3>
     <div class="form-container">
         <form action="" method="post">
             <div class="form-group">
@@ -238,47 +238,53 @@ endif;
                 <label for="coocking-diet"> Types de régimes alimentaires :</label>
                 <select id="coocking-diet" name="coocking_diet[]" multiple="multiple">
                     <?php foreach ($coockingDiets as $value) : ?>
-                    <option <?php
-                                foreach ($userData as $diet) :
-                                    echo (isset($diet->coocking_diet_name) && $value->coocking_diet_name === $diet->coocking_diet_name) ? ' selected' : '';
-                                endforeach;
-                                ?> value=" <?= $value->diet_id ?> "><?= $value->coocking_diet_name ?></option>
+                        <option <?php
+                                    foreach ($userData as $diet) :
+                                        echo (isset($diet->coocking_diet_name) && $value->coocking_diet_name === $diet->coocking_diet_name) ? ' selected' : '';
+                                    endforeach;
+                                    ?> value=" <?= $value->diet_id ?> "><?= $value->coocking_diet_name ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>
+
             <div class="form-group" name="coockingTypesGroup">
                 <label for="coocking-type"> Types des plats :</label>
                 <select id="coocking-type" name="coocking_type[]" multiple="multiple">
                     <?php foreach ($coockingTypes as $value) : ?>
-                    <option <?php
-                                foreach ($userData as $type) :
-                                    // debugP($type);
-                                    // die();
-                                    echo (isset($type->coocking_type_name) && $value->coocking_type_name === $type->coocking_type_name) ? ' selected' : '';
-                                endforeach;
-                                ?> value=" <?= $value->type_id ?> "><?= $value->coocking_type_name ?></option>
+                        <option <?php
+                                    foreach ($userData as $type) :
+                                        // debugP($type);
+                                        // die();
+                                        echo (isset($type->coocking_type_name) && $value->coocking_type_name === $type->coocking_type_name) ? ' selected' : '';
+                                    endforeach;
+                                    ?> value=" <?= $value->type_id ?> "><?= $value->coocking_type_name ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>
+
             <div class="form-group" name="coockingOriginsGroup">
                 <label for="coocking-origin"> Origine des plats :</label>
                 <select id="coocking-origin" name="coocking_origin[]" multiple="multiple">
                     <?php foreach ($coockingOrigins as $value) : ?>
-                    <option <?php
-                                foreach ($userData as $origin) :
-                                    echo (isset($origin->coocking_origin_name) && $value->coocking_origin_name === $origin->coocking_origin_name) ? ' selected' : '';
-                                endforeach;
-                                ?> value=" <?= $value->origin_id ?> "><?= $value->coocking_origin_name ?></option>
+                        <option <?php
+                                    foreach ($userData as $origin) :
+                                        echo (isset($origin->coocking_origin_name) && $value->coocking_origin_name === $origin->coocking_origin_name) ? ' selected' : '';
+                                    endforeach;
+                                    ?> value=" <?= $value->origin_id ?> "><?= $value->coocking_origin_name ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>
+
             <button type="submit" name="companyForm">Valider</button>
+            
         </form>
     </div>
+</section>
+<section>
     <div>
-        <p>Guidés par l'envie de répondre au mieux à vos attentes, n'hésitez pas à nous contacter à cette adresse : serviceclient@openfoodtruck.fr pour nous faire
-            part de vos remarques, souhaits ou suggestions.</p>
+        <p>Guidés par l'envie de répondre au mieux à vos attentes, n'hésitez pas à nous contacter à cette adresse : <span class="text-link"><a href="mailto:serviceclient@openfoodtruck.fr?subject=Demande%20de%20renseignements">serviceclient@openfoodtruck.fr</a></span>
+            pour nous faire part de vos remarques, souhaits ou suggestions.</p>
     </div>
 </section>
 
-<?php require_once('template/footer.php'); ?>
+<?php require_once('footer.php'); ?>

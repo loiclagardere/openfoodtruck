@@ -4,12 +4,9 @@ require_once('includes/bootstrap.php');
 
 // check data in URL
 if (isset($_GET['user_id']) && isset($_GET['token'])) :
-
     $userId = $_GET['user_id'];
     $token = $_GET['token'];
-
     $data = ['user_id' => $userId];
-
     // Request to select user
     $sql = "SELECT *
             FROM users
@@ -17,7 +14,8 @@ if (isset($_GET['user_id']) && isset($_GET['token'])) :
     $request = $db->prepare($sql);
     $request->execute($data);
     $user = $request->fetch();
-    // debugP($user, 'mauqe token');
+    // debugP($user, 'token');
+
 
     // Check user token valitdity
     if ($user && $user->token_confirm === $token) : // as sql query
@@ -37,6 +35,7 @@ if (isset($_GET['user_id']) && isset($_GET['token'])) :
         header('Location: account.php');
         die();
 
+
     else :
         $_SESSION['flash'][] = [
             'message' => "Le lien utilisé pour valider votre compte n'est plus valide.",
@@ -45,7 +44,11 @@ if (isset($_GET['user_id']) && isset($_GET['token'])) :
         header('Location: signin.php');
         die();
     endif;
+
+
 else :
     header('Location: signin.php');
     die();
+
+    
 endif;

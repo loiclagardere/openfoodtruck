@@ -5,6 +5,7 @@
 html,
 body {
     height: 100%;
+    // background-color: green;;
 }
 
 body {
@@ -113,4 +114,8 @@ h3 {
 
 .posit-abs {
     position: absolute;
+}
+
+.text-link {
+    @include textLink(14px);
 }

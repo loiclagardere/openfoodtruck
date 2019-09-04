@@ -6,9 +6,8 @@
 
 
         .section-connexion {
-            @include fontSize(14px);
-            @include textLink(14px);
             display: inline-block;
+            @include fontSize(14px);
             vertical-align: top;
 
             @media all and (max-width: 640px) {
@@ -23,12 +22,27 @@
 
             .connexion-notice {
                 p {
+                    @include textLink(14px);
+
                     span {
                         display: inline-block;
-                        padding-top: 40px;
+                        @include textLink(14px);
+                        margin-top: 40px;
+
+
+                        a {
+                            padding: 5px 8px;
+                            border: 1px solid #61889e;
+                            border-radius: 50px;
+                            transform: ease .3s border;
+
+                            &:hover {
+                                border: 1px solid #87bad8;
+
+                            }
+                        }
                     }
                 }
-
             }
         }
     }

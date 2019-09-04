@@ -7,6 +7,7 @@ if (!empty($_POST) && empty($_POST['lastname'])) :
 
     $errors = []; // to stock messages error
 
+
     // Check username field content and the content format
     if (usernamePregMatch($_POST['username'])  && !empty($_POST['username'])) :
         $data = ['username' => $_POST['username']];
@@ -17,12 +18,16 @@ if (!empty($_POST) && empty($_POST['lastname'])) :
         $request->execute($data);
         $user = $request->fetch();
 
+
         if ($user) :
             $errors['username'] = "Ce pseudo est dejà pris.";
         endif;
+
+
     else :
         $errors['username'] = "Le format du pseudo n'est pas valide.";
     endif;
+
 
     // Check email and email format
     if (!empty($_POST['email']) && filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) :
@@ -34,9 +39,12 @@ if (!empty($_POST) && empty($_POST['lastname'])) :
         $request->execute($data);
         $user = $request->fetch();
 
+
         if ($user) :
             $errors['email'] = "Ce courriel est utilisé pour un autre compte.";
         endif;
+
+
     else :
         $errors['email'] = "Le courriel n'est pas valide.";
     endif;
@@ -63,6 +71,7 @@ if (!empty($_POST) && empty($_POST['lastname'])) :
         $resultApi = json_decode(curl_exec($curlSession));
         curl_close($curlSession);
 
+
         if (isset($resultApi->etablissement)) :
             $data = ['siret' => $_POST['siret']];
             $sql = "SELECT user_id
@@ -71,18 +80,26 @@ if (!empty($_POST) && empty($_POST['lastname'])) :
             $request = $db->prepare($sql);
             $request->execute($data);
             $user = $request->fetch();
+
+
             if ($user) :
                 $errors['siret'] = "Ce numéro de Siret est déjà enregistré.";
             endif;
+
+
         else :
             $errors['siret'] = "Le numéro de Siret n'est pas valide.";
         endif;
+
+
     endif;
+
 
     // Check password and password confirmation
     if (empty($_POST['password']) || !passwordPregMatch($_POST['password']) || $_POST['password'] != $_POST['passwordConfirm']) :
         $errors['password'] = "Les mots de passe ne sont pas valides.";
     endif;
+
     // debugP($errors);
     // Check errors
     if (empty($errors)) :
@@ -93,7 +110,6 @@ if (!empty($_POST) && empty($_POST['lastname'])) :
         // Request to insert user
         $sql = "INSERT INTO users (username, email, siret, password, token_confirm)
                 VALUES (:username, :email, :siret, :password, :token_confirm)";
-
         $request = $db->prepare($sql);
         $request->execute($data);
         $userId = $db->lastInsertId();
@@ -105,24 +121,32 @@ if (!empty($_POST) && empty($_POST['lastname'])) :
 
         $sendMailResult = sendMail($_POST['email'], $subject, $body);
 
+
         if ($sendMailResult = true) :
             $_SESSION['flash'][] = [
                 'message' => "<p>Un courriel vous a été envoyé à l'adresse " . $_POST['email'] . ". </p>" . "<p>Veuillez cliquer sur le lien pour valider votre compte.</p>",
-                'status' => 'succes'
+                'status' => 'success'
             ];
             header('Location: signin.php');
             die();
+
+
         else :
             $_SESSION['flash'][] = [
                 'message' => "<p>Une erreur est survenue sur le serveur</p><p>Veuillez renouveler votre inscription.</p>",
                 'status' => 'error'
             ];
         endif;
+
+
     endif;
+
+
 endif;
 ?>
 
-<?php require_once('template/header.php'); ?>
+<?php require_once('header.php'); ?>
+
 <section class="section-form">
     <h2>Inscription</h2>
     <div class="notice">
@@ -131,10 +155,12 @@ endif;
     <?= flash() ?>
     <div class="form-container">
         <form action="" method="post">
+
             <div id="lastname" class="form-group" name="lastnameGroup">
                 <label for="lastname">* Nom de famille </label>
                 <input id="lastname" type="text" name="lastname" />
             </div>
+
             <div class="form-group" name="usernameGroup">
                 <label for="username">* Pseudo <span class="info-field">(Seulement des lettres, chiffres et le tiret du bas)</span></label>
                 <div class="contain-input">
@@ -142,6 +168,7 @@ endif;
                 </div>
                 <?= !empty($errors['username']) ? '<div class="error-field">' . $errors['username'] . '</div>' : '' ?>
             </div>
+
             <div class="form-group" name="emailGroup">
                 <label for="email">* Courriel</label>
                 <div class="contain-input">
@@ -149,6 +176,7 @@ endif;
                 </div>
                 <?= !empty($errors['email']) ? '<div class="error-field">' . $errors['email'] . '</div>' : '' ?>
             </div>
+
             <div class="form-group" name="siretGroup">
                 <label for="siret">* n° SIRET</label>
                 <div class="contain-input">
@@ -156,6 +184,7 @@ endif;
                 </div>
                 <?= !empty($errors['siret']) ? '<div class="error-field">' . $errors['siret'] . '</div>' : '' ?>
             </div>
+
             <div class="form-group" name="passwordGroup">
                 <label for="password">* Mot de passe <span class="info-field">(Minimum 8 caractéres)</label>
                 <div class="contain-input">
@@ -163,14 +192,18 @@ endif;
                 </div>
                 <?= !empty($errors['password']) ? '<div class="error-field">' . $errors['password'] . '</div>' : '' ?>
             </div>
+
             <div class="form-group" name="passwordConfirmGroup">
                 <label for="password-confirm">* Confirmez votre mot de passe</label>
                 <div class="contain-input">
                     <input id="password-confirm" type="password" name="passwordConfirm" required />
                 </div>
             </div>
+
             <button type="submit" name="signupForm">S'inscrire</button>
+
         </form>
     </div>
 </section>
-<?php require_once('template/footer.php'); ?>
+
+<?php require_once('footer.php'); ?>

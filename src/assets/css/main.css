@@ -174,10 +174,21 @@ h3 {
   position: absolute;
 }
 
+.text-link a {
+  font-size: 14px;
+  font-size: 0.875rem;
+  line-height: 1.2rem;
+  color: #61889e;
+}
+.text-link a:focus, .text-link a:hover {
+  color: #87bad8;
+}
+
 .content-header header {
   position: relative;
 }
 .content-header header #topbar {
+  position: fixed;
   z-index: 100;
   color: #fff;
   font-size: 0;
@@ -301,7 +312,7 @@ h3 {
 }
 
 #container {
-  padding: 50px 0;
+  padding: 50px 2%;
 }
 
 .zeropix {
@@ -311,19 +322,10 @@ h3 {
   margin-top: 40px;
 }
 .zeropix .connexion-contain .section-connexion {
-  font-size: 14px;
-  font-size: 0.875rem;
   display: inline-block;
-  vertical-align: top;
-}
-.zeropix .connexion-contain .section-connexion a {
   font-size: 14px;
   font-size: 0.875rem;
-  line-height: 1.2rem;
-  color: #61889e;
-}
-.zeropix .connexion-contain .section-connexion a:focus, .zeropix .connexion-contain .section-connexion a:hover {
-  color: #87bad8;
+  vertical-align: top;
 }
 @media all and (max-width: 640px) {
   .zeropix .connexion-contain .section-connexion {
@@ -334,13 +336,43 @@ h3 {
     margin-bottom: 0;
   }
 }
+.zeropix .connexion-contain .section-connexion .connexion-notice p a {
+  font-size: 14px;
+  font-size: 0.875rem;
+  line-height: 1.2rem;
+  color: #61889e;
+}
+.zeropix .connexion-contain .section-connexion .connexion-notice p a:focus, .zeropix .connexion-contain .section-connexion .connexion-notice p a:hover {
+  color: #87bad8;
+}
 .zeropix .connexion-contain .section-connexion .connexion-notice p span {
   display: inline-block;
-  padding-top: 40px;
+  margin-top: 40px;
+}
+.zeropix .connexion-contain .section-connexion .connexion-notice p span a {
+  font-size: 14px;
+  font-size: 0.875rem;
+  line-height: 1.2rem;
+  color: #61889e;
+}
+.zeropix .connexion-contain .section-connexion .connexion-notice p span a:focus, .zeropix .connexion-contain .section-connexion .connexion-notice p span a:hover {
+  color: #87bad8;
+}
+.zeropix .connexion-contain .section-connexion .connexion-notice p span a {
+  padding: 5px 8px;
+  border: 1px solid #61889e;
+  border-radius: 50px;
+  transform: ease 0.3s border;
+}
+.zeropix .connexion-contain .section-connexion .connexion-notice p span a:hover {
+  border: 1px solid #87bad8;
 }
 
 .section-form {
   margin-top: 60px;
+}
+.section-form :nth-last-child {
+  padding-bottom: 300px;
 }
 .section-form .message-flash {
   display: inline-block;
@@ -466,7 +498,6 @@ h3 {
 }
 
 footer {
-  z-index: 200;
   display: inline-block;
   font-size: 14px;
   font-size: 0.875rem;

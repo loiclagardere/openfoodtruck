@@ -1,5 +1,4 @@
 'use strict'
-
 // test fetch ///////////////
 // fetch('includes/api_map.php')
 // .then(function(response) {
@@ -14,118 +13,84 @@
 // .then(response => response.json().then(console.log))
 
 
-const returnVar = function (a) {
-return a;
-}
 
+let users;
 
 /**
  * 
  * request api map with fetch function
  * 
  */
-const getUsersFetch = async function () { // async doesn't stop script execution
+const getUsers = function () { 
     try {
-        let response = await fetch('includes/api_map.php'); // use try catch
-        // console.log(response) // promise
-        if (response.ok) { // booleen - http status between 200 and 299
-            let data = await response.json();
-            mycallback(data);
-            
-        } else {
-            // console.log('Serveur : ', reponse.status);
-        }
+        fetch('includes/api_map.php')
+            .then(function (response) {
+                return response.json() // a promise is return
+            }).then(function (data) {
+                // users = data
+                console.log(data)
+
+            })
     } catch (e) {
-        // console.log('catch exception fetch :', e);
+        console.log('catch exception fetch :', e);
     }
 }
 
-getUsersFetch();
+getUsers();
+// console.log(users);
 
 
-/**
- * 
- * request api map with xhr object
- */
-const getUsersXhr = function (callback) {
-    const xhrUser = new XMLHttpRequest();
-    xhrUser.onreadystatechange = function (event) {
-        // console.log(xhrUser.readyState);
-        let xhrUserParse = JSON.parse(xhrUser.response);
-        // console.log('data', xhrUserParse);
-        if (this.readyState === XMLHttpRequest.DONE) {
-            if (xhrUser.status === 200) {
-                // console.log("Réponse reçue: %s", this.responseText);
-            } else {
-                // console.log("Status de la réponse: %d (%s)", this.status, this.statusText);
-            }
-        }
-        // console.log((xhrUser.responseText));
-    }
-    xhrUser.open('GET', 'includes/api_map.php', true);
-    xhrUser.send(null);
-}
-
-function mycallback(users) {
-    users.map((user) => {
-        console.log(user)
-    })
-}
+// function mycallback(users) {
+//     users.map((user) => {
+//         console.log(user.user_id)
+//     })
+// }
 
 
 // getUsersXhr(mycallback);
 
 
-// console.log();
-/**
- * 
- * get all users infromations
- */
-const getUsers = function () {
-    // if (window.fetch) {
-    //     console.log('get users with fetch');
-        getUsersFetch();
-
-    // } else {
-    // console.log('get users with xhr');
-    // getUsersXhr();
-    // }
-}
-
-const getAllUsers = getUsers();
+// const getAllUsers = getUsers();
 // console.log(typeof(getAllUsers));
 
+
+
+
+
 // ////////////////////        TEST        ///////////////////////////
+var locations = [
+    ["LOCATION_1", 11.8166, 122.0942],
+    ["LOCATION_2", 11.9804, 121.9189],
+    ["LOCATION_3", 10.7202, 122.5621],
+    ["LOCATION_4", 11.3889, 122.6277],
+    ["LOCATION_5", 10.5929, 122.6325]
+];
 
-// const markerUser = function (array) {
-//     console.log('test');
-//     var markers = new L.layerGroup();
-//     for (var i = 0; i < array.length; i++) {
-//         var item = array[i];
-//         marker = new L.marker([array[1],array[2]]).bindPopup(array[0]);
-//         markers.addLayer(marker);
-//     }
-//     map.addLayer(markers);
-// }
+var map = L.map('mapid').setView([11.206051, 122.447886], 8);
+var mapLink = '<a href="http://openstreetmap.org">OpenStreetMap</a>';
+L.tileLayer(
+    'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; ' + mapLink + ' Contributors',
+        maxZoom: 18,
+    }).addTo(map);
 
-// getUsers().forEach(function(element) {
-//     console.log(element);
-//   });
+for (var i = 0; i < locations.length; i++) {
+    var marker = new L.marker([locations[i][1], locations[i][2]])
+        .bindPopup(
+            "<b>Open Food Truck</b><br>This is the place to be<br><img src=\"assets/images/truck.gif\" width=\"45\" height=\"45\">")
+        .addTo(map);
+}
 
-// // Display all users on the map
-// let  marker = L.marker([43.487155, -1.48707]).addTo(mymap);
+
 
 //////////////////////////////////////////////////////////////////
-
-
-
 
 
 // // initial position on the map
 // let mymap = L.map('mapid').setView([43.627925, -1.406389], 10); // 43.487155, -1.48707
 
 // // marker on the map
-// let marker = L.marker([43.627925, -1.406389]).addTo(mymap); // 43.487155, -1.48707
+// let marker = L.marker([41.927925, -1.406389]).addTo(mymap); // 43.487155, -1.48707
 
 // // Pop-up : marker
 // marker.bindPopup(
@@ -147,5 +112,4 @@ const getAllUsers = getUsers();
 // L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 //     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
 //     maxZoom: 18,
-//     id: 'mapbox.streets',
 // }).addTo(mymap);
