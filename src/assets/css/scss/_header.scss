@@ -1,148 +1,173 @@
-.content-header {
+header {
+    // position: relative;
+    background-color: #333;
+    line-height: 100px;
+    padding: 0%;
+    color: #fff;
+}
 
-    header {
-        position: relative;
+.logo-header {
+    @include fontSize(40px);
+    line-height: 100px;
+    float: left;
+    margin-left: 1%;
+}
 
-        #topbar {
-            position: fixed;
-            z-index: 100;
+label span {
+    font-size: 16px;
+}
+
+.menu {
+    float: right;
+    line-height: 100px;
+
+    li {
+        display: inline-block;
+
+        a {
+            @include fontSize(14px);
             color: #fff;
-            font-size: 0;
-            background-color: #333333;
-            box-shadow: 0 2px 8px #797979;
-            width: 100%;
-            padding: 15px 1%;
-
-            // Logo
-            .contain-logo-header {
-                display: inline-block;
-                width: 50%;
-
-                @media all and (max-width: 760px) {
-                    vertical-align: top;
-                }
-
-                .logo-header {
-                    display: inline-block;
-                    @include fontSize(48px);
-
-                    @media all and (max-width: 760px) {
-                        @include fontSize(28px);
-                        width: 70px;
-                    }
-                }
-            }
-
-            // Menu
-            .contain-menu-header {
-                display: inline-block;
-                text-align: right;
-                width: 50%;
-
-                .menu-header {
-                    width: 100%;
-
-                    .menu-list {
-                        font-size: 0;
-
-                        li {
-                            display: inline-block;
-                            padding-right: 3%;
-                            margin-top: 20px;
-
-                            &:last-child {
-                                padding-right: 0;
-                                margin-bottom: 0;
-                            }
-
-                            &:first-child {
-                                margin-top: 0;
-                            }
-
-                            a {
-                                position: relative;
-                                @include fontSize(16px);
-                                padding: 10px 0;
-                                color: #fff;
-                                transition: ease color .2s;
-
-                                &::after {
-                                    content: '';
-                                    position: absolute;
-                                    left: 50%;
-                                    bottom: 0;
-                                    transform: translateX(-50%) scaleX(0);
-                                    transform-origin: 50% 50%;
-                                    width: 100%;
-                                    height: 1px;
-                                    background-color: #61889e;
-                                    transition: ease transform .2s;
-                                }
-
-                                &:hover,
-                                &:focus {
-                                    color: #61889e;
-
-                                    &::after {
-                                        transform: translateX(-50%) scaleX(1);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+            text-transform: uppercase;
+            padding: 10px;
+            transition: .3s;
         }
 
-        .banner-header {
-            background-color: #ddd;
-            background: url('../images/banner-top-01.jpg') no-repeat bottom center #333333;
-            background-size: cover;
-            min-height: 700px;
-            height: 100vh;
-
-            &::before {
-                position: absolute;
-                content: '';
-                background-color: rgb(66, 60, 66);
-                background-image: linear-gradient(to top right, rgb(0, 0, 0) 0, rgb(255, 255, 255) 100%);
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                opacity: .85;
-                z-index: 1;
-            }
-
-            .text-banner {
-                position: absolute;
-                z-index: 90;
-                top: 50%;
-                left: 0;
-                right: 0;
-                transform: translateY(-50%);
-                text-align: center;
-
-                @media all and (min-width: 480px) {
-                    &::before {
-                        content: "";
-                        display: inline-block;
-                        background: url(../images/illustration-logo.png) no-repeat;
-                        background-size: 100% auto;
-                        min-width: 450px;
-                        min-height: 300px;
-                        right: 0;
-                        bottom: 0;
-                    }
-                }
-
-                h1 {
-                    color: #fff;
-                }
-            }
+        label span {
+            font-size: 16px;
         }
+
     }
 }
+
+
+.show-menu-btn,
+.hide-menu-btn {
+    display: none;
+    @include fontSize(30px);
+    cursor: pointer;
+    transition: .3s;
+}
+
+
+.show-menu-btn {
+    float: right;
+
+    i {
+        line-height: 100px;
+    }
+}
+
+
+.menu a:hover,
+.show-menu-btn:hover,
+.hide-menu-btn:hover,
+.menu a:focus,
+.show-menu-btn:focus,
+.hide-menu-btn:focus {
+    color: #61889e;
+
+}
+
+#chk {
+    // position: absolute;
+    visibility: hidden;
+    z-index: -1100;
+}
+
+@media all and (max-width: 800px) {
+
+    .show-menu-btn,
+    .hide-menu-btn {
+        display: block;
+    }
+
+    .menu {
+        position: fixed;
+        width: 100%;
+        height: 100vh;
+        z-index: 10001;
+        background-color: #333;
+        right: -100%;
+        top: 0;
+        text-align: center;
+        padding: 80px 0;
+        line-height: normal;
+        transition: .7s;
+
+        li {
+            display: block;
+            padding: 20px;
+        }
+    }
+
+
+    .show-menu-btn {
+        margin-right: 1%;
+    }
+
+
+    .hide-menu-btn {
+        position: absolute;
+        top: 40px;
+        right: 40px;
+    }
+
+    #chk:checked~.menu {
+        //pour cibler le menu
+        right: 0;
+    }
+}
+
+
+
+// .banner-header {
+//     background-color: #ddd;
+//     background: url('../images/banner-top-01.jpg') no-repeat bottom center #333333;
+//     background-size: cover;
+//     min-height: 700px;
+//     height: 100vh;
+
+//     &::before {
+//         position: absolute;
+//         content: '';
+//         background-color: rgb(66, 60, 66);
+//         background-image: linear-gradient(to top right, rgb(0, 0, 0) 0, rgb(255, 255, 255) 100%);
+//         top: 0;
+//         left: 0;
+//         right: 0;
+//         bottom: 0;
+//         opacity: .85;
+//         z-index: 1;
+//     }
+
+//     .text-banner {
+//         position: absolute;
+//         z-index: 90;
+//         top: 50%;
+//         left: 0;
+//         right: 0;
+//         transform: translateY(-50%);
+//         text-align: center;
+
+//         @media all and (min-width: 480px) {
+//             &::before {
+//                 content: "";
+//                 display: inline-block;
+//                 background: url(../images/illustration-logo.png) no-repeat;
+//                 background-size: 100% auto;
+//                 min-width: 450px;
+//                 min-height: 300px;
+//                 right: 0;
+//                 bottom: 0;
+//             }
+//         }
+
+//         h1 {
+//             color: #fff;
+//         }
+//     }
+// }
+
 
 #container {
     padding: 50px 2%;

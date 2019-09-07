@@ -39,6 +39,7 @@ $urlSearch = "http://localhost/php/initiation/openfoodtruck-php/openfoodtruck/sr
             <span>Menu</span>
             <i class="fas fa-hamburger"></i>
         </label>
+
         <ul class="menu">
             <li>
                 <a href="index.php" title="Pésentation.">Présentation</a>
@@ -59,12 +60,10 @@ $urlSearch = "http://localhost/php/initiation/openfoodtruck-php/openfoodtruck/sr
                 </li>
             <?php endif; ?>
             <li>
-                <div class="content-chk">
-                    <label for="chk" class="hide-menu-btn">
-                        <span>Ferner</span>
-                        <i class="fas fa-times"></i>
-                    </label>
-                </div>
+                <label for="chk" class="hide-menu-btn">
+                    <span>Ferner</span>
+                    <i class="fas fa-times"></i>
+                </label>
             </li>
         </ul>
     </header>

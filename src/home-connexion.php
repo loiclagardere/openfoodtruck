@@ -16,13 +16,11 @@ require_once('includes/bootstrap.php');
 
         <section class="section-connexion fifty">
             <h3>Connexion /</h3>
-            <div class="connexion-notice">
                 <div class="text-connexion-notice">
                     <p>Pour vous connecter à votre espace membre.</p>
                     <p>Si vous avez oublié vis identifiants, cliquez <a href="password-forgot.php">ici</a>.</p>
                     <p><span classs="border-link"><a href="signin.php">Je souhaite me connecter.</a></span></p>
                 </div>
-            </div>
         </section>
 
         <section class="section-connexion fifty">
