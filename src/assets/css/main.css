@@ -143,14 +143,6 @@ h3 {
 .fifty {
   width: 50%;
 }
-<<<<<<< HEAD
-header #topbar {
-<<<<<<< HEAD
-  position: fixed;
-=======
->>>>>>> dev
-  top: 0;
-=======
 
 .notice {
   font-size: 12px;
@@ -179,7 +171,6 @@ header {
   background-color: #333;
   line-height: 100px;
   padding: 0%;
->>>>>>> dev
   color: #fff;
 }
 
@@ -288,36 +279,6 @@ label span {
 
 .zeropix {
   font-size: 0;
-<<<<<<< HEAD
-}
-header #topbar .menu-header .menu-list li {
-  display: inline-block;
-  padding-right: 3%;
-}
-header #topbar .menu-header .menu-list li:last-child {
-  padding-right: 0;
-  margin-bottom: 0;
-}
-header #topbar .menu-header .menu-list li a {
-  position: relative;
-  padding: 8px 0;
-  color: #fff;
-}
-header #topbar .menu-header .menu-list li a::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  bottom: 0;
-  transform: translateX(-50%) scaleX(0);
-  transform-origin: 50% 50%;
-  width: 100%;
-  height: 1px;
-  background-color: #fff;
-  transition: ease transform 0.2s;
-}
-header #topbar .menu-header .menu-list li a:hover::after, header #topbar .menu-header .menu-list li a:focus::after {
-  transform: translateX(-50%) scaleX(1);
-=======
 }
 .zeropix .connexion-contain {
   margin-top: 40px;
@@ -392,7 +353,6 @@ header #topbar .menu-header .menu-list li a:hover::after, header #topbar .menu-h
 }
 .section-form .success {
   background-color: #2bbf32;
->>>>>>> dev
 }
 .section-form .form-container {
   margin-top: 30px;
