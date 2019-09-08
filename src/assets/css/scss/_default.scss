@@ -2,6 +2,12 @@
     box-sizing: border-box;
 }
 
+html,
+body {
+    height: 100%;
+    // background-color: green;
+}
+
 body {
     @include fontSize(16px);
     font-family: $default-font;
@@ -26,6 +32,7 @@ a {
     }
 }
 
+
 img {
     text-decoration: none;
     max-width: 100%;
@@ -33,27 +40,82 @@ img {
     outline: none;
 }
 
-
 h1,
 h2,
 h3,
 h4 {
     font-family: $default-font;
-    // font-weight: bold;
+    line-height: 1.2em;
 }
 
 h1 {
     @include fontSize(36px);
-    margin-bottom: 20px;
+    color: #fff;
 }
 
 h2 {
+    position: relative;
     @include fontSize(28px);
+    color: #61889e;
+    margin-bottom: 40px;
+    margin-left: 65px;
+    transform: margin ease .3s;
+
+    // @media all and (max-width: 800px) {
+    //     margin-left: 0;
+    // }
+
+    // @media all and (min-width: 800px) {
+
+    //     &:before {
+    //         position: absolute;
+    //         content: "";
+    //         display: inline-block;
+    //         width: 60px;
+    //         height: 2px;
+    //         background-color: #61889e;
+    //         bottom: 0;
+    //         transform: translateX(-100%)
+    //     }
+    // }
+
+    &:after {
+        position: absolute;
+        content: "";
+        display: inline-block;
+        width: 60px;
+        height: 2px;
+        background-color: #61889e;
+        bottom: 0;
+    }
+}
+
+h3 {
+    @include fontSize(26px);
     margin-bottom: 20px;
 }
 
-
 ::selection {
-    background-color: #000;
+    background-color: #333;
     color: #fff;
+}
+
+.fifty {
+    width: 50%;
+}
+
+.notice {
+    @include fontSize(12px);
+}
+
+.posit-rel {
+    position: relative;
+}
+
+.posit-abs {
+    position: absolute;
+}
+
+.text-link {
+    @include textLink(14px);
 }

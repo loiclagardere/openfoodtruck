@@ -99,6 +99,24 @@ function passwordPregMatch($string)
 
 
 /**
+ * Perform a regular expression match for Siret number
+ * 
+ * @param mixed
+ * @return bool
+ */
+function SiretPregMatch($string)
+{
+    $regex = '/^[0-9]{14}$/';
+    $siretPregMatch = preg_match($regex, $string);
+    if ($siretPregMatch === 1) :
+        return true;
+    else :
+        return false;
+    endif;
+}
+
+
+/**
  * Generate a random string
  * 
  * @param number $lenght
@@ -159,4 +177,60 @@ function authentificated()
         header('Location: signin.php');
         die();
     endif;
+}
+
+/**
+ * 
+ * Clean string
+ * @param string
+ * 
+ * @return string
+ */
+function cleanerString($string) {
+    return $string;
+}
+
+/**
+ * 
+ * removeAccent
+ * @param string
+ * 
+ * @return string
+ */
+function removeAccent($string) {
+	$string = str_replace(
+		['à','á','â','ã','ä', 'ç', 'è','é','ê','ë', 'ì','í','î','ï', 'ñ', 'ò','ó','ô','õ','ö', 'ù','ú','û','ü', 'ý','ÿ', 'À','Á','Â','Ã','Ä', 'Ç', 'È','É','Ê','Ë', 'Ì','Í','Î','Ï', 'Ñ', 'Ò','Ó','Ô','Õ','Ö', 'Ù','Ú','Û','Ü', 'Ý'], 
+		['a','a','a','a','a', 'c', 'e','e','e','e', 'i','i','i','i', 'n', 'o','o','o','o','o', 'u','u','u','u', 'y','y', 'A','A','A','A','A', 'C', 'E','E','E','E', 'I','I','I','I', 'N', 'O','O','O','O','O', 'U','U','U','U', 'Y'], 
+		$string
+	);
+	return $string;
+}
+
+/**
+ * 
+ * replace characters
+ * @param string
+ * 
+ * @return 
+ */
+function replaceCharacter($string) {
+    $search = [" ", ".", "/"];
+    $replace = ["+", "+", "+"];
+    $stringReplace = str_replace( $search, $replace, $string);
+    return $stringReplace;
+}
+
+
+/**
+ *prepareString
+ *
+ *@param string
+ *replace characters with accent and put in lower case
+ *
+ */
+function prepareString($string) {
+        $string = removeAccent($string);
+        $string = mb_strtolower($string, 'utf8');
+        $string = trim($string);
+        return $string;
 }

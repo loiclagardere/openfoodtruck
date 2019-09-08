@@ -1,0 +1,50 @@
+footer {
+    display: inline-block;
+    @include fontSize(14px);
+    line-height: 1.5em;
+    color: #fff;
+    width: 100%;
+    background-color: #333333;
+    padding: 15px 1%;
+    text-align: center;
+    box-shadow: 0 -2px 8px #797979;
+
+    @media all and (max-width: 760px) {
+        position: static;
+        text-align: left;
+    }
+
+    .list-footer {
+
+        li {
+            display: inline-block;
+            margin-right: 1em;
+
+            .text-link {
+                @include textLink(12px);
+            }
+
+            &::after {
+                content: "|";
+                display: inline-block;
+                margin-left: 1em;
+            }
+
+            &:last-child {
+                margin-right: 0;
+
+                &::after {
+                    content: "";
+                }
+            }
+
+            @media all and (max-width: 760px) {
+                display: block;
+
+                &::after {
+                    content: none;
+                }
+            }
+        }
+    }
+}

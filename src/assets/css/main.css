@@ -61,6 +61,11 @@ table {
   box-sizing: border-box;
 }
 
+html,
+body {
+  height: 100%;
+}
+
 body {
   font-size: 16px;
   font-size: 1rem;
@@ -96,60 +101,192 @@ h2,
 h3,
 h4 {
   font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.2em;
 }
 
 h1 {
   font-size: 36px;
   font-size: 2.25rem;
-  margin-bottom: 20px;
+  color: #fff;
 }
 
 h2 {
+  position: relative;
   font-size: 28px;
   font-size: 1.75rem;
+  color: #61889e;
+  margin-bottom: 40px;
+  margin-left: 65px;
+  transform: margin ease 0.3s;
+}
+h2:after {
+  position: absolute;
+  content: "";
+  display: inline-block;
+  width: 60px;
+  height: 2px;
+  background-color: #61889e;
+  bottom: 0;
+}
+
+h3 {
+  font-size: 26px;
+  font-size: 1.625rem;
   margin-bottom: 20px;
 }
 
 ::selection {
-  background-color: #000;
+  background-color: #333;
   color: #fff;
 }
 
-header {
-  background-color: #ddd;
-  height: 300px;
-  margin-bottom: 50px;
+.fifty {
+  width: 50%;
 }
+<<<<<<< HEAD
 header #topbar {
 <<<<<<< HEAD
   position: fixed;
 =======
 >>>>>>> dev
   top: 0;
+=======
+
+.notice {
+  font-size: 12px;
+  font-size: 0.75rem;
+}
+
+.posit-rel {
+  position: relative;
+}
+
+.posit-abs {
+  position: absolute;
+}
+
+.text-link a {
+  font-size: 14px;
+  font-size: 0.875rem;
+  line-height: 1.2rem;
+  color: #61889e;
+}
+.text-link a:focus, .text-link a:hover {
+  color: #87bad8;
+}
+
+header {
+  background-color: #333;
+  line-height: 100px;
+  padding: 0%;
+>>>>>>> dev
   color: #fff;
-  font-size: 0;
-  background-color: #000;
-  box-shadow: 0 2px 8px #797979;
-  width: 100%;
-  margin: 0 auto;
-  padding: 15px 1%;
 }
-header #topbar .logo-header {
-  display: inline-block;
-  font-size: 48px;
-  font-size: 3rem;
-  width: 45%;
-  margin-right: 5%;
+
+.logo-header {
+  font-size: 40px;
+  font-size: 2.5rem;
+  line-height: 100px;
+  float: left;
+  margin-left: 1%;
 }
-header #topbar .menu-header {
-  display: inline-block;
-  font-size: 18px;
-  font-size: 1.125rem;
-  display: inline-block;
-  text-align: right;
-  width: 50%;
+
+label span {
+  font-size: 16px;
 }
-header #topbar .menu-header .menu-list {
+
+.menu {
+  float: right;
+  line-height: 100px;
+}
+.menu li {
+  display: inline-block;
+}
+.menu li a {
+  font-size: 14px;
+  font-size: 0.875rem;
+  color: #fff;
+  text-transform: uppercase;
+  padding: 10px;
+  transition: 0.3s;
+}
+.menu li label span {
+  font-size: 16px;
+}
+
+.show-menu-btn,
+.hide-menu-btn {
+  display: none;
+  font-size: 30px;
+  font-size: 1.875rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.show-menu-btn {
+  float: right;
+}
+.show-menu-btn i {
+  line-height: 100px;
+}
+
+.menu a:hover,
+.show-menu-btn:hover,
+.hide-menu-btn:hover,
+.menu a:focus,
+.show-menu-btn:focus,
+.hide-menu-btn:focus {
+  color: #61889e;
+}
+
+#chk {
+  visibility: hidden;
+  z-index: -1100;
+}
+
+@media all and (max-width: 800px) {
+  .show-menu-btn,
+.hide-menu-btn {
+    display: block;
+  }
+
+  .menu {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    z-index: 10001;
+    background-color: #333;
+    right: -100%;
+    top: 0;
+    text-align: center;
+    padding: 80px 0;
+    line-height: normal;
+    transition: 0.7s;
+  }
+  .menu li {
+    display: block;
+    padding: 20px;
+  }
+
+  .show-menu-btn {
+    margin-right: 1%;
+  }
+
+  .hide-menu-btn {
+    position: absolute;
+    top: 40px;
+    right: 40px;
+  }
+
+  #chk:checked ~ .menu {
+    right: 0;
+  }
+}
+#container {
+  padding: 50px 2%;
+}
+
+.zeropix {
   font-size: 0;
 <<<<<<< HEAD
 }
@@ -182,38 +319,63 @@ header #topbar .menu-header .menu-list li a:hover::after, header #topbar .menu-h
   transform: translateX(-50%) scaleX(1);
 =======
 }
-header #topbar .menu-header .menu-list li {
+.zeropix .connexion-contain {
+  margin-top: 40px;
+}
+.zeropix .connexion-contain .section-connexion {
   display: inline-block;
-  padding-right: 3%;
-}
-header #topbar .menu-header .menu-list li:last-child {
-  padding-right: 0;
-  margin-bottom: 0;
-}
-header #topbar .menu-header .menu-list li a {
-  position: relative;
   font-size: 14px;
   font-size: 0.875rem;
-  padding: 8px 0;
-  color: #fff;
+  vertical-align: top;
 }
-header #topbar .menu-header .menu-list li a::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  bottom: 0;
-  transform: translateX(-50%) scaleX(0);
-  transform-origin: 50% 50%;
-  width: 100%;
-  height: 1px;
-  background-color: #fff;
-  transition: ease transform 0.2s;
+@media all and (max-width: 800px) {
+  .zeropix .connexion-contain .section-connexion {
+    width: 100%;
+    margin-bottom: 40px;
+  }
+  .zeropix .connexion-contain .section-connexion:last-child {
+    margin-bottom: 0;
+  }
 }
-header #topbar .menu-header .menu-list li a:hover::after, header #topbar .menu-header .menu-list li a:focus::after {
-  transform: translateX(-50%) scaleX(1);
+.zeropix .connexion-contain .section-connexion .text-connexion-notice p a {
+  font-size: 14px;
+  font-size: 0.875rem;
+  line-height: 1.2rem;
+  color: #61889e;
+}
+.zeropix .connexion-contain .section-connexion .text-connexion-notice p a:focus, .zeropix .connexion-contain .section-connexion .text-connexion-notice p a:hover {
+  color: #87bad8;
+}
+.zeropix .connexion-contain .section-connexion .text-connexion-notice p span {
+  display: inline-block;
+  margin-top: 40px;
+}
+.zeropix .connexion-contain .section-connexion .text-connexion-notice p span a {
+  font-size: 14px;
+  font-size: 0.875rem;
+  line-height: 1.2rem;
+  color: #61889e;
+}
+.zeropix .connexion-contain .section-connexion .text-connexion-notice p span a:focus, .zeropix .connexion-contain .section-connexion .text-connexion-notice p span a:hover {
+  color: #87bad8;
+}
+.zeropix .connexion-contain .section-connexion .text-connexion-notice p span a {
+  padding: 5px 8px;
+  border: 1px solid #61889e;
+  border-radius: 50px;
+  transform: ease 0.3s border;
+}
+.zeropix .connexion-contain .section-connexion .text-connexion-notice p span a:hover {
+  border: 1px solid #87bad8;
 }
 
-section .message-flash {
+.section-form {
+  margin-top: 60px;
+}
+.section-form:last-child {
+  padding-bottom: 300px;
+}
+.section-form .message-flash {
   display: inline-block;
   font-size: 18px;
   font-size: 1.125rem;
@@ -223,72 +385,77 @@ section .message-flash {
   background-color: #555;
   padding: 10px 20px;
   margin-top: 3%;
+  border-radius: 4px;
 }
-section .error {
+.section-form .error {
   background-color: #c0392b;
 }
-section .success {
+.section-form .success {
   background-color: #2bbf32;
 >>>>>>> dev
 }
-section .form-container {
+.section-form .form-container {
   margin-top: 30px;
 }
-section .form-container form {
+.section-form .form-container form {
   display: block;
   width: 60%;
 }
-section .form-group {
+.section-form div[name=lastnameGroup] {
+  display: none;
+  visibility: hidden;
+}
+.section-form .form-group {
   margin-bottom: 25px;
 }
-section .form-group label,
-section .form-group input {
+.section-form .form-group label {
   display: block;
-}
-section .form-group label {
   font-size: 16px;
   font-size: 1rem;
 }
-section .form-group label .text-info {
+.section-form .form-group label .info-field {
   font-size: 14px;
   font-size: 0.875rem;
   color: #999;
 }
-section .form-group label .text-link {
+.section-form .form-group label .text-link {
   padding-left: 40px;
 }
-section .form-group label .text-link a {
+.section-form .form-group label .text-link a {
   font-size: 14px;
   font-size: 0.875rem;
+  line-height: 1.2rem;
   color: #61889e;
 }
-section .form-group label .text-link a:focus, section .form-group label .text-link a:hover {
+.section-form .form-group label .text-link a:focus, .section-form .form-group label .text-link a:hover {
   color: #87bad8;
 }
-section .form-group input {
+.section-form .form-group div.contain-input {
+  margin-top: 10px;
+}
+.section-form .form-group div.contain-input input {
   outline: none;
-  height: 24px;
+  min-height: 24px;
   min-width: 100%;
-  margin: 4px 0;
-  padding: 10px;
-  background-color: #f9f9f9;
-  border: none;
-  border-bottom: #f9f9f9 1px solid;
+  padding: 5px;
+  border-radius: 4px;
+  border: 1px solid #999;
   transition: ease border 0.3s;
 }
-section .form-group input:focus {
-  border-bottom: #000 1px solid;
+.section-form .form-group div.contain-input input:focus {
+  border: #333 1px solid;
 }
-section .form-group .error-field {
-  font-size: 14px;
-  font-size: 0.875rem;
-  color: #c0392b;
-}
-section .form-group .invalid {
+.section-form .form-group div.contain-input input.invalid {
   border: none;
   border: solid 1px #c0392b;
 }
-section button {
+.section-form .form-group .error-field {
+  font-size: 14px;
+  font-size: 0.875rem;
+  color: #c0392b;
+  margin-top: 10px;
+}
+.section-form button {
   display: block;
   font-size: 14px;
   font-size: 0.875rem;
@@ -301,15 +468,81 @@ section button {
   border-radius: 3px;
   transition: background-color ease 0.3s;
 }
-section button:focus, section button:hover {
+.section-form button:focus, .section-form button:hover {
   background-color: #333;
 }
-
-.btn-invalid {
+.section-form .btn-invalid {
   background-color: #aaa;
 }
-.btn-invalid:hover, .btn-invalid:focus {
+.section-form .btn-invalid:hover, .section-form .btn-invalid:focus {
   background-color: #aaa;
+}
+
+.username {
+  display: inline-block;
+  font-style: italic;
+  margin-bottom: 40px;
+}
+
+.strong {
+  font-weight: 600;
+}
+
+article {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 4px;
+}
+
+footer {
+  display: inline-block;
+  font-size: 14px;
+  font-size: 0.875rem;
+  line-height: 1.5em;
+  color: #fff;
+  width: 100%;
+  background-color: #333333;
+  padding: 15px 1%;
+  text-align: center;
+  box-shadow: 0 -2px 8px #797979;
+}
+@media all and (max-width: 760px) {
+  footer {
+    position: static;
+    text-align: left;
+  }
+}
+footer .list-footer li {
+  display: inline-block;
+  margin-right: 1em;
+}
+footer .list-footer li .text-link a {
+  font-size: 12px;
+  font-size: 0.75rem;
+  line-height: 1.2rem;
+  color: #61889e;
+}
+footer .list-footer li .text-link a:focus, footer .list-footer li .text-link a:hover {
+  color: #87bad8;
+}
+footer .list-footer li::after {
+  content: "|";
+  display: inline-block;
+  margin-left: 1em;
+}
+footer .list-footer li:last-child {
+  margin-right: 0;
+}
+footer .list-footer li:last-child::after {
+  content: "";
+}
+@media all and (max-width: 760px) {
+  footer .list-footer li {
+    display: block;
+  }
+  footer .list-footer li::after {
+    content: none;
+  }
 }
 
 /*# sourceMappingURL=main.css.map */

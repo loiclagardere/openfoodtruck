@@ -1,5 +1,3 @@
-
-
 <!--header -->
 <?php if (!empty($_SESSION['flash'])) : ?>
     <?php foreach ($_SESSION['flash'] as $key => $value) : ?>
@@ -18,10 +16,11 @@
  * @param string $content
  */
 
-function flash() {
+function flash()
+{
     if (isset($_SESSION['flash'])) :
-        foreach ($_SESSION['flash'] as $key => $value) : 
-            $content ='<div class="message ' .  $value['status'] .'">';
+        foreach ($_SESSION['flash'] as $key => $value) :
+            $content = '<div class="message ' .  $value['status'] . '">';
             $content .= $value['message'];
             $content .= '</div>';
         endforeach;

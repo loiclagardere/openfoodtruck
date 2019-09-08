@@ -1,4 +1,9 @@
-section {
+.section-form {
+    margin-top: 60px;
+
+    &:last-child {
+        padding-bottom: 300px;
+    }
 
     // message flash
     .message-flash {
@@ -10,6 +15,7 @@ section {
         background-color: #555;
         padding: 10px 20px;
         margin-top: 3%;
+        border-radius: 4px;
     }
 
     .error {
@@ -28,66 +34,58 @@ section {
             display: block;
             width: 60%;
         }
-
     }
 
+    div[name="lastnameGroup"] {
+        display: none;
+        visibility: hidden;
+    }
 
     .form-group {
         margin-bottom: 25px;
 
-        label,
-        input {
-            display: block;
-        }
-
         label {
+            display: block;
             @include fontSize(16px);
 
-            .text-info {
+            .info-field {
                 @include fontSize(14px);
                 color: #999;
             }
 
             .text-link {
                 padding-left: 40px;
-
-                a {
-                    @include fontSize(14px);
-                    color: #61889e;
-
-                    &:focus,
-                    &:hover {
-                        color: #87bad8;
-                    }
-                }
+                @include textLink(14px);
             }
         }
 
-        input {
-            outline: none;
-            height: 24px;
-            min-width: 100%;
-            margin: 4px 0;
-            padding: 10px;
-            background-color: #f9f9f9;
-            border: none;
-            border-bottom: #f9f9f9 1px solid;
-            transition: ease border .3s;
+        div.contain-input {
+            margin-top: 10px;
 
-            &:focus {
-                // background-color: #fff;
-                border-bottom: #000 1px solid;
+            input {
+                outline: none;
+                min-height: 24px;
+                min-width: 100%;
+                padding: 5px;
+                border-radius: 4px;
+                border: 1px solid #999;
+                transition: ease border .3s;
+
+                &:focus {
+                    border: #333 1px solid;
+                }
+            }
+
+            input.invalid {
+                border: none;
+                border: solid 1px #c0392b;
             }
         }
 
         .error-field {
             @include fontSize(14px);
             color: #c0392b;
-        }
-
-        .invalid {
-            border: none;
-            border: solid 1px #c0392b;
+            margin-top: 10px;
         }
     }
 
@@ -108,19 +106,25 @@ section {
             background-color: #333;
         }
     }
+
+    .btn-invalid {
+        background-color: #aaa;
+
+        &:hover,
+        &:focus {
+            background-color: #aaa;
+        }
+    }
 }
 
 
-// .error-field {
-//     @include fontSize(14px);
-//     color: #c0392b;
-// }
 
-.btn-invalid {
-    background-color: #aaa;
+.username {
+    display: inline-block;
+    font-style: italic;
+    margin-bottom: 40px;
+}
 
-    &:hover,
-    &:focus {
-        background-color: #aaa;
-    }
+.strong {
+    font-weight: 600;
 }

@@ -1,16 +1,15 @@
-<?php session_start(); ?>
-<?php require_once('includes/db.php'); ?>
-<?php require_once('includes/functions.php'); ?>
 <?php
+session_start();
+require_once('includes/bootstrap.php');
+
 
 // Check submit form
-if (!empty($_POST)) :
+if (!empty($_POST) && empty($_POST['lastname'])) :
+
 
     // Check content field and email format
     if (!empty($_POST['email']) && filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) :
-
         $data = ['email' => $_POST['email']];
-
         // Request to select user
         $sql = "SELECT *
                 FROM users
@@ -20,42 +19,43 @@ if (!empty($_POST)) :
         $request->execute($data);
         $user = $request->fetch();
 
+
         // Check user
         if ($user) :
-
-            $userId = $user->id;
+            $userId = $user->user_id;
             $tokenReset = stringRandom(60);
             $data = [
                 'token_reset' => $tokenReset,
-                'id' => $userId
+                'user_id' => $userId
             ];
-
             // Request to update user : 
             $sql = "UPDATE users
                     SET token_reset = :token_reset, token_reseted_at = NOW()
-                    WHERE id = :id";
+                    WHERE user_id = :user_id";
             $request = $db->prepare($sql);
             $request->execute($data);
-
             // Generate email contains confirmation link
-            $emailSubject = "Open Food Truck - Réinitialisation de votre mot de passe.";
-            $emailMessage .= "Afin de valider votre nouveau mot de passe, veuillez cliquer sur le lien suivant \n";
-            $emailMessage .= "ou copiez le dans la barre d'adresse de votre navigateur puis cliquez sur \"enter\" :\n\n";
-            $emailMessage .= "http://localhost/php/initiation/openfoodtruck-php/openfoodtruck/src/";
-            $emailMessage .= "password-reset.php?id=$userId&token_reset=$tokenReset";
-            $emailHeaders = array(
-                'From' => 'webservice@openfoodtruck.fr',
-                'Reply-To' => 'webservice@openfoodtruck.fr',
-                'X-Mailer' => 'PHP/' . phpversion()
-            );
-            // $emailMessage = wordwrap($emailMessage, 70, "\n", true); // hyphenation test
-            mail($_POST['email'], $emailSubject, $emailMessage, $emailHeaders);
-            $_SESSION['flash'][] = [
-                'message' => "Un courriel vous a été envoyé à l'adresse " . $_POST['email'] . ". " . "Veuiilez cliquer sur le lien pour valider votre compte.",
-                'status' => 'info'
-            ];
-            header('Location: signin.php');
-            die();
+            $confirmationLink = "http://localhost/php/initiation/openfoodtruck-php/openfoodtruck/src/password-reset.php?user_id=$userId&token_reset=$tokenReset";
+            $subject = "Validez votre nouveau mot de passe.";
+            $body = passwordForgotMail($_POST['email'], $confirmationLink);
+            $sendMailResult = sendMail($_POST['email'], $subject, $body);
+
+
+            if ($sendMailResult = true) :
+                $_SESSION['flash'][] = [
+                    'message' => "<p>Un courriel vous a été envoyé à l'adresse " . $_POST['email'] . ". </p>" . "<p>Veuillez cliquer sur le lien pour valider votre nouveau mot de passe.</p>",
+                    'status' => 'succes'
+                ];
+                header('Location: signin.php');
+                die();
+            else :
+                $_SESSION['flash'][] = [
+                    'message' => "<p>Une erreur est survenue sur le serveur</p><p>Veuillez renouveler votre inscription.</p>",
+                    'status' => 'error'
+                ];
+            endif;
+
+
         else :
             $_SESSION['flash'][] = [
                 'message' => "Ce couriel ne correspond à aucun compte.",
@@ -68,25 +68,36 @@ endif;
 ?>
 
 
-<?php require_once('template/header.php'); ?>
-<section>
-    <h1>Mot de passe oublié</h1>
+<?php require_once('header.php'); ?>
+
+<section class="section-form">
+    <h2>Mot de passe oublié</h2>
     <div class="notice">
         <p>Les champs marqués d'un astérisque (*) sont obligatoires</p>
     </div>
     <?= flash() ?>
-    <p>Veuillez entrer l'adresse couriel utilisée pour vous connecter à votre compte Open Food Truck.</p>
+    <p>Veuillez entrer l'adresse courriel utilisée pour vous connecter à votre compte Open Food Truck.</p>
     <p>Un message avec un lien va vous étre envoyé à cette adresse afin que vous puissiez reinitialiser votre mot de passe.</p>
 
     <div class="form-container">
         <form action="" method="post">
-            <div class="form-group">
-                <label for="email">* Couriel</label>
-                <input id="email" type="emal" name="email" value="<?= valueField('username'); ?>" />
+
+            <div id="lastname" class="form-group" name="lastnameGroup">
+                <label for="lastname">* Nom de famille </label>
+                <input id="lastname" type="text" name="lastname" />
             </div>
-            <button type="submit">Envoyer couriel</button>
+
+            <div class="form-group" name="emailGroup">
+                <label for="email">* Couriel</label>
+                <div class="contain-input">
+                    <input id="email" type="emal" name="email" value="<?= valueField('username'); ?>" />
+                </div>
+            </div>
+
+            <button type="submit">Recevoir le courriel</button>
+            
         </form>
     </div>
 </section>
 
-<?php require_once('template/footer.php'); ?>
+<?php require_once('footer.php'); ?>
