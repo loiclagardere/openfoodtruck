@@ -10,7 +10,7 @@
             @include fontSize(14px);
             vertical-align: top;
 
-            @media all and (max-width: 640px) {
+            @media all and (max-width: 800px) {
                 width: 100%;
                 margin-bottom: 40px;
 
@@ -20,7 +20,7 @@
 
             }
 
-            .connexion-notice {
+            .text-connexion-notice {
                 p {
                     @include textLink(14px);
 

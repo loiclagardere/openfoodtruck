@@ -28,7 +28,24 @@ const getUsers = function () {
                 return response.json() // a promise is return
             }).then(function (data) {
                 // users = data
-                console.log(data)
+                // console.log(data);
+               let map = L.map('mapid').setView([46.66502, 2.406393], 5);
+                let mapLink = '<a href="http://openstreetmap.org">OpenStreetMap</a>';
+                L.tileLayer(
+                    'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        attribution: '&copy; ' + mapLink + ' Contributors',
+                        maxZoom: 18,
+                    }).addTo(map);
+
+                for (let i = 0; i < data.length; i++) {
+                 if (data[i].company_latitude != null && data[i].company_longitude != null) {
+                    let marker = new L.marker([+data[i].company_latitude, +data[i].company_longitude])
+
+                        .bindPopup(
+                            "<b>"+data[i].company_name+"</b><br"+data[i].company_label+"<br><img src=\"assets/images/icone-logo.png\" width=\"60\" height=\"40\">")
+                        .addTo(map);
+                        }
+                }
 
             })
     } catch (e) {
@@ -36,8 +53,10 @@ const getUsers = function () {
     }
 }
 
-getUsers();
-// console.log(users);
+// getUsers();
+
+
+console.log(getUsers());
 
 
 // function mycallback(users) {
@@ -47,39 +66,19 @@ getUsers();
 // }
 
 
-// getUsersXhr(mycallback);
-
-
-// const getAllUsers = getUsers();
-// console.log(typeof(getAllUsers));
-
-
-
-
 
 // ////////////////////        TEST        ///////////////////////////
-var locations = [
-    ["LOCATION_1", 11.8166, 122.0942],
-    ["LOCATION_2", 11.9804, 121.9189],
-    ["LOCATION_3", 10.7202, 122.5621],
-    ["LOCATION_4", 11.3889, 122.6277],
-    ["LOCATION_5", 10.5929, 122.6325]
-];
+// let locations = [
+//     ["LOCATION_1", 11.8166, 122.0942],
+//     ["LOCATION_2", 11.9804, 121.9189],
+//     ["LOCATION_3", 10.7202, 122.5621],
+//     ["LOCATION_4", 11.3889, 122.6277],
+//     ["LOCATION_5", 10.5929, 122.6325]
+// ];
 
-var map = L.map('mapid').setView([11.206051, 122.447886], 8);
-var mapLink = '<a href="http://openstreetmap.org">OpenStreetMap</a>';
-L.tileLayer(
-    'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; ' + mapLink + ' Contributors',
-        maxZoom: 18,
-    }).addTo(map);
+//let locations = getUsers();
 
-for (var i = 0; i < locations.length; i++) {
-    var marker = new L.marker([locations[i][1], locations[i][2]])
-        .bindPopup(
-            "<b>Open Food Truck</b><br>This is the place to be<br><img src=\"assets/images/truck.gif\" width=\"45\" height=\"45\">")
-        .addTo(map);
-}
+
 
 
 

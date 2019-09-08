@@ -70,7 +70,6 @@ if (!empty($_POST)  && isset($_POST['companyForm'])) :
 
     // Check errors
     if (empty($errors)) :
-        echo "pas d'erreur";
         $name = trim($_POST['company_name']);
         $situation = (!empty($_POST['company_situation'])) ? $_POST['company_situation'] : $userData[0]->company_situation;
         $label = $_POST['company_label'];
