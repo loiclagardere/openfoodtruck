@@ -1,5 +1,5 @@
 <?php
-require_once('config-mail.php');
+require_once('config.php');
 require_once('signup-mail.php');
 require_once('password-forgot-mail.php');
 

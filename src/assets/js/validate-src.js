@@ -21,10 +21,10 @@ let passwordConfirmField = document.getElementById("password-confirm");
 
 let regexUsername = new RegExp('^[a-zA-Z0-9_]+$');
 let regexEmail = new RegExp('^[a-zA-Z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$');
-let regexSiret = new RegExp('^[0-9]{14,14}$');
+let regexSiret = new RegExp('^[0-9]{14}$');
 
 // Messages
-let messageUsernameLength = "Certains caractéres ne sont pas autorisés."
+let messageUsernameFormat = "Certains caractéres ne sont pas autorisés."
 let messageEmailFormat = "Le format de l'email est incorrecte."
 let messageUsenameEmailFormat = "Ce champ est obligatoire."
 let messageSiretFormat = "Le numéro de Siret n'est pas valide."
@@ -44,12 +44,12 @@ let messagePasswordMatch = "Les mots de passe sont différents."
 
 // Style element
 const styleButtonOff = function () {
-    button.setAttribute('disabled', 'disabled');
+    button.setAttribute('disabled');
     button.classList.add('btn-invalid');
 }
 
 const styleButtonOn = function () {
-    button.removeAttribute("disabled", "");
+    button.removeAttribute("disabled");
     button.classList.remove("btn-invalid");
 }
 
@@ -67,7 +67,7 @@ const removeClassInvalid = function (inputField) {
 
 /**
  * 
- * Create html error message down input
+ * Create html message down input
  * 
  * @param {string} parentNode 
  * @param {string} text 
@@ -98,9 +98,9 @@ const messageField = function (classField) {
  */
 const eventOnLoad = function () {
     window.addEventListener('load', function () {
-        // form ? button.setAttribute('disabled', 'disabled') : "";
-        // button ? button.classList.add('btn-invalid') : "";
-        button ? styleButtonOff() : "";
+        console.log('ok window');
+        button ? button.classList.add('btn-invalid') : "";
+        // button ? styleButtonOff() : "";
     })
 }
 
@@ -108,18 +108,18 @@ const eventOnLoad = function () {
 
 /***
  * 
- * Display message for user about the username length
+ * Display message for user about the username format
  */
-const checkUsernameLength = function () {
-    usernameField.addEventListener('blur', function () {
-        messageField("username-length");
+const checkUsernameFormat = function () {
+    usernameField.addEventListener('keyup', function () {
+        messageField("username-format");
         if (regexUsername.test(this.value)) {
             this.classList.remove("invalid");
             this.classList.add('valid');
         } else {
             this.classList.remove("valid");
             this.classList.add("invalid");
-            elementMessage(usernameGroup, messageUsernameLength, "username-length");
+            elementMessage(usernameGroup, messageUsernameFormat, "username-format");
         }
         statusButton();
     });
@@ -131,7 +131,7 @@ const checkUsernameLength = function () {
  * Display message for user about the email format
  */
 const checkEmailFormat = function () {
-    emailField.addEventListener('blur', function () {
+    emailField.addEventListener('keyup', function () {
         messageField("email-format");
         if (regexEmail.test(this.value)) {
             this.classList.remove("invalid");
@@ -150,7 +150,7 @@ const checkEmailFormat = function () {
  * Display message for user about the usernameEmail field format
  */
 const checkUsernameEmailFormat = function () {
-    usernameEmailField.addEventListener('blur', function () {
+    usernameEmailField.addEventListener('keyup', function () {
         messageField("username-email-format");
         if (this.value !== "") {
             this.classList.remove("invalid");
@@ -185,64 +185,94 @@ const checkSiretFormat = function () {
 }
 
 /**
- * check the validity of the API number
+ * check the validity of the Siret number
+ * Use fect() or XMLHttpRequest
  * @param {string} inputField 
  */
-const checkSiretApi = function () {
+const checkSiret = function () {
+    siretField.addEventListener('keyup', function () {
+        messageField("siret-length");
+        if (regexSiret.test(this.value)) {
+            const urlApi = 'https://entreprise.data.gouv.fr/api/sirene/v1/siret/';
+            // const urlApi = 'http://127.0.01:1234';  // test erreur serveur
+            if (window.fetch) { // fetch
+                // if (1 == 2) { // xhr
+                const getSiretFetch = async function (inputField) {
+                    try {
+                        let requestApi = new Request(urlApi + inputField.value);
+                        let requestApiInit = {
+                            method: 'GET',
+                            headers: {
+                                'Accept-Encoding': 'gzip, deflate',
+                                'Referer': 'https://entreprise.data.gouv.fr/api_doc_sirene'
+                            },
+                            cache: 'no-cache'
+                        }
+                        let responseRequest = await fetch(requestApi, requestApiInit);
+                        let responseApiData = await responseRequest.json();
+                        if (responseRequest.ok) {
 
-    const urlApi = 'https://entreprise.data.gouv.fr/api/sirene/v1/siret/';
-    if (window.fetch) { // fetch
-        // if (1 == 2) { // xhr
-        const getSiretFetch = async function (inputField) {
-            let requestApi = new Request(urlApi + inputField.value);
-            let requestApiInit = {
-                method: 'GET',
-                headers: {
-                    'Accept-Encoding': 'gzip, deflate',
-                    'Referer': 'https://entreprise.data.gouv.fr/api_doc_sirene'
-                },
-                cache: 'no-cache'
-            }
-            try {
-                let responseRequest = await fetch(requestApi, requestApiInit);
-                // let responseRequest = await fetch('http://127.0.01:1234');  // test erreur serveur
-                let responseApiData = await responseRequest.json();
-                // if (responseRequest.ok) {
-                // try {
-                if (responseApiData.etablissement) {
-                    console.log('ok')
-                    inputField.classList.remove("invalid");
-                    inputField.classList.add('valid');
-                } else {
-                    console.log("ce siret n'exsite pas")
-                    
+                            if (responseApiData.etablissement) {
+                                console.log(responseRequest.statusText)
+                                inputField.classList.remove("invalid");
+                                inputField.classList.add('valid');
+
+                            } else {
+                                console.log("ce siret n'exsite pas");
+                                console.log(responseRequest.statusText)
+                                inputField.classList.remove("valid");
+                                inputField.classList.add("invalid");
+                                elementMessage(siretGroup, messageSiretFormat + " reponse ok mais pas d'etablissement", "siret-length");
+                            }
+
+                        } else {
+                            console.log('erreur serveur :', responseRequest.status);
+                            elementMessage(siretGroup, messageSiretFormat, "siret-length");
+                        }
+
+                    } catch (e) {
+                        console.log('catch Fetch exception :', e);
+                        console.log('erreur :', responseRequest.status);
+                        elementMessage(siretGroup, messageSiretFormat, "siret-length");
+                    }
                 }
-                // } catch (eApi) {
-                //     console.log(eApi);
-                // }
+                getSiretFetch(siretField);
 
-            } catch (e) {
-                console.log('erreur serveur recuperee dans catch', e);
-            }
-        }
-        getSiretFetch(siretField);
-
-    } else {
-        console.log("Faire quelque chose avec XMLHttpRequest?");
-        const getSiretXhr = function (inputField) {
-            let xhr = new XMLHttpRequest();
-            xhr.open('GET', urlApi + inputField.value);
-            xhr.send();
-            // console.log(xhr);
-            if (xhr.statusText == "OK") {
-                console.log('xhr ok');
             } else {
-                console.log('xhr ko');
+                const getSiretXhr = function (inputField) {
+                    try {
+                        let xhr = new XMLHttpRequest();
+                        xhr.onreadystatechange = function (event) {
+                            if (this.readyState === XMLHttpRequest.DONE) {
+                                let xhrParse = JSON.parse(this.responseText); // Response is a promise. The promise is parse. A json is return
+                                if (this.status === 200 && xhrParse.etablissement) {
+                                    console.log("siret valide");
+                                    inputField.classList.remove("invalid");
+                                    inputField.classList.add('valid');
+                                } else {
+                                    console.log("siret pas valide");
+                                    siretField.classList.remove("valid");
+                                    siretField.classList.add("invalid");
+                                    elementMessage(siretGroup, messageSiretFormat + " reponse ok mais pas d'etablissement", "siret-length");
+                                }
+                            }
+                        };
+                        xhr.open('GET', urlApi + inputField.value);
+                        xhr.send();
+                    } catch (e) {
+                        console.log('catch xhr exception :', e)
+                    }
+                }
+                getSiretXhr(siretField);
             }
+        } else {
+            console.log('ne respecte pas regex');
+            this.classList.remove("valid");
+            this.classList.add("invalid");
+            elementMessage(siretGroup, messageSiretFormat, "siret-length");
         }
-        getSiretXhr(siretField);
-    }
-    statusButton();
+        statusButton();
+    });
 }
 
 
@@ -316,18 +346,23 @@ const checkPasswordMatch = function () {
  * status of the button according to the state of the field
  */
 const statusButton = function () {
-    if (fieldsRequired.length == document.getElementsByClassName('valid').length) {
-        styleButtonOn();
-    } else {
-        styleButtonOff();
-    }
+    document.addEventListener('keyup', function () {
+        console.log('ecoute doc');
+        if (fieldsRequired.length == document.getElementsByClassName('valid').length) {
+            console.log('fieldsRequired ok')
+            styleButtonOn();
+        } else {
+            console.log('fieldsRequired ko')
+            styleButtonOff();
+        }
+    })
 }
 
 
 eventOnLoad();
-usernameGroup ? checkUsernameLength() : "";
+usernameGroup ? checkUsernameFormat() : "";
 emailGroup ? checkEmailFormat() : "";
 usernameEmailGroup ? checkUsernameEmailFormat() : "";
-siretGroup ? checkSiretFormat() : "";
+siretGroup ? checkSiret() : "";
 passwordGroup ? checkPasswordLength() : "";
 passwordGroup && passwordConfirmGroup ? checkPasswordMatch() : "";

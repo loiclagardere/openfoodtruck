@@ -42,7 +42,7 @@ const getUsers = function () {
                     let marker = new L.marker([+data[i].company_latitude, +data[i].company_longitude])
 
                         .bindPopup(
-                            "<b>"+data[i].company_name+"</b><br"+data[i].company_label+"<br><img src=\"assets/images/truck.gif\" width=\"45\" height=\"45\">")
+                            "<b>"+data[i].company_name+"</b><br"+data[i].company_label+"<br><img src=\"assets/images/icone-logo.png\" width=\"60\" height=\"40\">")
                         .addTo(map);
                         }
                 }

@@ -405,15 +405,15 @@ label span {
 .section-form .form-group div.contain-input input:focus {
   border: #333 1px solid;
 }
+.section-form .form-group div.contain-input input.invalid {
+  border: none;
+  border: solid 1px #c0392b;
+}
 .section-form .form-group .error-field {
   font-size: 14px;
   font-size: 0.875rem;
   color: #c0392b;
   margin-top: 10px;
-}
-.section-form .form-group .invalid {
-  border: none;
-  border: solid 1px #c0392b;
 }
 .section-form button {
   display: block;
@@ -431,11 +431,10 @@ label span {
 .section-form button:focus, .section-form button:hover {
   background-color: #333;
 }
-
-.btn-invalid {
+.section-form .btn-invalid {
   background-color: #aaa;
 }
-.btn-invalid:hover, .btn-invalid:focus {
+.section-form .btn-invalid:hover, .section-form .btn-invalid:focus {
   background-color: #aaa;
 }
 

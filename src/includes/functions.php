@@ -106,7 +106,7 @@ function passwordPregMatch($string)
  */
 function SiretPregMatch($string)
 {
-    $regex = '/^[0-9]+$/';
+    $regex = '/^[0-9]{14}$/';
     $siretPregMatch = preg_match($regex, $string);
     if ($siretPregMatch === 1) :
         return true;
