@@ -64,6 +64,7 @@ table {
 html,
 body {
   height: 100%;
+  position: relative;
 }
 
 body {
@@ -105,19 +106,36 @@ h4 {
 }
 
 h1 {
-  font-size: 36px;
-  font-size: 2.25rem;
+  font-size: 32px;
+  font-size: 2rem;
   color: #fff;
 }
 
 h2 {
   position: relative;
-  font-size: 28px;
-  font-size: 1.75rem;
+  font-size: 26px;
+  font-size: 1.625rem;
   color: #61889e;
   margin-bottom: 40px;
   margin-left: 65px;
   transform: margin ease 0.3s;
+}
+@media all and (max-width: 800px) {
+  h2 {
+    margin-left: 0;
+  }
+}
+@media all and (min-width: 800px) {
+  h2:before {
+    position: absolute;
+    content: "";
+    display: inline-block;
+    width: 60px;
+    height: 2px;
+    background-color: #61889e;
+    bottom: 0;
+    transform: translateX(-100%);
+  }
 }
 h2:after {
   position: absolute;
@@ -130,9 +148,15 @@ h2:after {
 }
 
 h3 {
-  font-size: 26px;
-  font-size: 1.625rem;
+  font-size: 22px;
+  font-size: 1.375rem;
   margin-bottom: 20px;
+}
+
+strong {
+  font-size: 16px;
+  font-size: 1rem;
+  font-weight: 600;
 }
 
 ::selection {
@@ -168,18 +192,30 @@ h3 {
 }
 
 header {
+  z-index: 200;
   background-color: #333;
   line-height: 100px;
-  padding: 0%;
   color: #fff;
+  vertical-align: baseline;
+  box-shadow: 0 2px 8px #797979;
 }
 
 .logo-header {
-  font-size: 40px;
-  font-size: 2.5rem;
   line-height: 100px;
   float: left;
   margin-left: 1%;
+  transform: ease 0.3s font-size;
+}
+.logo-header a {
+  font-size: 40px;
+  font-size: 2.5rem;
+  color: #fff;
+}
+@media all and (max-width: 450px) {
+  .logo-header a {
+    font-size: 28px;
+    font-size: 1.75rem;
+  }
 }
 
 label span {
@@ -275,6 +311,15 @@ label span {
 }
 #container {
   padding: 50px 2%;
+}
+
+#section-404 .img404 {
+  display: inline-block;
+  width: 250px;
+  height: 120px;
+  background: url("../images/illustration-logo.png") no-repeat center;
+  background-size: cover;
+  margin: 40px;
 }
 
 .zeropix {

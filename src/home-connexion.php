@@ -9,7 +9,7 @@ require_once('includes/bootstrap.php');
     <h2>Espace pro</h2>
 
     <div>
-        <p><strong>Cette section est reservé aux professionnels souhaitant faire apparaitre leur etablisssement sur le site.</strong></p>
+        <p><strong>Cette section est reservée aux professionnels souhaitant faire apparaître leur établisssement sur ce site.</strong></p>
     </div>
 
     <div class="connexion-contain">

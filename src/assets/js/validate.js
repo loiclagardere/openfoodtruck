@@ -269,12 +269,6 @@ const checkSiret = function () {
 
 
 
-
-
-
-
-
-
 /***
  * 
  * Display message for user about the password length

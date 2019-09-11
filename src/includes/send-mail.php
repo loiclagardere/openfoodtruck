@@ -3,13 +3,19 @@ require_once('config.php');
 require_once('signup-mail.php');
 require_once('password-forgot-mail.php');
 
+require_once('../vendor/phpmailer/phpmailer/src/Exception.php');
+require_once('../vendor/phpmailer/phpmailer/src/PHPMailer.php');
+require_once('../vendor/phpmailer/phpmailer/src/SMTP.php');
+
 // Import PHPMailer classes into the global namespace
 // These must be at the top of your script, not inside a function
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 // require_once('../../vendor/autoload.php'); // test page
-require_once('../vendor/autoload.php');
+// require_once('../vendor/autoload.php');
+
+
 
 function sendMail($mailTo, $subject, $body)
 {
