@@ -200,7 +200,7 @@ endif;
                 </div>
             </div>
 
-            <button type="submit" name="signupForm">S'inscrire</button>
+            <button id="signupForm" type="submit" name="signupForm">S'inscrire</button>
 
         </form>
     </div>

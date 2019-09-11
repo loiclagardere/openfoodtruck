@@ -12,6 +12,7 @@ require_once('../vendor/phpmailer/phpmailer/src/SMTP.php');
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
+// To use the autoload of composer
 // require_once('../../vendor/autoload.php'); // test page
 // require_once('../vendor/autoload.php');
 

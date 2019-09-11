@@ -44,7 +44,7 @@ if (isset($_GET['user_id']) && isset($_GET['token_reset'])) :
 
 
             else :
-                $_SESSION['falsh'][] = [
+                $_SESSION['flash'][] = [
                     'message' => 'Les informations saisies ne sont pas correctes.',
                     'status' => 'error'
                 ];
