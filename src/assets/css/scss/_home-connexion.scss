@@ -9,6 +9,7 @@
             display: inline-block;
             @include fontSize(14px);
             vertical-align: top;
+            padding-right: 1vh;
 
             @media all and (max-width: 800px) {
                 width: 100%;

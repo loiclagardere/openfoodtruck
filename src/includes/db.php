@@ -7,7 +7,7 @@ try {
     $db = new PDO('mysql:host=' . DB_HOST . ';dbname=' . DB_NAME, DB_USER, DB_PASSWORD);
     // on modifie le comportemnet du mode fetch
     // $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-    $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ); // graf
+    $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
     // format sous lequel les infos sont renvoyées par la base
     $db->exec('SET CHARACTER SET utf8');
     //Debug en local:  vaut true

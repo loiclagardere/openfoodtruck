@@ -58,8 +58,8 @@ if (!empty($_POST) && empty($_POST['lastname'])) :
 
         // curl session
         $curlSession = curl_init();
-        curl_setopt($curlSession, CURLOPT_URL, $requestApi);
-        curl_setopt($curlSession, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curlSession, CURLOPT_URL, $requestApi); // url submit
+        curl_setopt($curlSession, CURLOPT_RETURNTRANSFER, true);  // TRUE pour retourner le transfert en tant que chaîne de caractères de la valeur retournée par curl_exec() au lieu de l'afficher directement.
         // curl_setopt($curlSession, CURLOPT_SSL_VERIFYPEER, true);  // certicat ssl
         // curl_setopt($curlSession, CURLOPT_SSL_VERIFYHOST, 2); // 
         curl_setopt($curlSession, CURLOPT_HTTPHEADER, array(
@@ -71,6 +71,7 @@ if (!empty($_POST) && empty($_POST['lastname'])) :
         $resultApi = json_decode(curl_exec($curlSession));
         curl_close($curlSession);
 
+        debugP($resultApi);
 
         if (isset($resultApi->etablissement)) :
             $data = ['siret' => $_POST['siret']];
@@ -81,7 +82,7 @@ if (!empty($_POST) && empty($_POST['lastname'])) :
             $request->execute($data);
             $user = $request->fetch();
 
-
+            debugP($user, 'result user');
             if ($user) :
                 $errors['siret'] = "Ce numéro de Siret est déjà enregistré.";
             endif;
@@ -200,7 +201,7 @@ endif;
                 </div>
             </div>
 
-            <button type="submit" name="signupForm">S'inscrire</button>
+            <button id="signupForm" type="submit" name="signupForm">S'inscrire</button>
 
         </form>
     </div>

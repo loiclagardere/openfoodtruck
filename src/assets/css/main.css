@@ -64,12 +64,13 @@ table {
 html,
 body {
   height: 100%;
+  position: relative;
 }
 
 body {
   font-size: 16px;
   font-size: 1rem;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Raleway", Helvetica, Arial, sans-serif;
   line-height: normal;
 }
 
@@ -100,39 +101,59 @@ h1,
 h2,
 h3,
 h4 {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Raleway", Helvetica, Arial, sans-serif;
   line-height: 1.2em;
 }
 
 h1 {
-  font-size: 36px;
-  font-size: 2.25rem;
+  font-size: 32px;
+  font-size: 2rem;
   color: #fff;
 }
 
 h2 {
   position: relative;
-  font-size: 28px;
-  font-size: 1.75rem;
+  font-size: 26px;
+  font-size: 1.625rem;
   color: #61889e;
   margin-bottom: 40px;
   margin-left: 65px;
   transform: margin ease 0.3s;
 }
-h2:after {
+@media all and (max-width: 800px) {
+  h2 {
+    margin-left: 0;
+  }
+}
+h2:before {
   position: absolute;
   content: "";
   display: inline-block;
-  width: 60px;
+  width: 50px;
   height: 2px;
   background-color: #61889e;
   bottom: 0;
+  transform: translateY(15px);
 }
 
 h3 {
-  font-size: 26px;
-  font-size: 1.625rem;
+  font-size: 22px;
+  font-size: 1.375rem;
   margin-bottom: 20px;
+}
+h3:after {
+  position: absolute;
+  content: "/";
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-left: 5px;
+}
+
+strong {
+  font-size: 16px;
+  font-size: 1rem;
+  font-weight: 600;
 }
 
 ::selection {
@@ -168,18 +189,34 @@ h3 {
 }
 
 header {
+  z-index: 200;
   background-color: #333;
   line-height: 100px;
-  padding: 0%;
   color: #fff;
+  vertical-align: baseline;
+  box-shadow: 0 2px 8px #797979;
+}
+
+.border-header {
+  border-bottom: 4px solid #61889e;
 }
 
 .logo-header {
-  font-size: 40px;
-  font-size: 2.5rem;
   line-height: 100px;
   float: left;
   margin-left: 1%;
+  transform: ease 0.3s font-size;
+}
+.logo-header a {
+  font-size: 40px;
+  font-size: 2.5rem;
+  color: #fff;
+}
+@media all and (max-width: 450px) {
+  .logo-header a {
+    font-size: 28px;
+    font-size: 1.75rem;
+  }
 }
 
 label span {
@@ -188,14 +225,14 @@ label span {
 
 .menu {
   float: right;
-  line-height: 100px;
+  line-height: 120px;
 }
 .menu li {
   display: inline-block;
 }
 .menu li a {
-  font-size: 14px;
-  font-size: 0.875rem;
+  font-size: 12px;
+  font-size: 0.75rem;
   color: #fff;
   text-transform: uppercase;
   padding: 10px;
@@ -265,8 +302,8 @@ label span {
 
   .hide-menu-btn {
     position: absolute;
-    top: 40px;
-    right: 40px;
+    top: 30px;
+    right: 30px;
   }
 
   #chk:checked ~ .menu {
@@ -275,6 +312,15 @@ label span {
 }
 #container {
   padding: 50px 2%;
+}
+
+#section-404 .img404 {
+  display: inline-block;
+  width: 250px;
+  height: 120px;
+  background: url("../images/illustration-logo.png") no-repeat center;
+  background-size: cover;
+  margin: 40px;
 }
 
 .zeropix {
@@ -288,6 +334,7 @@ label span {
   font-size: 14px;
   font-size: 0.875rem;
   vertical-align: top;
+  padding-right: 1vh;
 }
 @media all and (max-width: 800px) {
   .zeropix .connexion-contain .section-connexion {
@@ -356,10 +403,13 @@ label span {
 }
 .section-form .form-container {
   margin-top: 30px;
-}
-.section-form .form-container form {
   display: block;
   width: 60%;
+}
+@media all and (max-width: 800px) {
+  .section-form .form-container {
+    width: 100%;
+  }
 }
 .section-form div[name=lastnameGroup] {
   display: none;
@@ -461,7 +511,7 @@ footer {
   line-height: 1.5em;
   color: #fff;
   width: 100%;
-  background-color: #333333;
+  background-color: #333;
   padding: 15px 1%;
   text-align: center;
   box-shadow: 0 -2px 8px #797979;

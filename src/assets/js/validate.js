@@ -1,14 +1,15 @@
 'use strict'
 
 // Variables
-let form = document.querySelector("form");
 let usernameGroup = document.querySelector("div[name='usernameGroup']");
 let emailGroup = document.querySelector("div[name='emailGroup']");
 let usernameEmailGroup = document.querySelector("div[name='usernameEmailGroup']");
 let siretGroup = document.querySelector("div[name='siretGroup']");
 let passwordGroup = document.querySelector("div[name='passwordGroup']");
 let passwordConfirmGroup = document.querySelector("div[name='passwordConfirmGroup']");
+let companyNameGroup = document.querySelector("div[name='companyNameGroup']");
 let button = document.querySelector("button");
+
 
 let fieldsRequired = document.querySelectorAll('input:required');
 
@@ -18,6 +19,7 @@ let usernameEmailField = document.getElementById("username-email");
 let siretField = document.getElementById("siret");
 let passwordField = document.getElementById("password");
 let passwordConfirmField = document.getElementById("password-confirm");
+let companyNameField = document.getElementById("company-name");
 
 let regexUsername = new RegExp('^[a-zA-Z0-9_]+$');
 let regexEmail = new RegExp('^[a-zA-Z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$');
@@ -28,6 +30,8 @@ let messageUsernameFormat = "Certains caractéres ne sont pas autorisés."
 let messageEmailFormat = "Le format de l'email est incorrecte."
 let messageUsenameEmailFormat = "Ce champ est obligatoire."
 let messageSiretFormat = "Le numéro de Siret n'est pas valide."
+let messageCompanyNameFormat = "Veuillez renseigner un nom pour votre établissement."
+
 
 /**
  * 
@@ -56,12 +60,15 @@ const styleButtonOn = function () {
 const styleFieldValid = function (element) {
     element.classList.remove("invalid");
     element.classList.add('valid');
+    element.setAttribute('status', 'valid-field');
 }
 
 
 const styleFieldInvalid = function (element) {
     element.classList.remove("valid");
     element.classList.add("invalid");
+    element.removeAttribute('status', 'valid-field');
+
 }
 
 
@@ -87,9 +94,9 @@ const removeClassInvalid = function (inputField) {
  * @param {string} text 
  * @param {string} classField 
  */
-const elementMessage = function (parentNode, text, classField) {
+const elementMessage = function (parentNode, text, idField) {
     let messageHtml = document.createElement('div');
-    messageHtml.id = classField;
+    messageHtml.id = idField;
     messageHtml.classList.add('error-field');
     messageHtml.textContent = text;
     parentNode.appendChild(messageHtml);
@@ -138,12 +145,12 @@ const checkRegex = function (element, regex) {
  */
 const checkUsernameField = function () {
     usernameField.addEventListener('keyup', function () {
-        checkMessageField("username-format");
+        checkMessageField("username-field");
         if (checkRegex(this, regexUsername)) {
             styleFieldValid(this);
         } else {
             styleFieldInvalid(this);
-            elementMessage(usernameGroup, messageUsernameFormat, "username-format");
+            elementMessage(usernameGroup, messageUsernameFormat, "username-field");
         }
     });
 }
@@ -155,12 +162,12 @@ const checkUsernameField = function () {
  */
 const checkEmailField = function () {
     emailField.addEventListener('blur', function () {
-        checkMessageField("email-format");
+        checkMessageField("email-field");
         if (checkRegex(this, regexEmail)) {
             styleFieldValid(this);
         } else {
             styleFieldInvalid(this);
-            elementMessage(emailGroup, messageEmailFormat, "email-format");
+            elementMessage(emailGroup, messageEmailFormat, "email-field");
         }
     });
 }
@@ -171,12 +178,12 @@ const checkEmailField = function () {
  */
 const checkUsernameEmailField = function () {
     usernameEmailField.addEventListener('keyup', function () {
-        checkMessageField("username-email-format");
+        checkMessageField("username-email-field");
         if (this.value !== "") {
             styleFieldValid(this);
         } else {
             styleFieldInvalid(this);
-            elementMessage(usernameEmailGroup, messageUsernameEmailFormat, "username-email-format");
+            elementMessage(usernameEmailGroup, messageUsernameEmailFormat, "username-email-field");
         }
     });
 }
@@ -269,12 +276,6 @@ const checkSiret = function () {
 
 
 
-
-
-
-
-
-
 /***
  * 
  * Display message for user about the password length
@@ -283,11 +284,9 @@ const checkPasswordLength = function () {
     passwordField.addEventListener('keyup', function () {
         checkMessageField("password-length");
         if (this.value.length > 7) {
-            this.classList.remove("invalid");
-            this.classList.add('valid');
+            styleFieldValid(this);
         } else {
-            this.classList.remove("valid");
-            this.classList.add("invalid");
+            styleFieldInvalid(this);
             elementMessage(passwordGroup, messagePasswordLength(this), "password-length");
         }
     });
@@ -304,36 +303,46 @@ const checkPasswordMatch = function () {
         removeClassInvalid(this);
         if (this.value.length > 7) {
             if (this.value == passwordConfirmField.value) {
-                this.classList.remove("invalid");
-                passwordConfirmField.classList.remove("invalid");
-                this.classList.add('valid');
-                passwordConfirmField.classList.add("valid");
+                styleFieldValid(this);
+                styleFieldValid(passwordConfirmField);
             } else {
-                this.classList.remove("valid");
-                this.classList.add("invalid");
+                styleFieldInvalid(this);
                 passwordConfirmField.classList.add("invalid");
                 elementMessage(passwordGroup, messagePasswordMatch, "password-match");
             }
-            // statusButton();
         }
     });
 
     passwordConfirmField.addEventListener('keyup', function () {
+        console.log('confirmPasswrd');
         checkMessageField("password-match");
         removeClassInvalid(this);
         if (this.value.length > 7) {
             if (this.value == passwordField.value) {
-                passwordField.classList.remove("invalid");
-                this.classList.remove("invalid");
-                passwordField.classList.add("valid");
-                this.classList.add('valid');
+                styleFieldValid(this);
+                styleFieldValid(passwordField);
             } else {
-                // passwordField.classList.add("invalid");
-                this.classList.remove("valid");
-                this.classList.add("invalid");
-                elementMessage(passwordGroup, messagePasswordMatch, "password-match");
+                styleFieldInvalid(this);
+                passwordField.classList.add("invalid");
+                elementMessage(passwordConfirmField, messagePasswordMatch, "password-confirm-match");
             }
-            // statusButton();
+        }
+    });
+}
+
+
+/***
+ * 
+ * Display message for user about the companyName field format
+ */
+const checkCompanyNameField = function () {
+    companyNameField.addEventListener('keyup', function () {
+        checkMessageField("company-name-field");
+        if (this.value !== "") {
+            styleFieldValid(this);
+        } else {
+            styleFieldInvalid(this);
+            elementMessage(companyNameGroup, messageCompanyNameFormat, "company-name-field");
         }
     });
 }
@@ -346,6 +355,7 @@ const checkPasswordMatch = function () {
 const statusButton = function () {
     document.addEventListener('keyup', function () {
         console.log('ecoute doc');
+        // if (fieldsRequired.length == document.querySelectorAll('input[status="valid-field"]').length) {
         if (fieldsRequired.length == document.getElementsByClassName('valid').length) {
             console.log('fieldsRequired ok')
             styleButtonOn();
@@ -364,4 +374,5 @@ usernameEmailGroup ? checkUsernameEmailField() : "";
 siretGroup ? checkSiret() : "";
 passwordGroup ? checkPasswordLength() : "";
 passwordGroup && passwordConfirmGroup ? checkPasswordMatch() : "";
+companyNameGroup ? checkCompanyNameField() : "";
 button ? statusButton() : "";
