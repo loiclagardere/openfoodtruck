@@ -1,7 +1,6 @@
 'use strict'
 
 // Variables
-let form = document.querySelector("form");
 let usernameGroup = document.querySelector("div[name='usernameGroup']");
 let emailGroup = document.querySelector("div[name='emailGroup']");
 let usernameEmailGroup = document.querySelector("div[name='usernameEmailGroup']");
@@ -315,6 +314,7 @@ const checkPasswordMatch = function () {
     });
 
     passwordConfirmField.addEventListener('keyup', function () {
+        console.log('confirmPasswrd');
         checkMessageField("password-match");
         removeClassInvalid(this);
         if (this.value.length > 7) {
@@ -322,9 +322,9 @@ const checkPasswordMatch = function () {
                 styleFieldValid(this);
                 styleFieldValid(passwordField);
             } else {
-                // passwordField.classList.add("invalid");
                 styleFieldInvalid(this);
-                elementMessage(passwordGroup, messagePasswordMatch, "password-match");
+                passwordField.classList.add("invalid");
+                elementMessage(passwordConfirmField, messagePasswordMatch, "password-confirm-match");
             }
         }
     });
@@ -355,7 +355,8 @@ const checkCompanyNameField = function () {
 const statusButton = function () {
     document.addEventListener('keyup', function () {
         console.log('ecoute doc');
-        if (fieldsRequired.length == document.querySelectorAll('input[status="valid-field"]').length) {
+        // if (fieldsRequired.length == document.querySelectorAll('input[status="valid-field"]').length) {
+        if (fieldsRequired.length == document.getElementsByClassName('valid').length) {
             console.log('fieldsRequired ok')
             styleButtonOn();
         } else {

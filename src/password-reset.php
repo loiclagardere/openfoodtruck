@@ -41,7 +41,16 @@ if (isset($_GET['user_id']) && isset($_GET['token_reset'])) :
                 $sql = "UPDATE users
                         SET password = :password, token_reset = NULL, token_reset_at = NULL
                         WHERE user_id = :user_id";
+                $request = $db->prepare($sql);
+                $request->execute($data);
 
+                $_SESSION['auth'] = $user; // connect user
+                $_SESSION['flash'][] = [
+                    'message' => 'Vous êtes connecté.',
+                    'status' => 'success'
+                ];
+                header('Location: account.php');
+                die();
 
             else :
                 $_SESSION['flash'][] = [

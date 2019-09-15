@@ -20,6 +20,7 @@ $urlSearch = $_SERVER['SERVER_NAME'] == 'localhost' ? "http://localhost/php/init
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Open Food Truck - Trouvez votre food trucks partout en France</title>
     <link rel="icon" type="image/png" href="assets/images/favicon.png" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,500,600,700,700i&amp;subset=latin-ext" rel="stylesheet" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin="" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.9/css/select2.min.css" />
@@ -31,7 +32,7 @@ $urlSearch = $_SERVER['SERVER_NAME'] == 'localhost' ? "http://localhost/php/init
 
 <body>
 
-    <header>
+    <header <?= isset($_SESSION['auth']) ? 'class="border-header"' : ""; ?>>
         <div class="logo-header">
             <a href="index.php" title="OpenFoodTruck, retour à l'accueil">OpenFoodTruck</a>
         </div>
@@ -69,13 +70,13 @@ $urlSearch = $_SERVER['SERVER_NAME'] == 'localhost' ? "http://localhost/php/init
             </li>
         </ul>
     </header>
-    <?php if ($url == $urlIndex) : ?>
+    <!-- <?php if ($url == $urlIndex) : ?>
             <div class="banner-header">
                 <div class="text-banner">
                     <h1>Trouvez votre food truck partout en France!</h1>
                 </div>
             </div>
-        <?php endif; ?>
+        <?php endif; ?> -->
 
 
 

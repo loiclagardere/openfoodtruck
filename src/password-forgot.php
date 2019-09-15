@@ -44,7 +44,7 @@ if (!empty($_POST) && empty($_POST['lastname'])) :
             if ($sendMailResult = true) :
                 $_SESSION['flash'][] = [
                     'message' => "<p>Un courriel vous a été envoyé à l'adresse " . $_POST['email'] . ". </p>" . "<p>Veuillez cliquer sur le lien pour valider votre nouveau mot de passe.</p>",
-                    'status' => 'succes'
+                    'status' => 'success'
                 ];
                 header('Location: signin.php');
                 die();

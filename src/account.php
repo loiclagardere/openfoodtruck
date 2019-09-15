@@ -23,7 +23,7 @@ authentificated();
         </section>
 
         <section class="section-connexion fifty">
-            <h3>Ajouter / modifier votre établissement</h3>
+            <h3>Ajouter ou modifier votre établissement</h3>
             <div class="connexion-notice">
                 <div class="text-connexion-notice">
                     <p>Pour gérer les informations relatives à votre établissement.</p>

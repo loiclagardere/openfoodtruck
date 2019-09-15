@@ -26,14 +26,20 @@
         background-color: #2bbf32;
     }
 
+
     // elements of form
     .form-container {
         margin-top: 30px;
 
-        form {
-            display: block;
-            width: 60%;
+
+        // background-color: red;
+        display: block;
+        width: 60%; // 
+
+        @media all and (max-width: 800px) {
+            width: 100%;
         }
+
     }
 
     div[name="lastnameGroup"] {
@@ -72,7 +78,7 @@
                 transition: ease border .3s;
 
                 &:focus {
-                    border: #333 1px solid;
+                    border: $default-color 1px solid;
                 }
             }
 
@@ -103,7 +109,7 @@
 
         &:focus,
         &:hover {
-            background-color: #333;
+            background-color: $default-color;
         }
     }
 

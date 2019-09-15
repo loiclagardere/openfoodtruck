@@ -13,14 +13,14 @@
             <article>
                 <h3>Amateurs de gastronomie urbaine</h3>
                 <p>Nous vous offrons la possibilité de localiser partout en France le food truck qui correspond à vos envies du moment.</p>
-                <p>Vous pouvez affiner vos recherches selon le type de cuisine que vous aimez, selon un régime alimentaire spécifique ou simplement en fonction des palts que vous aimez.</p>
+                <p>Vous pouvez affiner vos recherches selon le type de cuisine que vous souhaitez, selon un régime alimentaire spécifique ou simplement en fonction des plats que vous aimez.</p>
                 <p>Vous souhaitez chercher un food? C'est <span class="text-link"><a href="search.php">par ici</a></span>.</p>
             </article>
             <article>
                 <h3>Professionnel de la restauration et détenteur d'un food truck</h3>
-                <p>Inscrivivez sur notre site et faites connaitre votre établissemnt. Nous vous offrans un visibilité planétaire</p>
+                <p>Inscrivivez sur notre site et faites connaitre votre établissemnt. Nous vous offrons une visibilité planétaire</p>
                 <p>Gratuit, sans engagement, faites découvrir votre talent au plus grand monde.</p>
-                <p>Décidez? Renseignez le <span class="text-link"><a href="signup.php">formulaire d'inscription</a></span>.</p>
+                <p>Convaincu? Renseignez le <span class="text-link"><a href="signup.php">formulaire d'inscription</a></span>.</p>
             </article>
         </div>
     </section>

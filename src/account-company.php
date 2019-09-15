@@ -2,8 +2,7 @@
 require_once('includes/bootstrap.php');
 authentificated();
 
-// debugP($_SESSION['auth']);
-// die();
+// debugP($_SESSION['auth'], 'auth');
 $userId = $_SESSION['auth']->user_id;
 $userData = getAll($db, $userId);
 
