@@ -125,7 +125,8 @@ label span {
         right: 30px;
     }
 
-    #chk:checked~.menu { //pour cibler le menu
+    #chk:checked~.menu {
+        //pour cibler le menu
         right: 0;
     }
 }
@@ -133,7 +134,6 @@ label span {
 
 .banner-header {
     position: relative;
-    background-color: #ddd;
     background: url('../images/banner-top-01.jpg') no-repeat bottom center $default-color;
     background-size: cover;
     min-height: 700px;
@@ -142,8 +142,7 @@ label span {
     &::before {
         position: absolute;
         content: '';
-        background-color: rgb(66, 60, 66);
-        background-image: linear-gradient(to top right, rgb(0, 0, 0) 0, rgb(255, 255, 255) 100%);
+        background: linear-gradient(to top right, rgb(0, 0, 0) 20%, rgb(255, 255, 255) 100%);
         top: 0;
         left: 0;
         right: 0;
@@ -155,29 +154,25 @@ label span {
     .text-banner {
         position: absolute;
         z-index: 90;
-        top: 50%;
+        top: 20%;
         left: 0;
         right: 0;
-        transform: translateY(-50%);
         text-align: center;
 
-            &::before {
-                content: "";
-                display: inline-block;
-                background: url("../images/illustration-logo.png") no-repeat;
-                background-size: 100% auto;
-                min-width: 450px;
-                min-height: 300px;
-                margin: 20px;
-                // right: 0;
-                // bottom: 0;
+        &::before {
+            content: "";
+            display: inline-block;
+            background: url("../images/illustration-logo.png") no-repeat;
+            background-size: 100% auto;
+            min-width: 450px;
+            min-height: 300px;
+            margin-bottom: 20px;
 
-                @media all and (max-width: 480px) {
-                        min-width: 220px;
-                        min-height: 150px;
-        
-                    }
+            @media all and (max-width: 480px) {
+                min-width: 220px;
+                min-height: 150px;
             }
+        }
 
 
         h1 {
@@ -189,5 +184,5 @@ label span {
 #container {
     padding: 50px 2%;
     min-height: 80vh;
-    
+
 }

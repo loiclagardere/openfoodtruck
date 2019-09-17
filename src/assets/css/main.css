@@ -313,7 +313,6 @@ label span {
 }
 .banner-header {
   position: relative;
-  background-color: #ddd;
   background: url("../images/banner-top-01.jpg") no-repeat bottom center #333;
   background-size: cover;
   min-height: 700px;
@@ -322,8 +321,7 @@ label span {
 .banner-header::before {
   position: absolute;
   content: "";
-  background-color: #423c42;
-  background-image: linear-gradient(to top right, black 0, white 100%);
+  background: linear-gradient(to top right, black 20%, white 100%);
   top: 0;
   left: 0;
   right: 0;
@@ -334,10 +332,9 @@ label span {
 .banner-header .text-banner {
   position: absolute;
   z-index: 90;
-  top: 50%;
+  top: 20%;
   left: 0;
   right: 0;
-  transform: translateY(-50%);
   text-align: center;
 }
 .banner-header .text-banner::before {
@@ -347,7 +344,7 @@ label span {
   background-size: 100% auto;
   min-width: 450px;
   min-height: 300px;
-  margin: 20px;
+  margin-bottom: 20px;
 }
 @media all and (max-width: 480px) {
   .banner-header .text-banner::before {
