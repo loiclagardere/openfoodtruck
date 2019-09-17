@@ -1,17 +1,16 @@
 header {
-    // position: relative;
+    position: relative;
     z-index: 200;
     background-color: $default-color;
     line-height: 100px;
+    height: 100px;
     color: #fff;
-    vertical-align: baseline;
     box-shadow: 0 2px 8px #797979;
 }
 
 .border-header {
     border-bottom: 4px solid $link-color;
 }
-
 
 .logo-header {
     line-height: 100px;
@@ -83,7 +82,7 @@ label span {
 }
 
 #chk {
-    // position: absolute;
+    position: absolute;
     visibility: hidden;
     z-index: -1100;
 }
@@ -126,62 +125,66 @@ label span {
         right: 30px;
     }
 
-    #chk:checked~.menu {
-        //pour cibler le menu
+    #chk:checked~.menu { //pour cibler le menu
         right: 0;
     }
 }
 
 
+.banner-header {
+    position: relative;
+    background-color: #ddd;
+    background: url('../images/banner-top-01.jpg') no-repeat bottom center $default-color;
+    background-size: cover;
+    min-height: 700px;
+    height: 90vh;
 
-// .banner-header {
-//     background-color: #ddd;
-//     background: url('../images/banner-top-01.jpg') no-repeat bottom center $default-color333;
-//     background-size: cover;
-//     min-height: 700px;
-//     height: 100vh;
+    &::before {
+        position: absolute;
+        content: '';
+        background-color: rgb(66, 60, 66);
+        background-image: linear-gradient(to top right, rgb(0, 0, 0) 0, rgb(255, 255, 255) 100%);
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        opacity: .85;
+        z-index: 1;
+    }
 
-//     &::before {
-//         position: absolute;
-//         content: '';
-//         background-color: rgb(66, 60, 66);
-//         background-image: linear-gradient(to top right, rgb(0, 0, 0) 0, rgb(255, 255, 255) 100%);
-//         top: 0;
-//         left: 0;
-//         right: 0;
-//         bottom: 0;
-//         opacity: .85;
-//         z-index: 1;
-//     }
+    .text-banner {
+        position: absolute;
+        z-index: 90;
+        top: 50%;
+        left: 0;
+        right: 0;
+        transform: translateY(-50%);
+        text-align: center;
 
-//     .text-banner {
-//         position: absolute;
-//         z-index: 90;
-//         top: 50%;
-//         left: 0;
-//         right: 0;
-//         transform: translateY(-50%);
-//         text-align: center;
+            &::before {
+                content: "";
+                display: inline-block;
+                background: url("../images/illustration-logo.png") no-repeat;
+                background-size: 100% auto;
+                min-width: 450px;
+                min-height: 300px;
+                margin: 20px;
+                // right: 0;
+                // bottom: 0;
 
-//         @media all and (min-width: 480px) {
-//             &::before {
-//                 content: "";
-//                 display: inline-block;
-//                 background: url("../images/illustration-logo.png") no-repeat;
-//                 background-size: 100% auto;
-//                 min-width: 450px;
-//                 min-height: 300px;
-//                 right: 0;
-//                 bottom: 0;
-//             }
-//         }
+                @media all and (max-width: 480px) {
+                        min-width: 220px;
+                        min-height: 150px;
+        
+                    }
+            }
 
-//         h1 {
-//             color: #fff;
-//         }
-//     }
-// }
 
+        h1 {
+            color: #fff;
+        }
+    }
+}
 
 #container {
     padding: 50px 2%;

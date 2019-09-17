@@ -88,7 +88,7 @@ const removeClassInvalid = function (inputField) {
 
 /**
  * 
- * Create html message down input
+ * Create html message
  * 
  * @param {string} parentNode 
  * @param {string} text 

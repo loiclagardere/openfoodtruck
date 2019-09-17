@@ -4,7 +4,7 @@
     <section class="introduction">
         <div class="wrapper">
             <article>
-                <h2>Pésentation</h2>
+                <h2>Présentation</h2>
                 <p>Vous cherchez à vous restaurer et vous cherchez un food truck? Est-il ouvert?</p>
                 <p>Open Food Truck est fait pour vous.</p>
                 <p>Vous possédez un food truck et souhaitez être vu par un maximum de client? Lorsque le service est lancé?</p>
@@ -18,8 +18,8 @@
             </article>
             <article>
                 <h3>Professionnel de la restauration et détenteur d'un food truck</h3>
-                <p>Inscrivivez sur notre site et faites connaitre votre établissemnt. Nous vous offrons une visibilité planétaire</p>
-                <p>Gratuit, sans engagement, faites découvrir votre talent au plus grand monde.</p>
+                <p>Inscrivez-vous sur notre site et faites connaitre votre établissemnt. Nous vous offrons une visibilité planétaire!</p>
+                <p>Gratuit, sans engagements, faites découvrir votre talent au plus grand monde.</p>
                 <p>Convaincu? Renseignez le <span class="text-link"><a href="signup.php">formulaire d'inscription</a></span>.</p>
             </article>
         </div>

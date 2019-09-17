@@ -119,6 +119,7 @@
         &:hover,
         &:focus {
             background-color: #aaa;
+            cursor: not-allowed;
         }
     }
 }
