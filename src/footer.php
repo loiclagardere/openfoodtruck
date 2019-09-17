@@ -9,7 +9,7 @@
             Nous contacter : <span class="text-link"><a href="mailto:contact@openfoodtruck.fr?subject=Demande%20de%20renseignements">contact@openfoodtruck.fr</a></span>
         </li>
         <li>
-            Open Food Truck <span class="notice">(Tous droits reservés)</span>
+            OpenFoodTruck <span class="notice">(Tous droits reservés)</span>
         </li>
         <!-- </ul> -->
         </div>
