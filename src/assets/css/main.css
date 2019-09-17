@@ -64,7 +64,6 @@ table {
 html,
 body {
   height: 100%;
-  position: relative;
 }
 
 body {
@@ -189,11 +188,12 @@ strong {
 }
 
 header {
+  position: relative;
   z-index: 200;
   background-color: #333;
   line-height: 100px;
+  height: 100px;
   color: #fff;
-  vertical-align: baseline;
   box-shadow: 0 2px 8px #797979;
 }
 
@@ -268,6 +268,7 @@ label span {
 }
 
 #chk {
+  position: absolute;
   visibility: hidden;
   z-index: -1100;
 }
@@ -310,6 +311,54 @@ label span {
     right: 0;
   }
 }
+.banner-header {
+  position: relative;
+  background-color: #ddd;
+  background: url("../images/banner-top-01.jpg") no-repeat bottom center #333;
+  background-size: cover;
+  min-height: 700px;
+  height: 90vh;
+}
+.banner-header::before {
+  position: absolute;
+  content: "";
+  background-color: #423c42;
+  background-image: linear-gradient(to top right, black 0, white 100%);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0.85;
+  z-index: 1;
+}
+.banner-header .text-banner {
+  position: absolute;
+  z-index: 90;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  text-align: center;
+}
+.banner-header .text-banner::before {
+  content: "";
+  display: inline-block;
+  background: url("../images/illustration-logo.png") no-repeat;
+  background-size: 100% auto;
+  min-width: 450px;
+  min-height: 300px;
+  margin: 20px;
+}
+@media all and (max-width: 480px) {
+  .banner-header .text-banner::before {
+    min-width: 220px;
+    min-height: 150px;
+  }
+}
+.banner-header .text-banner h1 {
+  color: #fff;
+}
+
 #container {
   padding: 50px 2%;
 }
@@ -486,6 +535,7 @@ label span {
 }
 .section-form .btn-invalid:hover, .section-form .btn-invalid:focus {
   background-color: #aaa;
+  cursor: not-allowed;
 }
 
 .username {

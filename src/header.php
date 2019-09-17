@@ -7,8 +7,8 @@ endif;
 require_once('includes/functions.php');
 
 $url = "http://" . $_SERVER['SERVER_NAME'] . $_SERVER["REQUEST_URI"];
-$urlIndex = $_SERVER['SERVER_NAME'] == 'localhost' ? "http://localhost/php/initiation/openfoodtruck-php/openfoodtruck/src/index.php" : "http://" . $_SERVER['SERVER_NAME'] . "/src/index.php";
-$urlSearch = $_SERVER['SERVER_NAME'] == 'localhost' ? "http://localhost/php/initiation/openfoodtruck-php/openfoodtruck/src/search.php" : "http://" . $_SERVER['SERVER_NAME'] . "/src/search.php";
+$urlIndex = $_SERVER['SERVER_NAME'] == 'localhost' ? "http://localhost/php/initiation/openfoodtruck-php/openfoodtruck/src/index.php" : "http://" . $_SERVER['SERVER_NAME'] . "/index.php";
+$urlSearch = $_SERVER['SERVER_NAME'] == 'localhost' ? "http://localhost/php/initiation/openfoodtruck-php/openfoodtruck/src/search.php" : "http://" . $_SERVER['SERVER_NAME'] . "/search.php";
 
 ?>
 <!DOCTYPE html>
@@ -36,11 +36,11 @@ $urlSearch = $_SERVER['SERVER_NAME'] == 'localhost' ? "http://localhost/php/init
         <div class="logo-header">
             <a href="index.php" title="OpenFoodTruck, retour à l'accueil">OpenFoodTruck</a>
         </div>
-        <input type="checkbox" id="chk">
         <label for="chk" class="show-menu-btn">
             <span>Menu</span>
             <i class="fas fa-hamburger"></i>
         </label>
+        <input type="checkbox" id="chk">
         <ul class="menu">
             <li>
                 <a href="index.php" title="Pésentation.">Présentation</a>
@@ -70,13 +70,13 @@ $urlSearch = $_SERVER['SERVER_NAME'] == 'localhost' ? "http://localhost/php/init
             </li>
         </ul>
     </header>
-    <!-- <?php if ($url == $urlIndex) : ?>
+    <?php if ($url == $urlIndex) : ?>
             <div class="banner-header">
                 <div class="text-banner">
                     <h1>Trouvez votre food truck partout en France!</h1>
                 </div>
             </div>
-        <?php endif; ?> -->
+        <?php endif; ?>
 
 
 

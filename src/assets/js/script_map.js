@@ -25,8 +25,9 @@ const getUsers = function () {
     try {
         fetch('includes/api_map.php')
             .then(function (response) {
-                return response.json() // a promise is return
+                return response.json(); // a promise is return
             }).then(function (data) {
+                console.log(data);
 
                 // Create the map
                 let map = L.map('mapid').setView([46.66502, 2.406393], 5);
