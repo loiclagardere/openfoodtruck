@@ -34,7 +34,7 @@ const getUsers = function () {
 
                 // Leaflet contributors
                 let mapLink = '<a href="https://openstreetmap.org">OpenStreetMap</a>';
-                L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     attribution: '&copy; ' + mapLink + ' Contributors',
                     maxZoom: 18,
                 }).addTo(map);
