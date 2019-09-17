@@ -1,16 +1,31 @@
 header {
-    // position: relative;
-    background-color: #333;
+    position: relative;
+    z-index: 200;
+    background-color: $default-color;
     line-height: 100px;
-    padding: 0%;
+    height: 100px;
     color: #fff;
+    box-shadow: 0 2px 8px #797979;
+}
+
+.border-header {
+    border-bottom: 4px solid $link-color;
 }
 
 .logo-header {
-    @include fontSize(40px);
     line-height: 100px;
     float: left;
     margin-left: 1%;
+    transform: ease .3s font-size;
+
+    a {
+        @include fontSize(40px);
+        color: #fff;
+
+        @media all and (max-width: 450px) {
+            @include fontSize(28px);
+        }
+    }
 }
 
 label span {
@@ -19,13 +34,13 @@ label span {
 
 .menu {
     float: right;
-    line-height: 100px;
+    line-height: 120px;
 
     li {
         display: inline-block;
 
         a {
-            @include fontSize(14px);
+            @include fontSize(12px);
             color: #fff;
             text-transform: uppercase;
             padding: 10px;
@@ -48,7 +63,6 @@ label span {
     transition: .3s;
 }
 
-
 .show-menu-btn {
     float: right;
 
@@ -56,7 +70,6 @@ label span {
         line-height: 100px;
     }
 }
-
 
 .menu a:hover,
 .show-menu-btn:hover,
@@ -69,7 +82,7 @@ label span {
 }
 
 #chk {
-    // position: absolute;
+    position: absolute;
     visibility: hidden;
     z-index: -1100;
 }
@@ -86,7 +99,7 @@ label span {
         width: 100%;
         height: 100vh;
         z-index: 10001;
-        background-color: #333;
+        background-color: $default-color;
         right: -100%;
         top: 0;
         text-align: center;
@@ -108,66 +121,70 @@ label span {
 
     .hide-menu-btn {
         position: absolute;
-        top: 40px;
-        right: 40px;
+        top: 30px;
+        right: 30px;
     }
 
-    #chk:checked~.menu {
-        //pour cibler le menu
+    #chk:checked~.menu { //pour cibler le menu
         right: 0;
     }
 }
 
 
+.banner-header {
+    position: relative;
+    background-color: #ddd;
+    background: url('../images/banner-top-01.jpg') no-repeat bottom center $default-color;
+    background-size: cover;
+    min-height: 700px;
+    height: 90vh;
 
-// .banner-header {
-//     background-color: #ddd;
-//     background: url('../images/banner-top-01.jpg') no-repeat bottom center #333333;
-//     background-size: cover;
-//     min-height: 700px;
-//     height: 100vh;
+    &::before {
+        position: absolute;
+        content: '';
+        background-color: rgb(66, 60, 66);
+        background-image: linear-gradient(to top right, rgb(0, 0, 0) 0, rgb(255, 255, 255) 100%);
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        opacity: .85;
+        z-index: 1;
+    }
 
-//     &::before {
-//         position: absolute;
-//         content: '';
-//         background-color: rgb(66, 60, 66);
-//         background-image: linear-gradient(to top right, rgb(0, 0, 0) 0, rgb(255, 255, 255) 100%);
-//         top: 0;
-//         left: 0;
-//         right: 0;
-//         bottom: 0;
-//         opacity: .85;
-//         z-index: 1;
-//     }
+    .text-banner {
+        position: absolute;
+        z-index: 90;
+        top: 50%;
+        left: 0;
+        right: 0;
+        transform: translateY(-50%);
+        text-align: center;
 
-//     .text-banner {
-//         position: absolute;
-//         z-index: 90;
-//         top: 50%;
-//         left: 0;
-//         right: 0;
-//         transform: translateY(-50%);
-//         text-align: center;
+            &::before {
+                content: "";
+                display: inline-block;
+                background: url("../images/illustration-logo.png") no-repeat;
+                background-size: 100% auto;
+                min-width: 450px;
+                min-height: 300px;
+                margin: 20px;
+                // right: 0;
+                // bottom: 0;
 
-//         @media all and (min-width: 480px) {
-//             &::before {
-//                 content: "";
-//                 display: inline-block;
-//                 background: url(../images/illustration-logo.png) no-repeat;
-//                 background-size: 100% auto;
-//                 min-width: 450px;
-//                 min-height: 300px;
-//                 right: 0;
-//                 bottom: 0;
-//             }
-//         }
+                @media all and (max-width: 480px) {
+                        min-width: 220px;
+                        min-height: 150px;
+        
+                    }
+            }
 
-//         h1 {
-//             color: #fff;
-//         }
-//     }
-// }
 
+        h1 {
+            color: #fff;
+        }
+    }
+}
 
 #container {
     padding: 50px 2%;

@@ -5,13 +5,13 @@
 html,
 body {
     height: 100%;
-    // background-color: green;
 }
 
 body {
     @include fontSize(16px);
     font-family: $default-font;
     line-height: normal;
+    // background-color: green;
 }
 
 .wrapper {
@@ -49,54 +49,50 @@ h4 {
 }
 
 h1 {
-    @include fontSize(36px);
+    @include fontSize(32px);
     color: #fff;
 }
 
 h2 {
     position: relative;
-    @include fontSize(28px);
+    @include fontSize(26px);
     color: #61889e;
     margin-bottom: 40px;
     margin-left: 65px;
     transform: margin ease .3s;
 
-    // @media all and (max-width: 800px) {
-    //     margin-left: 0;
-    // }
-
-    // @media all and (min-width: 800px) {
-
-    //     &:before {
-    //         position: absolute;
-    //         content: "";
-    //         display: inline-block;
-    //         width: 60px;
-    //         height: 2px;
-    //         background-color: #61889e;
-    //         bottom: 0;
-    //         transform: translateX(-100%)
-    //     }
-    // }
-
-    &:after {
-        position: absolute;
-        content: "";
-        display: inline-block;
-        width: 60px;
-        height: 2px;
-        background-color: #61889e;
-        bottom: 0;
+    @media all and (max-width: 800px) {
+        margin-left: 0;
     }
+
+        &:before {
+            position: absolute;
+            content: "";
+            display: inline-block;
+            width: 50px;
+            height: 2px;
+            background-color: #61889e;
+            bottom: 0;
+            transform: translateY(15px)
+        }
 }
 
 h3 {
-    @include fontSize(26px);
+    @include fontSize(22px);
     margin-bottom: 20px;
+
+    &:after {
+        @include slash();
+    }
+}
+
+strong {
+    @include fontSize(16px);
+    font-weight: 600;
 }
 
 ::selection {
-    background-color: #333;
+    background-color: $default-color;
     color: #fff;
 }
 

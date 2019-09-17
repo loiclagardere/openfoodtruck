@@ -44,7 +44,7 @@ if (!empty($_POST) && empty($_POST['lastname'])) :
             if ($sendMailResult = true) :
                 $_SESSION['flash'][] = [
                     'message' => "<p>Un courriel vous a été envoyé à l'adresse " . $_POST['email'] . ". </p>" . "<p>Veuillez cliquer sur le lien pour valider votre nouveau mot de passe.</p>",
-                    'status' => 'succes'
+                    'status' => 'success'
                 ];
                 header('Location: signin.php');
                 die();
@@ -88,14 +88,15 @@ endif;
             </div>
 
             <div class="form-group" name="emailGroup">
-                <label for="email">* Couriel</label>
+                <label for="email">* Courriel</label>
                 <div class="contain-input">
-                    <input id="email" type="emal" name="email" value="<?= valueField('username'); ?>" />
+                    <input id="email" type="email" name="email" value="<?= valueField('email'); ?>" required />
                 </div>
+                <?= !empty($errors['email']) ? '<div class="error-field">' . $errors['email'] . '</div>' : '' ?>
             </div>
 
             <button type="submit">Recevoir le courriel</button>
-            
+
         </form>
     </div>
 </section>
