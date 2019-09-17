@@ -1,5 +1,5 @@
 <?php
-// Check the state of thze session
+// Check the state of the session
 // avoid errors if session is already started
 if (session_status() == PHP_SESSION_NONE) : // same as if (session_status() !== PHP_SESSION_ACTIVE)
     session_start();
@@ -71,12 +71,12 @@ $urlSearch = $_SERVER['SERVER_NAME'] == 'localhost' ? "http://localhost/php/init
         </ul>
     </header>
     <?php if ($url == $urlIndex) : ?>
-            <div class="banner-header">
-                <div class="text-banner">
-                    <h1>Trouvez votre food truck partout en France!</h1>
-                </div>
+        <div class="banner-header">
+            <div class="text-banner">
+                <h1>Trouvez votre food truck partout en France!</h1>
             </div>
-        <?php endif; ?>
+        </div>
+    <?php endif; ?>
 
 
 
