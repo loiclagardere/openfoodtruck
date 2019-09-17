@@ -10,7 +10,7 @@ body {
 body {
     @include fontSize(16px);
     font-family: $default-font;
-    line-height: normal;
+    line-height: 1.3;
     // background-color: green;
 }
 
@@ -44,7 +44,7 @@ h1,
 h2,
 h3,
 h4 {
-    font-family: $default-font;
+    font-family: $default-title;
     line-height: 1.2em;
 }
 
