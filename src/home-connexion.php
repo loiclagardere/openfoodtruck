@@ -5,13 +5,13 @@ require_once('includes/bootstrap.php');
 <?php require_once('header.php'); ?>
 
 <div class="zeropix">
-
+    
     <h2>Espace pro</h2>
-
     <div>
         <p><strong>Cette section est reservée aux professionnels souhaitant faire apparaître leur établissement sur ce site.</strong></p>
     </div>
-
+    
+    <?= flash() ?>
     <div class="connexion-contain">
 
         <section class="section-connexion fifty">

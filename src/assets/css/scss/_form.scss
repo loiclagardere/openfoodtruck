@@ -1,29 +1,8 @@
 .section-form {
-    margin-top: 60px;
+    margin-top: 30px;
 
     &:last-child {
-        padding-bottom: 300px;
-    }
-
-    // message flash
-    .message-flash {
-        display: inline-block;
-        @include fontSize(18px);
-        color: #fff;
-        text-align: center;
-        width: 60%;
-        background-color: #555;
-        padding: 10px 20px;
-        margin-top: 3%;
-        border-radius: 4px;
-    }
-
-    .error {
-        background-color: #c0392b;
-    }
-
-    .success {
-        background-color: #2bbf32;
+        padding-bottom: 30px;
     }
 
 

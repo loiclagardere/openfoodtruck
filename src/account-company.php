@@ -110,7 +110,7 @@ if (!empty($_POST)  && isset($_POST['companyForm'])) :
     endif;
 
 
-    // Insert coocking types
+    // Insert coocking origins
     if (!empty($_POST['coocking_origin'])) :
         $sql = "DELETE FROM users_coocking_origins
                 WHERE id_users_uco = " . $userId;
@@ -142,6 +142,10 @@ endif;
     <span class="username"> Bienvenue <?= $_SESSION['auth']->username; ?>.</span>
 
     <h3>Ajouter / modifier votre établissement</h3>
+    <div class="notice">
+        <p>Les champs marqués d'un astérisque (*) sont obligatoires</p>
+    </div>
+    <?= flash() ?>
     <div class="form-container">
         <form action="" method="post">
             <div class="form-group" name="companyNameGroup">

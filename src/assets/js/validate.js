@@ -87,12 +87,11 @@ const removeClassInvalid = function (inputField) {
 
 
 /**
- * 
  * Create html message
  * 
  * @param {string} parentNode 
  * @param {string} text 
- * @param {string} classField 
+ * @param {string} idField 
  */
 const elementMessage = function (parentNode, text, idField) {
     let messageHtml = document.createElement('div');
@@ -124,8 +123,7 @@ const eventOnLoad = function () {
 }
 
 
-/***
- * 
+/**
  * check the value of element format with regex
  * 
  * @return boolean
@@ -139,8 +137,7 @@ const checkRegex = function (element, regex) {
 }
 
 
-/***
- * 
+/**
  * Display message for user about the username format
  */
 const checkUsernameField = function () {
