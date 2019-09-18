@@ -6,7 +6,7 @@ if (session_status() == PHP_SESSION_NONE) : // same as if (session_status() !== 
 endif;
 require_once('includes/functions.php');
 
-$url = "http://" . $_SERVER['SERVER_NAME'] . $_SERVER["REQUEST_URI"];
+$url = "https://" . $_SERVER['SERVER_NAME'] . $_SERVER["REQUEST_URI"];
 $urlIndex = $_SERVER['SERVER_NAME'] == 'localhost' ? "http://localhost/php/initiation/openfoodtruck-php/openfoodtruck/src/index.php" : "https://" . $_SERVER['SERVER_NAME'] . "/";
 $urlSearch = $_SERVER['SERVER_NAME'] == 'localhost' ? "http://localhost/php/initiation/openfoodtruck-php/openfoodtruck/src/search.php" : "https://" . $_SERVER['SERVER_NAME'] . "/search.php";
 
