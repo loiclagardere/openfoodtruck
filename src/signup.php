@@ -9,7 +9,7 @@ if (!empty($_POST) && empty($_POST['lastname'])) :
 
 
     // Check username field content and the content format
-    if (usernamePregMatch($_POST['username'])  && !empty($_POST['username'])) :
+    if (!empty($_POST['username']) && usernamePregMatch($_POST['username'])) :
         $data = ['username' => $_POST['username']];
         $sql = "SELECT user_id
                 FROM users
