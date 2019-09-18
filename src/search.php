@@ -8,11 +8,10 @@ require_once('includes/bootstrap.php');
 <!-- Map -->
 <section id="section-map">
     <h2>Rechercher un food truck</h2>
-    <div class="notice">
-
+    <div>
+    <p>Visualisez ici l'ensemble des food trucks</p>
     </div>
     <div id="mapid"></div>
-
 </section>
 
 <?php require_once('footer.php'); ?>

@@ -2,7 +2,9 @@
 
 #section-map{
     #mapid {
+        position: relative;
+        z-index: 5;
         height: 400px;
-        margin: 0 20px;
+        margin: 20px;
     }
 }
