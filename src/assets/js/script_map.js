@@ -13,19 +13,15 @@
 // .then(response => response.json().then(console.log))
 
 
-
-let users;
-
 /**
- * 
- * request api map with fetch function
+ * request api map with fetch() mthod
  * 
  */
 const getUsers = function () {
     try {
         fetch('includes/api_map.php')
             .then(function (response) {
-                return response.json(); // a promise is return
+                return response.json() // a promise is return
             }).then(function (data) {
                 console.log(data);
 
@@ -43,9 +39,9 @@ const getUsers = function () {
                 for (let i = 0; i < data.length; i++) {
                     if (data[i].company_latitude != null && data[i].company_longitude != null) {
                         let marker = new L.marker([+data[i].company_latitude, +data[i].company_longitude])
-
                             .bindPopup(
-                                "<b>" + data[i].company_name + "</b><br" + data[i].company_label + "<br><img src=\"assets/images/icone-logo.png\" width=\"60\" height=\"40\">")
+                                "<b>" + data[i].company_name + "</b><br>" + data[i].company_label +
+                                "<br><img src=\"assets/images/icone-logo.png\" width=\"60\" height=\"40\">")
                             .addTo(map);
                     }
                 }
