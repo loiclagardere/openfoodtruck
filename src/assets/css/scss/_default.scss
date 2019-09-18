@@ -65,16 +65,16 @@ h2 {
         margin-left: 0;
     }
 
-        &:before {
-            position: absolute;
-            content: "";
-            display: inline-block;
-            width: 50px;
-            height: 2px;
-            background-color: #61889e;
-            bottom: 0;
-            transform: translateY(15px)
-        }
+    &:before {
+        position: absolute;
+        content: "";
+        display: inline-block;
+        width: 50px;
+        height: 2px;
+        background-color: #61889e;
+        bottom: 0;
+        transform: translateY(15px)
+    }
 }
 
 h3 {
@@ -114,4 +114,26 @@ strong {
 
 .text-link {
     @include textLink(14px);
+}
+
+
+// message flash
+.message-flash {
+    display: inline-block;
+    @include fontSize(18px);
+    color: #fff;
+    text-align: center;
+    width: 60%;
+    background-color: #555;
+    padding: 10px 20px;
+    margin-top: 3%;
+    border-radius: 4px;
+}
+
+.error {
+    background-color: #c0392b;
+}
+
+.success {
+    background-color: #2bbf32;
 }
