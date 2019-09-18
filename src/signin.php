@@ -27,7 +27,7 @@ if (!empty($_POST) && empty($_POST['lastname'])) :
                 'message' => 'Vous êtes connecté.',
                 'status' => 'success'
             ];
-            header('Location: home-connexion.php');
+            header('Location: account.php');
             die();
 
 
