@@ -9,7 +9,7 @@ require_once('includes/bootstrap.php');
 <section id="section-map">
     <h2>Rechercher un food truck</h2>
     <div>
-    <p>Visualisez ici l'ensemble des food trucks</p>
+    <p>Visualisez ici l'ensemble des food trucks.</p>
     </div>
     <div id="mapid"></div>
 </section>
