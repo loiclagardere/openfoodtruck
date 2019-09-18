@@ -41,34 +41,36 @@ $urlSearch = $_SERVER['SERVER_NAME'] == 'localhost' ? "http://localhost/php/init
             <i class="fas fa-hamburger"></i>
         </label>
         <input type="checkbox" id="chk">
-        <ul class="menu">
-            <li>
-                <a href="index.php" title="Pésentation.">Présentation</a>
-            </li>
-            <li>
-                <a href="search.php" title="Retour vers l'accueil.">Rechercher</a>
-            </li>
-            <?php if (isset($_SESSION['auth'])) : ?>
+        <nav class="menu">
+            <ul>
                 <li>
-                    <a href="account.php" title="Pour accerder à votre compte">Mon compte</a>
+                    <a href="index.php" title="Pésentation.">Présentation</a>
                 </li>
                 <li>
-                    <a href="signout.php" title="Pour se déconnecter">Se déconnecter</a>
+                    <a href="search.php" title="Retour vers l'accueil.">Rechercher</a>
                 </li>
-            <?php else : ?>
+                <?php if (isset($_SESSION['auth'])) : ?>
+                    <li>
+                        <a href="account.php" title="Pour accerder à votre compte">Mon compte</a>
+                    </li>
+                    <li>
+                        <a href="signout.php" title="Pour se déconnecter">Se déconnecter</a>
+                    </li>
+                <?php else : ?>
+                    <li>
+                        <a href="home-connexion.php" title="Pour se connecte ou créer un compte.">Espace pro</a>
+                    </li>
+                <?php endif; ?>
                 <li>
-                    <a href="home-connexion.php" title="Pour se connecte ou créer un compte.">Espace pro</a>
+                    <div class="content-chk">
+                        <label for="chk" class="hide-menu-btn">
+                            <span>Ferner</span>
+                            <i class="fas fa-times"></i>
+                        </label>
+                    </div>
                 </li>
-            <?php endif; ?>
-            <li>
-                <div class="content-chk">
-                    <label for="chk" class="hide-menu-btn">
-                        <span>Ferner</span>
-                        <i class="fas fa-times"></i>
-                    </label>
-                </div>
-            </li>
-        </ul>
+            </ul>
+        </nav>
     </header>
     <?php if ($url == $urlIndex) : ?>
         <div class="banner-header">
