@@ -1,18 +1,18 @@
 </div>
 <footer>
-    <!-- <div class="info-footer"> -->
-    <ul class="list-footer">
-        <li>
-            Mentions légales
-        </li>
-        <li>
-            Nous contacter : <span class="text-link"><a href="mailto:contact@openfoodtruck.fr?subject=Demande%20de%20renseignements">contact@openfoodtruck.fr</a></span>
-        </li>
-        <li>
-            OpenFoodTruck <span class="notice">(Tous droits reservés)</span>
-        </li>
-        <!-- </ul> -->
-        </div>
+    <div class="info-footer">
+        <ul class="list-footer">
+            <li>
+                Mentions légales
+            </li>
+            <li>
+                Nous contacter : <span class="text-link"><a href="mailto:contact@openfoodtruck.fr?subject=Demande%20de%20renseignements">contact@openfoodtruck.fr</a></span>
+            </li>
+            <li>
+                OpenFoodTruck <span class="notice">(Tous droits reservés)</span>
+            </li>
+        </ul>
+    </div>
 </footer>
 
 
