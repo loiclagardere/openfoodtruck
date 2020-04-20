@@ -12,4 +12,4 @@ define('DEBUG', true); // false en prod
 // PHPMAILER informations
 define('EMAIL_HOST', 'smtp.gmail.com'); // Host
 define('EMAIL_USER', 'noobdoggydogg@gmail.com'); // utilisateur Gmail
-define('EMAIL_PASSWORD', '/!\TheFacebook'); // Mot de passe Gmail
+define('EMAIL_PASSWORD', ''); // Mot de passe Gmail
